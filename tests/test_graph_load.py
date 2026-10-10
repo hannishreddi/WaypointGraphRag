@@ -6,6 +6,7 @@ from collections import Counter
 
 import pytest
 from neo4j import Driver
+from neo4j.exceptions import ClientError
 
 from tests import csv_expect as X
 from waypoint.graph.db import run_read
@@ -89,6 +90,14 @@ def test_derived_employee_columns_are_not_graph_facts(graph: Driver) -> None:
 def test_run_read_rejects_writes(graph: Driver) -> None:
     with pytest.raises(UnsafeCypherError):
         run_read(graph, "MATCH (e:Employee) SET e.x = 1 RETURN e")
+
+
+def test_execute_read_refuses_write_past_guard(graph: Driver) -> None:
+    """Second line of defence: Neo4j itself refuses writes in a read transaction."""
+    with graph.session() as session, pytest.raises(ClientError) as exc:
+        session.execute_read(lambda tx: tx.run("CREATE (:GuardProbe) RETURN 1").consume())
+    assert exc.value.code == "Neo.ClientError.Statement.AccessMode"
+    assert run_read(graph, "MATCH (n:GuardProbe) RETURN count(n) AS n") == [{"n": 0}]
 
 
 # ---------------------------------------------------------------- ten sanity queries

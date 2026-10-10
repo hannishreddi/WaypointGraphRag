@@ -12,7 +12,7 @@ Read `docs/DESIGN.md` for the design and `PLAN.md` for the build order. Work thr
 ## Stack (decided, do not re-litigate)
 - Python 3.11+, FastAPI, Pydantic v2, pytest. Plain Python for the pipeline: no LangChain, LlamaIndex or similar.
 - Neo4j 5.26 Community (`neo4j:5.26-community` in docker-compose.yml, container `waypoint-neo4j`) for graph, vector index and full-text index in one database. Env: `NEO4J_URI` (bolt://localhost:7687), `NEO4J_USERNAME` (must be `neo4j`), `NEO4J_PASSWORD`.
-- Embeddings: Cohere embed API via the `cohere` SDK (`ClientV2.embed`). Model `COHERE_EMBED_MODEL` (default `embed-v5.0-fast`), dimension `EMBED_DIM` (default 1024; v5 supports 256/512/768/1024/1536/2048). `input_type` is `search_document` for chunks, `search_query` for queries. Key `COHERE_API_KEY` in `.env`.
+- Embeddings: Cohere embed API (`POST https://api.cohere.com/v2/embed`) via httpx only, no `cohere` SDK; at most 96 texts per call. Model `COHERE_EMBED_MODEL` (default `embed-v5.0-fast`), dimension `EMBED_DIM` (default 1024; v5 supports 256/512/768/1024/1536/2048). `input_type` is `search_document` for chunks, `search_query` for queries. Key `COHERE_API_KEY` in `.env`.
 - No local ML or native numeric libs: Windows Application Control blocks numpy. Never add numpy, pandas, scikit-learn or torch; use `csv`, `random`, `statistics` from the standard library.
 - LLM: Anthropic API through the `anthropic` SDK. Model names come from env vars `MODEL_FAST` (router, judge) and `MODEL_ANSWER` (answers). Key `ANTHROPIC_API_KEY` in `.env`, never committed.
 - Settings: `waypoint/config.py` (`get_settings()`), field names match the `.env` names; `.env.example` lists them all.
@@ -21,7 +21,7 @@ Read `docs/DESIGN.md` for the design and `PLAN.md` for the build order. Work thr
 ## Rules
 1. **Eval first.** Every feature lands with a number from `make eval-dev`. Never claim an improvement without one.
 2. **No leakage.** `eval/split.json` (60 dev, 191 test, stratified by category and hops, seed 42) is created once. Prompts, few-shot examples and thresholds may only use dev questions. Run test only for final numbers.
-3. **Cypher safety.** Parameterised queries only; never build Cypher by string-formatting user text. Deviation: Neo4j Community has no role-based access, so there is no read-only user. Instead answer queries run in read-access mode (`session.execute_read`, which Neo4j enforces: writes fail with `Neo.ClientError.Statement.AccessMode`) and must first pass `waypoint.graph.guard.check_read_only`, which rejects CREATE, MERGE, DELETE, DETACH, SET, REMOVE, DROP, LOAD CSV and CALL as whole words, case-insensitive, outside string literals and comments. Only the loader and indexer (`make load`, `make index`) write.
+3. **Cypher safety.** Parameterised queries only; never build Cypher by string-formatting user text. Deviation: Neo4j Community has no role-based access, so there is no read-only user. Instead answer queries run in read-access mode (`session.execute_read`, which Neo4j enforces: writes fail with `Neo.ClientError.Statement.AccessMode`) and must first pass `waypoint.graph.guard.check_read_only`, which rejects CREATE, MERGE, DELETE, DETACH, SET, REMOVE, DROP, LOAD CSV and CALL as whole words, case-insensitive, outside string literals and comments. Only the loader and indexer (`make load`, `make index`) write. Generated Cypher (templates, Text2Cypher) always goes through the strict guard and must never touch Chunk nodes, because restricted text lives there. The fixed index queries (`db.index.vector.queryNodes`, `db.index.fulltext.queryNodes`) are the only exception: they are constants in `waypoint.graph.db._TRUSTED`, run by name with parameters only through the internal `run_read_trusted` (still `execute_read`), and only `waypoint.retrieval.search` calls it. The guard keeps rejecting every CALL.
 4. **Structured LLM output.** Ask for JSON, validate with Pydantic, retry once with the validation error, then fail loudly.
 5. **Every answer cites ids** (policy section or graph path). A verifier checks that cited ids are in the context pack and that every name, number and date in the answer appears there.
 6. **Restricted facts.** Employment status, leave and another person's notice period are returned only to the person themselves, their manager or HR. Enforce in the retrieval layer, not in the prompt.
@@ -31,16 +31,20 @@ Read `docs/DESIGN.md` for the design and `PLAN.md` for the build order. Work thr
 ## Commands (keep this section current)
 Windows: run every target with `mingw32-make`.
 - `make install` deps into .venv · `make up` start Neo4j and wait until healthy (http://localhost:7474) · `make down` stop it
-- `make load` build the graph from CSVs (1.2) · `make index` chunk, embed, create indexes (1.3)
-- `make test` unit tests (neo4j-marked tests skip with a reason if Neo4j is down) · `make test-graph` only the neo4j-marked tests, fails if Neo4j is unreachable (sets REQUIRE_NEO4J=1) · `make eval-dev` · `make eval-test` · `make serve` run API and UI on http://localhost:8000
+- `make load` build the graph from CSVs (1.2) · `make index` chunk, embed, create indexes (1.3); needs the graph loaded; embeddings cached in `.cache/embeddings/`, so a re-run makes 0 API calls
+- `.venv\Scripts\python.exe -m waypoint.retrieval.index --dry-run` chunk counts and planned API calls, no calls or writes · `.venv\Scripts\python.exe -m waypoint.retrieval.search "query" -k 3 [--fulltext]` public chunk search
+- `make test` unit tests (neo4j-marked tests skip with a reason if Neo4j is down; index tests fail if the embedding cache is incomplete, so run `make index` first) · `make test-graph` only the neo4j-marked tests, fails if Neo4j is unreachable (sets REQUIRE_NEO4J=1) · `make eval-dev` · `make eval-test` · `make serve` run API and UI on http://localhost:8000
 - Reset only this project's Neo4j data: `docker compose down -v` (volumes `mini_project_graph_rag_neo4j_*`). The unrelated `neo4j-local` container and its `neo4j_data`/`neo4j_logs` volumes are not ours; leave them alone.
 
 ## Decisions
 - 1.2 graph has the 12 labels of `neo4j_import.cypher` (391 nodes). PolicySection nodes are created in 1.3 together with Document/Chunk; Event nodes are under "Later" in PLAN.md.
 - Skill nodes are loaded exactly as in the CSV; alias normalisation belongs to 2.1.
 - Graph reads go through `waypoint.graph.db.run_read` (guard + `execute_read`).
+- 1.3 chunk graph: `(Chunk)-[:PART_OF]->(Document)-[:DESCRIBES]->(entity)`, `(Policy)-[:HAS_SECTION]->(PolicySection)<-[:OF_SECTION]-(Chunk)`, `(Chunk)-[:MENTIONS]->(Employee|Department|Project|Product|Policy)`. Chunk id `<doc_id>::<section>::<part>`. PolicySections come from the Markdown numbered sections (176); `policy_sections.csv` (119) leaves out Objective, Applies to and Disclaimer.
+- MENTIONS are exact, case-sensitive matches of ids, full names and policy codes from the CSVs, longest first, in the chunk body only. First names, titles and short names wait for 2.1.
+- Sensitivity: a line is restricted when it states a specific person's employment status, leave or notice (profile record rows Employment status / Current work mode / Notice period, or a status phrase with a resolvable employee). Such lines move to a separate `::restricted` chunk with `subject_id`; policy text is never restricted. 46 restricted chunks. Arjun's induction stays public. `search_text`/`search_fulltext` return public chunks unless `include_restricted=True` (the 2.5 access filter decides).
 
 ## When unsure
 Ask me one short question with a recommended default. Do not expand scope beyond PLAN.md; list ideas under "Later" in PLAN.md instead.
 
-Status: slice 1.2 done, next 1.3
+Status: slice 1.3 done, next 1.4

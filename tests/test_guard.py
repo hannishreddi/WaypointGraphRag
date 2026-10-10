@@ -29,6 +29,9 @@ REJECTED = [
     ("load\n  csv from 'x' AS r RETURN r", "LOAD CSV"),
     ("CALL db.labels()", "CALL"),
     ("MATCH (n) CALL { WITH n RETURN n } RETURN n", "CALL"),
+    # index procedures stay rejected: only waypoint.graph.db.run_read_trusted may run them
+    ("CALL db.index.vector.queryNodes('chunk_embedding', 5, $v) YIELD node RETURN node", "CALL"),
+    ("CALL db.index.fulltext.queryNodes('chunk_text', $q) YIELD node RETURN node", "CALL"),
     ("MATCH (n) RETURN n; CREATE (:Tmp)", "CREATE"),
     ("MATCH (n) WHERE n.s = 'safe' CREATE (:Tmp)", "CREATE"),
 ]
