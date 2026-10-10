@@ -1,0 +1,35 @@
+project_id,date,milestone
+PJ01,2022-08-01,Kick-off and service map
+PJ01,2023-01-16,First three services in production
+PJ01,2023-09-04,Messaging gateway cut over
+PJ01,2024-03-31,Monolith decommissioned
+PJ02,2022-10-01,Vendor selected
+PJ02,2023-02-15,Parallel payroll run
+PJ02,2023-04-01,Go-live
+PJ03,2023-05-01,Kick-off
+PJ03,2023-12-11,First 100 tables live
+PJ03,2024-08-26,PII masking enforced
+PJ03,2025-02-28,Hand-over to run team
+PJ04,2024-04-01,Gap assessment
+PJ04,2024-11-18,Stage 1 audit
+PJ04,2025-02-20,ISO 27001 certificate
+PJ04,2025-09-30,SOC 2 Type II report
+PJ05,2024-06-03,Discovery
+PJ05,2025-03-10,Internal beta
+PJ05,2026-04-14,Staged rollout starts at 5 percent
+PJ05,2026-05-05,100 percent rollout
+PJ06,2025-01-06,Kick-off
+PJ06,2025-03-24,Training cohort one
+PJ06,2025-06-02,First two new brands live
+PJ06,2025-07-31,All four brands live
+PJ07,2025-08-01,Baseline and tagging
+PJ07,2025-10-06,Savings plans purchased
+PJ07,2025-12-19,"Target exceeded, project closed"
+PJ08,2025-09-15,Discovery
+PJ08,2026-03-02,Beta start
+PJ08,2026-06-22,Pilot results review
+PJ08,2026-11-30,General availability target
+PJ09,2026-06-01,Kick-off
+PJ09,2026-08-21,Prototype demo
+PJ09,2026-12-15,Beta target
+PJ09,2027-02-28,General availability target

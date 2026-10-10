@@ -1,0 +1,19 @@
+term,meaning
+WFO,Work From Office.
+WFH,Work From Home.
+Band,"Zenvora grade from Z1 (trainee) to Z8 (founder-executive). Drives travel limits, notice period and approvals."
+PIP,"Performance Improvement Plan, issued within 5 business days after a written warning (Progressive Discipline Policy)."
+POSH,"Prevention of Sexual Harassment, governed by the Sexual Harassment of Women at Workplace Act, 2013. Handled by the Internal Committee (IC)."
+IC,Internal Committee that receives and inquires into POSH complaints.
+EL / CL / SL,"Earned Leave, Casual Leave, Sick Leave."
+SLA,Service Level Agreement. In Care: response and resolution targets by ticket priority.
+SEV1 to SEV4,"Incident severity levels, SEV1 being a full customer-facing outage."
+RPO / RTO,Recovery Point Objective (data loss tolerated) and Recovery Time Objective (time to restore).
+ADR,"Architecture Decision Record, a short document explaining a design choice."
+ISMS,Information Security Management System required by ISO 27001.
+MDM,"Mobile Device Management, used to secure laptops and phones."
+CSAT,Customer Satisfaction score from post-ticket surveys.
+ARR,Annual Recurring Revenue.
+Golden set,"A fixed, reviewed set of questions and answers used to evaluate AI features before release."
+Zenith DS,"Zenith Design System, the shared UI component library."
+Anchor days,"Tuesday, Wednesday and Thursday: the days most teams plan to be in office."

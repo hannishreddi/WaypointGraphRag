@@ -1,0 +1,12 @@
+system,purpose,address,owner
+ZenPeople HRMS,"Attendance, leave, payroll, expenses and employee records",people.zenvora.example,HR
+Okta,Single sign-on and MFA for all company apps,sso.zenvora.example,IT & Security
+Slack,"Company chat. Key channels: #announcements, #ask-hr, #ask-it, #incidents, #wins",zenvora.slack.example,IT & Security
+Google Workspace,"Company email (name.surname@zenvora.example), calendar and documents",mail.zenvora.example,IT & Security
+Confluence,"Internal wiki: policies, runbooks, architecture decision records",wiki.zenvora.example,Engineering
+Jira,Engineering and product work tracking,jira.zenvora.example,Engineering
+Jira Service Management,IT helpdesk and support operations queues,help.zenvora.example,IT & Security
+GitHub Enterprise,"Source code, pull requests and CI via GitHub Actions",git.zenvora.example,Engineering
+HubSpot CRM,Sales pipeline and marketing automation,crm.zenvora.example,Sales & Marketing
+Datadog and PagerDuty,"Monitoring, alerting and on-call",obs.zenvora.example,DevOps & Cloud
+Vanta,Compliance evidence collection for ISO 27001 and SOC 2,compliance.zenvora.example,IT & Security

@@ -1,0 +1,28 @@
+project_id,outcome
+PJ01,Deploy time fell from about 3 days to 40 minutes
+PJ01,p95 API latency fell from 840 ms to 210 ms
+PJ01,Monolith retired on 2024-03-31 after 14 services were extracted
+PJ02,ZenPeople went live on 2023-04-01
+PJ02,Payroll run time fell from 3 days to 4 hours
+PJ02,Leave and expense approvals moved fully online
+PJ03,Over 300 modelled tables in production
+PJ03,Weekly business report time fell from 6 hours to 25 minutes
+PJ03,PII masking applied to all conversation tables
+PJ04,ISO 27001:2022 certificate issued on 2025-02-20
+PJ04,SOC 2 Type I report in March 2025 and Type II in September 2025
+PJ04,Zero audit non-conformities at the surveillance check
+PJ05,Crash-free sessions rose from 97.1 to 99.6 percent
+PJ05,App store rating rose from 3.9 to 4.6
+PJ05,Task success in usability tests rose from 71 to 93 percent
+PJ05,Staged rollout completed on 2026-05-05
+PJ06,Seats grew from 20 to 45 (including partner seats)
+PJ06,Four new client brands went live
+PJ06,CSAT stayed at 91 percent during ramp-up
+PJ07,"Annual AWS spend fell by 31 percent, about INR 92 lakh a year"
+PJ07,Cost allocation tags on 98 percent of resources
+PJ07,Monthly FinOps review established
+PJ08,Beta started 2026-03-02
+PJ08,Pilot at the Care Centre deflected 38 percent of Tier-1 tickets
+PJ08,Hallucination rate 1.4 percent on the golden set
+PJ09,Prototype dashboard demoed 2026-08-21
+PJ09,Churn model at 0.82 AUC on historical data

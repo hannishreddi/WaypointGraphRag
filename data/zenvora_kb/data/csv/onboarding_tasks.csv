@@ -1,0 +1,15 @@
+task_id,task,owner,due_day_from_joining,depends_on_task_id,system
+OT01,"Sign offer, NDA and joining forms",HR,0,,ZenPeople HRMS
+OT02,"Receive laptop and activate Okta, email and Slack",ITS,0,OT01,Okta
+OT03,Desk and ergonomic assessment,HR,1,OT02,ZenPeople HRMS
+OT04,Meet your manager and agree 30-60-90 day plan,Manager,1,OT02,Confluence
+OT05,Enrol in group health insurance,HR,7,OT01,ZenPeople HRMS
+OT06,"Read the Code of Conduct, Hybrid Work, Leave and EHS policies",HR,7,OT02,Confluence
+OT07,Complete security awareness training,ITS,30,OT02,Vanta
+OT08,Complete POSH awareness training,HR,30,OT02,ZenPeople HRMS
+OT09,"Get access to team systems (GitHub, Jira, HubSpot, etc.)",ITS,3,OT02,Jira Service Management
+OT10,Shadow a colleague and ship or close a first task,Manager,14,OT09,Jira
+OT11,Attend monthly all-hands and department intro sessions,Executive Office,30,OT02,Slack
+OT12,Mid-induction check-in with HR Business Partner,HR,45,OT04,ZenPeople HRMS
+OT13,Induction ends: eligible for hybrid roster,HR,90,OT10,ZenPeople HRMS
+OT14,Probation confirmation review,HR,180,OT13,ZenPeople HRMS

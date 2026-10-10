@@ -1,0 +1,5 @@
+location_id,name,city,state,country,type,address,opened,notes
+L01,Hyderabad HQ,Hyderabad,Telangana,India,Headquarters,"5th Floor, Orion Tech Park, HITEC City, Hyderabad 500081 (fictional)",2014-03-01,"Executive office, HR, Finance, Product & Design, Sales & Marketing, Data & AI, QA, IT & Security, most of Engineering."
+L02,Bengaluru Engineering Hub,Bengaluru,Karnataka,India,Engineering hub,"3rd Floor, Prestige Meridian Tower, Outer Ring Road, Bengaluru 560103 (fictional)",2018-04-02,"Opened to hire senior backend, ML and SRE talent. Houses 5 of the 18 people in Engineering, Data & AI, QA and DevOps."
+L03,Visakhapatnam Care Centre,Visakhapatnam,Andhra Pradesh,India,Customer care centre,"Block C, Rushikonda Digital Park, Visakhapatnam 530045 (fictional)",2021-02-15,"Home of Zenvora Care. Shift-based operations, on-site only. Expanded from 20 to 45 seats in 2025 (Project Horizon)."
+L04,Austin Sales Office,Austin,Texas,United States,Regional sales presence,"Shared co-working space, Austin TX (fictional)",2022-10-03,One-person US sales presence. Follows the Austin Regional Supplement in the Hybrid Work Policy.

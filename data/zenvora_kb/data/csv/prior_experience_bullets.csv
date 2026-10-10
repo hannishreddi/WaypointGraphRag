@@ -1,0 +1,72 @@
+employee_id,org_id,bullet
+ZV-1001,ORG013,Built the message-routing core of a carrier-grade SMS gateway handling 40 million messages a day.
+ZV-1001,ORG013,Managed a 22-person team across Dallas and Hyderabad.
+ZV-1001,ORG005,Led a 180-person engineering organisation across three sites.
+ZV-1001,ORG005,Shipped four major releases of a telecom billing platform used by 11 operators.
+ZV-1002,ORG005,Architect of the rating and mediation engine that processed 2 billion records a day.
+ZV-1002,ORG005,Wrote the company's first internal standard for service-level objectives.
+ZV-1003,ORG005,Worked on the mediation engine under Meera Subramanian.
+ZV-1003,ORG007,Led a six-person team building a payments gateway.
+ZV-1004,ORG016,Built multi-tenant APIs for a cloud storage product.
+ZV-1004,ORG007,Designed the event pipeline for a payments gateway.
+ZV-1005,ORG016,Ran 400 virtual machines for a hosting product.
+ZV-1005,ORG007,Moved a payments gateway to automated deployments.
+ZV-1006,ORG002,Ran campus hiring for 400 graduates a year.
+ZV-1006,ORG002,Introduced the company's first structured appraisal cycle.
+ZV-1006,ORG001,Managed HR for 650 people across five offices.
+ZV-1006,ORG001,Reduced voluntary attrition from 22 to 15 percent in two years.
+ZV-1007,ORG007,Ran regression for a banking portal.
+ZV-1007,ORG016,Led a team of 6 testers and introduced API test automation.
+ZV-1008,ORG008,Led statutory audits for 30 mid-sized companies.
+ZV-1008,ORG003,Set up treasury and fundraising reporting for a venture-backed analytics firm.
+ZV-1009,ORG005,Managed accounts worth INR 40 crore a year.
+ZV-1009,ORG009,Grew regional revenue 5x in six years.
+ZV-1010,ORG011,Built marketing sites and dashboards for 30 clients.
+ZV-1010,ORG010,Led the migration of a retail admin console to React.
+ZV-1011,ORG005,Worked on subscriber management tools.
+ZV-1011,ORG010,"Owned a merchant dashboard used by 8,000 stores."
+ZV-1012,ORG005,Managed firewalls and intrusion detection for three data centres.
+ZV-1012,ORG016,Led incident response and vulnerability management.
+ZV-1013,ORG002,Built invoicing and tax modules for an ERP product.
+ZV-1014,ORG004,Ran a 120-seat voice and email process.
+ZV-1014,ORG017,Managed 300 seats across two sites with 93 percent SLA adherence.
+ZV-1015,ORG015,Closed monthly books for 14 branches.
+ZV-1015,ORG015,Introduced branch-level cost reporting.
+ZV-1016,ORG002,Managed 45 mid-market accounts.
+ZV-1017,ORG003,Built credit-scoring models used by 6 lenders.
+ZV-1017,ORG009,Led a team of 7 on recommendation and forecasting products.
+ZV-1018,ORG002,Built a Selenium framework used by 4 product teams.
+ZV-1019,ORG006,Handled onboarding and exits for a 180-person product company.
+ZV-1019,ORG010,Partnered with engineering and sales heads on workforce planning.
+ZV-1019,ORG010,Designed the stay-interview programme.
+ZV-1020,ORG015,Analysed loan-origination funnels.
+ZV-1020,ORG003,Launched a lender-facing dashboard.
+ZV-1021,ORG017,Led a 15-agent voice team.
+ZV-1022,ORG018,Built the rider app used by 1.2 million people.
+ZV-1022,ORG014,Moved the shopping app to Flutter.
+ZV-1023,ORG010,"Ran email campaigns for 5,000 merchants."
+ZV-1023,ORG014,Tripled organic traffic in 18 months.
+ZV-1024,ORG009,Built an intent classifier for a chatbot product.
+ZV-1024,ORG010,Shipped a demand-forecasting service.
+ZV-1025,ORG002,Administered 300 laptops and the office network.
+ZV-1026,ORG009,Maintained build and release tooling.
+ZV-1026,ORG014,Cut deployment failures by 60 percent.
+ZV-1027,ORG004,Handled chat and email for a telecom client.
+ZV-1028,ORG018,Built trip-event APIs for a ride-sharing platform.
+ZV-1029,ORG011,Led design for 20 client apps.
+ZV-1029,ORG010,Built the design system for a retail platform.
+ZV-1030,ORG014,Processed payroll for 140 employees.
+ZV-1030,ORG014,Reconciled vendor payments across three entities.
+ZV-1031,ORG003,Built batch pipelines processing 400 GB a day.
+ZV-1032,ORG017,Audited 400 calls a month and ran calibration sessions.
+ZV-1033,ORG011,Produced brand kits and social assets for 25 small businesses.
+ZV-1034,ORG012,Sold a SaaS scheduling product to 90 SMBs.
+ZV-1035,ORG018,Automated environment creation with Terraform.
+ZV-1036,ORG004,Closed over 300 volume-hiring roles for a contact-centre client.
+ZV-1036,ORG004,Built the interview scheduling tracker used by the team.
+ZV-1037,ORG006,"Built a React admin portal used by 2,000 merchants."
+ZV-1038,ORG018,Tested Android builds on a 20-device matrix.
+ZV-1040,ORG006,Ran vulnerability scans and wrote remediation tickets.
+ZV-1041,ORG006,Built weekly sales dashboards in Metabase.
+ZV-1042,ORG006,Wrote integration tests for a booking API.
+ZV-1042,ORG006,Fixed 23 backlog bugs in a Node.js service.

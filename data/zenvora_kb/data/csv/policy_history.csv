@@ -1,0 +1,64 @@
+policy_id,revision,description,effective_date,reviewed_by_role,approved_by_role
+ZEN-POL-001,1,First version of the Code of Conduct,2016-09-01,Head of People & Culture,Founder & CEO
+ZEN-POL-001,2,Added anti-bribery clause and whistleblower channel,2021-07-01,Head of People & Culture,Founder & CEO
+ZEN-POL-001,3.0,Added moonlighting rules and conflict-of-interest declaration,2023-04-01,Head of People & Culture,Founder & CEO
+ZEN-POL-001,3.1,"Gift declaration limit raised from INR 2,000 to INR 3,000",2024-04-01,Head of People & Culture,Founder & CEO
+ZEN-POL-002,1,Hybrid model introduced: 3 days in office per week,2022-04-01,Head of People & Culture,Founder & CEO
+ZEN-POL-002,2,Web clock-in and clock-out through ZenPeople for remote days,2023-04-01,Head of People & Culture,Founder & CEO
+ZEN-POL-002,3,"Full-WFO groups clarified (induction, notice period, unallocated staff)",2024-01-01,Head of People & Culture,Founder & CEO
+ZEN-POL-002,4,Added Austin Regional Supplement and meeting etiquette,2025-04-01,Head of People & Culture,Founder & CEO
+ZEN-POL-003,1,First leave policy (spreadsheet-based),2016-09-01,Head of People & Culture,Founder & CEO
+ZEN-POL-003,2,Online leave through ZenPeople,2023-04-01,Head of People & Culture,Founder & CEO
+ZEN-POL-003,3,Paternity leave raised from 5 to 10 working days; volunteer days added,2024-04-01,Head of People & Culture,Founder & CEO
+ZEN-POL-003,4,Sabbatical clause and clarified EL encashment,2025-04-01,Head of People & Culture,Founder & CEO
+ZEN-POL-004,1,First discipline procedure,2017-04-01,Head of People & Culture,Founder & CEO
+ZEN-POL-004,2.0,Added PIP timeline and appeal route,2022-04-01,Head of People & Culture,Founder & CEO
+ZEN-POL-004,2.1,Added links to POSH and Information Security policies,2024-01-01,Head of People & Culture,Founder & CEO
+ZEN-POL-005,1,First email and internet policy,2018-08-01,IT & Security Manager (CISO),Founder & CEO
+ZEN-POL-005,2,Social media and messaging rules,2021-04-01,IT & Security Manager (CISO),Founder & CEO
+ZEN-POL-005,3,Rules for AI tools and personal devices added,2025-06-01,IT & Security Manager (CISO),Founder & CEO
+ZEN-POL-006,1,First security policy,2018-08-01,IT & Security Manager (CISO),Founder & CEO
+ZEN-POL-006,2,Aligned to ISO 27001 controls,2024-09-01,IT & Security Manager (CISO),Founder & CEO
+ZEN-POL-006,3.0,ISO 27001:2022 certification baseline,2025-02-20,IT & Security Manager (CISO),Founder & CEO
+ZEN-POL-006,3.1,Added CERT-In reporting step,2025-10-01,IT & Security Manager (CISO),Founder & CEO
+ZEN-POL-007,1,First EHS policy,2018-06-01,Head of People & Culture,Founder & CEO
+ZEN-POL-007,2,Added night-shift transport and ergonomic assessment for hybrid work,2024-07-01,Head of People & Culture,Founder & CEO
+ZEN-POL-008,1,First POSH policy and Internal Committee constituted,2017-03-08,Head of People & Culture,Founder & CEO
+ZEN-POL-008,2.0,"Committee reconstituted, external member appointed",2022-03-08,Head of People & Culture,Founder & CEO
+ZEN-POL-008,2.1,Updated committee members and contact details,2024-03-08,Head of People & Culture,Founder & CEO
+ZEN-DPL-HR-01,1,Annual appraisal,2017-04-01,Head of People & Culture,Founder & CEO
+ZEN-DPL-HR-01,2,Half-yearly cycle and OKRs introduced,2022-10-01,Head of People & Culture,Founder & CEO
+ZEN-DPL-HR-01,3,Calibration rules and maternity pro-rating,2025-04-01,Head of People & Culture,Founder & CEO
+ZEN-DPL-FIN-01,1,First travel policy,2017-06-01,Chief Financial Officer,Founder & CEO
+ZEN-DPL-FIN-01,2.0,Claims moved to ZenPeople Expenses,2023-04-01,Chief Financial Officer,Founder & CEO
+ZEN-DPL-FIN-01,2.1,Hotel caps revised,2024-04-01,Chief Financial Officer,Founder & CEO
+ZEN-DPL-FIN-01,2.2,Per diem and mileage updated,2025-04-01,Chief Financial Officer,Founder & CEO
+ZEN-DPL-BKE-01,1,Engineering standards written,2019-05-01,"Director of Engineering, Backend",Co-Founder & CTO
+ZEN-DPL-BKE-01,2.0,Rewritten after Project Atlas,2024-04-01,Principal Backend Engineer,Co-Founder & CTO
+ZEN-DPL-BKE-01,2.1,Dependency patching timelines tightened,2025-01-06,Principal Backend Engineer,Co-Founder & CTO
+ZEN-DPL-FME-01,1.0,Policy written during Project Lighthouse,2025-03-10,Frontend & Mobile Lead,Co-Founder & CTO
+ZEN-DPL-FME-01,1.1,Performance budget added,2025-09-01,Frontend & Mobile Lead,Co-Founder & CTO
+ZEN-DPL-FME-01,1.2,Staged rollout thresholds,2025-12-01,Frontend & Mobile Lead,Co-Founder & CTO
+ZEN-DPL-FME-01,1.3,Release train dates fixed,2026-03-01,Frontend & Mobile Lead,Co-Founder & CTO
+ZEN-DPL-DAI-01,1,Data governance rules from Project Beacon,2024-08-26,Head of Data & AI,Co-Founder & CTO
+ZEN-DPL-DAI-01,2,Responsible AI section added for Sage,2026-02-01,Head of Data & AI,Co-Founder & CTO
+ZEN-DPL-QAT-01,1,First release checklist,2017-02-01,QA Manager,Co-Founder & CTO
+ZEN-DPL-QAT-01,2,Automated gates introduced with Atlas,2023-01-01,QA Manager,Co-Founder & CTO
+ZEN-DPL-QAT-01,3,Performance and AI evaluation gates added,2025-04-01,QA Manager,Co-Founder & CTO
+ZEN-DPL-DCL-01,1,First on-call rota,2018-01-01,DevOps & Cloud Lead,Co-Founder & CTO
+ZEN-DPL-DCL-01,2,Severity model and post-mortems,2022-05-01,DevOps & Cloud Lead,Co-Founder & CTO
+ZEN-DPL-DCL-01,3.0,Rewritten after Atlas,2024-04-01,DevOps & Cloud Lead,Co-Founder & CTO
+ZEN-DPL-DCL-01,3.1,Cost tagging made mandatory (Ember),2025-12-19,DevOps & Cloud Lead,Co-Founder & CTO
+ZEN-DPL-PDS-01,1,Product process written,2019-03-01,Head of Product,Founder & CEO
+ZEN-DPL-PDS-01,2,Launch checklist and customer-interview quota,2025-04-01,Head of Product,Founder & CEO
+ZEN-DPL-SAM-01,1,Discount matrix introduced,2017-09-01,Chief Revenue Officer,Founder & CEO
+ZEN-DPL-SAM-01,2,Contract signing authority added,2021-08-01,Chief Revenue Officer,Founder & CEO
+ZEN-DPL-SAM-01,3.0,Marketing communications rules,2024-04-01,Chief Revenue Officer,Founder & CEO
+ZEN-DPL-SAM-01,3.1,US outreach rules,2025-04-01,Chief Revenue Officer,Founder & CEO
+ZEN-DPL-CSC-01,1,Care operations manual,2018-11-05,Head of Customer Care,Founder & CEO
+ZEN-DPL-CSC-01,2,Visakhapatnam shifts and cab policy,2021-02-15,Head of Customer Care,Founder & CEO
+ZEN-DPL-CSC-01,3.0,Updated after Project Horizon,2025-07-31,Head of Customer Care,Founder & CEO
+ZEN-DPL-CSC-01,3.1,AI-assist rules for Sage pilot,2025-08-01,Head of Customer Care,Founder & CEO
+ZEN-DPL-ITS-01,1,Device and access rules,2018-08-01,IT & Security Manager (CISO),Co-Founder & CTO
+ZEN-DPL-ITS-01,2.0,Rewritten for ISO 27001,2024-09-01,IT & Security Manager (CISO),Co-Founder & CTO
+ZEN-DPL-ITS-01,2.1,Leaver access removal tightened to 4 hours,2025-02-20,IT & Security Manager (CISO),Co-Founder & CTO

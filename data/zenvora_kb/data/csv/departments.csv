@@ -1,0 +1,13 @@
+department_id,code,name,head_employee_id,reports_to_employee_id,location_id,headcount,mission
+D00,EXE,Executive Office,ZV-1001,,L01,2,"Set direction, allocate capital, and keep the company honest about its numbers and its people."
+D01,HR,Human Resources (People & Culture),ZV-1006,ZV-1001,L01,3,"Hire well, pay fairly, keep the rules clear and make Zenvora a place people choose to stay."
+D02,FIN,Finance & Accounts,ZV-1008,ZV-1001,L01,3,"Keep Zenvora solvent, compliant and able to see its numbers within five working days of month end."
+D03,BKE,Backend Engineering,ZV-1003,ZV-1002,L02,5,"Build and run the services behind Pulse and Ledger so they stay fast, correct and cheap to operate."
+D04,FME,Frontend & Mobile Engineering,ZV-1010,ZV-1002,L01,3,"Ship the web and mobile apps customers touch every day, and keep them accessible and fast."
+D05,DAI,Data & AI,ZV-1017,ZV-1002,L01,4,"Turn conversation and finance data into products, insight and dependable machine learning."
+D06,QAT,Quality Assurance,ZV-1007,ZV-1002,L01,3,"Make sure what we release works, and that we can prove it."
+D07,DCL,DevOps & Cloud Infrastructure,ZV-1005,ZV-1002,L01,3,"Give every engineer a safe, fast path to production and keep production up."
+D08,PDS,Product & Design,ZV-1011,ZV-1001,L01,4,Decide what to build and make it simple to use.
+D09,SAM,Sales & Marketing,ZV-1009,ZV-1001,L01,4,"Find the right customers, win them honestly and tell Zenvora's story clearly."
+D10,CSC,Customer Support (Zenvora Care),ZV-1014,ZV-1001,L03,5,Answer customers fast and fully on behalf of Zenvora and of the brands that outsource support to Zenvora Care.
+D11,ITS,IT & Information Security,ZV-1012,ZV-1002,L01,3,"Keep devices, accounts and data safe, and make the tools work for everyone."

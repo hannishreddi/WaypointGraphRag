@@ -1,0 +1,63 @@
+rule_id,policy_id,statement,applies_to,condition_or_exception,section
+R001,ZEN-POL-002,Work from office at least 3 days per week as per the team roster.,All full-time employees,Standard rule; Tuesday to Thursday are anchor days,Standard rule
+R002,ZEN-POL-002,Work from office on all working days.,Band Z1 trainees and interns,No exemption,Full-WFO groups
+R003,ZEN-POL-002,Work from office on all working days.,New joiners,First 90 calendar days from date of joining,Full-WFO groups
+R004,ZEN-POL-002,Work from office on all working days.,Employees serving notice period,Until last working day,Full-WFO groups
+R005,ZEN-POL-002,Work from office on all working days.,Employees not allocated to a project,More than 10 working days without allocation,Full-WFO groups
+R006,ZEN-POL-002,Work from office on all working days.,Customer Support staff on Care Centre roster,Always on site except declared contingency,Full-WFO groups
+R007,ZEN-POL-002,Roster deviations must be approved in advance by the department head.,All employees,,Rosters and deviations
+R008,ZEN-POL-002,Up to 12 work-from-anywhere-in-India days per financial year.,All employees,Department head approval; working from another country needs Head of People & Culture and CFO approval,Rosters and deviations
+R009,ZEN-POL-002,Normal working time is 9 hours with core hours 10:30 to 16:30 IST.,All employees,,Attendance and working hours
+R010,ZEN-POL-002,Two unapproved roster deviations in a month trigger a Phase 1 conversation.,All employees,,Attendance and working hours
+R011,ZEN-POL-002,"Home internet allowance of INR 1,000 per month.",Employees in hybrid mode,On request through ZenPeople Expenses,Working from home standards
+R012,ZEN-POL-002,Austin employees are remote-first and follow the US holiday calendar.,Austin Sales Office employees,Austin Regional Supplement,Austin Regional Supplement
+R013,ZEN-POL-003,Casual Leave 8 days per financial year.,All full-time employees,Maximum 3 consecutive days; no carry forward,Entitlements
+R014,ZEN-POL-003,Sick Leave 8 days per financial year.,All full-time employees,Medical certificate for more than 2 consecutive days,Entitlements
+R015,ZEN-POL-003,Earned Leave 18 days per year (1.5 per month).,All full-time employees,Available after probation; carry forward up to a balance of 30 days,Entitlements
+R016,ZEN-POL-003,Maternity leave of 26 weeks for the first two children and 12 weeks from the third child.,Eligible employees,"Maternity Benefit Act, 1961",Entitlements
+R017,ZEN-POL-003,Paternity leave of 10 working days.,Eligible employees,Within 6 months of birth or adoption,Entitlements
+R018,ZEN-POL-003,Probation lasts 6 months.,New joiners,Notice period during probation is 30 days,Probation and notice period
+R019,ZEN-POL-003,"Notice period is 60 days for Z1 to Z3, 90 days for Z4 to Z6 and 120 days for Z7 and Z8.",Confirmed employees,,Probation and notice period
+R020,ZEN-POL-003,Sabbatical of up to 4 weeks unpaid.,Employees with 5 or more years of service,Department head and Head of People & Culture approval; once,Sabbatical
+R021,ZEN-POL-004,Phase 1 verbal warning by immediate manager with HR Business Partner.,All employees,,Phase 1
+R022,ZEN-POL-004,Phase 2 written warning by manager and department head with HR present; PIP issued within 5 business days.,All employees,PIP runs 30 to 60 days,Phase 2
+R023,ZEN-POL-004,Phase 3 suspension and final written warning.,All employees,Normal progression needs department head and Head of People & Culture approval; suspension without pay needs CEO approval,Phase 3
+R024,ZEN-POL-004,Termination recommendation needs Head of People & Culture approval; CEO final approval for Z5 and above.,All employees,,Phase 4
+R025,ZEN-POL-004,Appeal within 5 business days to the Head of People & Culture; final appeal to the CEO.,All employees,,Appeals
+R026,ZEN-POL-004,"Harassment, theft, fraud, violence, intoxication, intentional data breach and illegal acts skip progressive steps.",All employees,May lead to immediate termination,Issues not subject to progressive discipline
+R027,ZEN-POL-005,Company email is for company business only; never use personal email for company business.,All users,,Company email
+R028,ZEN-POL-005,Do not paste Confidential or Restricted data into AI tools that are not approved for that class.,All users,,AI tools
+R029,ZEN-POL-005,Personal phones may access email and Slack only if enrolled in MDM; personal laptops not allowed.,All users,,Personal devices
+R030,ZEN-POL-005,Zenvora may monitor and log use of its systems.,All users,,Monitoring and audits
+R031,ZEN-POL-006,Report security incidents within 1 hour of discovery.,All users,security@zenvora.example or #incidents,Reporting incidents
+R032,ZEN-POL-006,CISO reports to CERT-In within 6 hours where legally required.,CISO,,Reporting incidents
+R033,ZEN-POL-006,Passphrases of at least 14 characters and MFA through Okta.,All users,,Accounts and devices
+R034,ZEN-POL-006,"Complete security awareness training within 30 days of joining, then annually.",All users,,Training
+R035,ZEN-POL-007,"Report injuries, incidents and near misses within 24 hours.",All users,ZenPeople EHS form or ehs@zenvora.example,Reporting incidents and near misses
+R036,ZEN-POL-007,Company cab with GPS tracking for shifts ending between 20:00 and 06:00; security escort for women on night routes.,Shift employees,,Night-shift and commute safety
+R037,ZEN-POL-007,"Fire drills twice a year, in April and October.",All locations,,Emergency readiness
+R038,ZEN-POL-008,"Complaint to the Internal Committee within 3 months of the incident, extendable by 3 months.",Complainants,,How to complain
+R039,ZEN-POL-008,Inquiry completed within 90 days; report within 10 days; action within 60 days.,Internal Committee and management,,How to complain
+R040,ZEN-POL-001,"Declare gifts worth more than INR 3,000 within 7 days.",All employees,,"Gifts, hospitality and anti-bribery"
+R041,ZEN-POL-001,Moonlighting needs written approval from the department head and Head of People & Culture.,All employees,Never approved for competing work,Moonlighting and outside work
+R042,ZEN-DPL-HR-01,Two half-yearly appraisal cycles; ratings from 1 to 5; at most 10 percent rated 5 in a department.,All employees with 3 months in the cycle,,Cycle and Ratings
+R043,ZEN-DPL-HR-01,"Rating of 1, or 2 in two consecutive cycles, leads to a PIP.",All employees,,Rating of 1 or 2 and PIP
+R044,ZEN-DPL-FIN-01,"Expense approvals: manager up to INR 25,000; department head up to INR 1,00,000; CFO above; CEO for international trips.",All employees,,Approvals
+R045,ZEN-DPL-FIN-01,Submit claims within 30 days with receipts above INR 500; settled within 10 working days.,All employees,,Claims
+R046,ZEN-DPL-BKE-01,"Services in billing, payments and authentication paths need 2 approvals on pull requests including a Principal Engineer or Director.",Backend engineers,Other services need 1 approval,Branching and pull requests
+R047,ZEN-DPL-BKE-01,Critical vulnerabilities patched within 7 days and high within 14 days.,Backend engineers,,Dependencies
+R048,ZEN-DPL-FME-01,"Mobile releases are staged 5, 25 and 100 percent; halt if crash-free sessions fall below 99.0 percent.",Mobile engineers,,Release trains
+R049,ZEN-DPL-FME-01,New screens must meet WCAG 2.1 AA.,Frontend and mobile engineers,,Accessibility
+R050,ZEN-DPL-DAI-01,AI features need accuracy of at least 92 percent and hallucination below 2 percent on the golden set before release.,Data & AI and QA,,Release gate for AI features
+R051,ZEN-DPL-DAI-01,"AI replies on billing disputes, legal, health or safety are reviewed by a human.",Data & AI and Support,,Human in the loop
+R052,ZEN-DPL-QAT-01,"Release needs zero open P0 or P1, regression pass rate of at least 98 percent and QA Manager sign-off.",All releases,,Release gate
+R053,ZEN-DPL-DCL-01,SEV1 incidents are acknowledged within 15 minutes with updates every 30 minutes.,On-call engineers,,Severity and response
+R054,ZEN-DPL-DCL-01,Change freeze from 20 December to 2 January.,Engineering,,Changes
+R055,ZEN-DPL-DCL-01,Tier-1 services: RPO 15 minutes and RTO 4 hours.,DevOps,,Backup and recovery
+R056,ZEN-DPL-PDS-01,Support training at least 5 working days before launch.,Product managers,,Launch checklist
+R057,ZEN-DPL-SAM-01,Discounts up to 10 percent by account executive; up to 20 percent by CRO; above 20 percent by CEO and CFO.,Sales,,Discount approvals
+R058,ZEN-DPL-SAM-01,Contracts up to INR 10 lakh annual value signed by the CRO; above by the CEO.,Sales,,Contract authority
+R059,ZEN-DPL-CSC-01,SLA: P1 15 minutes first response and 4 hours resolution.,Customer Support,P2 1 hour and 8 hours; P3 4 hours and 24 hours; P4 1 business day and 3 business days,SLA targets
+R060,ZEN-DPL-CSC-01,Night shift is voluntary with INR 300 per night allowance.,Customer Support,,Shifts and rosters
+R061,ZEN-DPL-ITS-01,Leavers lose all access within 4 hours of their last working hour.,All employees,Immediately for involuntary exits,"Joiner, mover, leaver"
+R062,ZEN-DPL-ITS-01,Report a lost device within 2 hours.,All employees,,Devices

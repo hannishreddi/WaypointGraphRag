@@ -1,0 +1,57 @@
+employee_id,degree,institution,year
+ZV-1001,M.S. Computer Science,University of Texas at Dallas,1998
+ZV-1001,B.Tech Computer Science & Engineering,JNTU Hyderabad,1996
+ZV-1002,M.S. (Research) Computer Science,IIIT Hyderabad,2002
+ZV-1002,B.E. Electronics & Communication Engineering,"Anna University, Chennai",2000
+ZV-1003,B.Tech Computer Science,NIT Warangal,2005
+ZV-1004,B.Tech Information Technology,VIT Vellore,2009
+ZV-1005,B.Tech Electronics & Instrumentation,JNTU Hyderabad,2008
+ZV-1006,"MBA, Human Resource Management",Osmania University,2004
+ZV-1006,B.Com,"Nizam College, Hyderabad",2002
+ZV-1007,B.Tech Computer Science,JNTU Kakinada,2007
+ZV-1008,Chartered Accountant (CA),Institute of Chartered Accountants of India,2001
+ZV-1008,B.Com,Osmania University,1998
+ZV-1009,"PGDM, Marketing","Management Development Institute, Gurgaon",2005
+ZV-1009,B.Com,"Loyola Academy, Secunderabad",2003
+ZV-1010,B.Tech Information Technology,"Muffakham Jah College of Engineering and Technology, Hyderabad",2011
+ZV-1011,MBA,Indian School of Business,2009
+ZV-1011,B.E. Computer Science,Osmania University,2004
+ZV-1012,M.Tech Information Security,IIIT Allahabad,2009
+ZV-1012,B.Tech Computer Science,Osmania University,2007
+ZV-1013,B.Tech Electronics & Communication Engineering,JNTU Hyderabad,2012
+ZV-1014,"MBA, Operations","Andhra University, Visakhapatnam",2005
+ZV-1015,M.Com,Osmania University,2010
+ZV-1015,Cost & Management Accountant (CMA),Institute of Cost Accountants of India,2012
+ZV-1016,"MBA, Sales & Marketing","Institute of Management Technology, Hyderabad",2013
+ZV-1017,M.Tech Computer Science (Machine Learning),IIT Hyderabad,2010
+ZV-1017,B.Tech Computer Science,"BITS Pilani, Hyderabad Campus",2008
+ZV-1018,B.E. Information Technology,Osmania University,2013
+ZV-1019,"MBA, Human Resources","Symbiosis Centre for Management and HRD, Pune",2012
+ZV-1019,B.A. Psychology,"St. Francis College for Women, Hyderabad",2010
+ZV-1020,MBA,NMIMS Mumbai,2014
+ZV-1020,B.Tech Information Technology,"VNR Vignana Jyothi Institute of Engineering and Technology, Hyderabad",2012
+ZV-1021,B.Com,"Andhra Loyola College, Vijayawada",2010
+ZV-1022,B.Tech Computer Science,"Amrita Vishwa Vidyapeetham, Coimbatore",2014
+ZV-1023,"MBA, Marketing","GITAM School of Business, Visakhapatnam",2014
+ZV-1024,B.Tech Computer Science,NIT Tiruchirappalli,2015
+ZV-1025,B.Tech Information Technology,"Mahatma Gandhi Institute of Technology, Hyderabad",2016
+ZV-1026,B.Tech Computer Science,"RV College of Engineering, Bengaluru",2016
+ZV-1027,B.B.A.,"GITAM, Visakhapatnam",2018
+ZV-1028,B.E. Computer Science,"BMS College of Engineering, Bengaluru",2019
+ZV-1029,"M.Des, Interaction Design","IDC School of Design, IIT Bombay",2013
+ZV-1029,B.Des,"Symbiosis Institute of Design, Pune",2011
+ZV-1030,B.Com (Computers),"Nizam College, Hyderabad",2018
+ZV-1031,B.Tech Information Technology,"CVR College of Engineering, Hyderabad",2018
+ZV-1032,B.A. English Literature,"Andhra University, Visakhapatnam",2015
+ZV-1033,"B.Des, Visual Communication","Pearl Academy, Hyderabad",2020
+ZV-1034,M.S. Business Analytics,Texas State University,2016
+ZV-1034,B.Tech Electronics & Communication Engineering,JNTU Hyderabad,2013
+ZV-1035,B.Tech Information Technology,"Gokaraju Rangaraju Institute of Engineering and Technology, Hyderabad",2019
+ZV-1036,"PGDM, Human Resources","Institute of Public Enterprise, Hyderabad",2021
+ZV-1036,B.Sc. Statistics,Osmania University,2019
+ZV-1037,B.Tech Computer Science & Engineering,"Vasavi College of Engineering, Hyderabad",2021
+ZV-1038,B.Tech Computer Science,"Anurag University, Hyderabad",2023
+ZV-1039,B.Sc. Computer Science,"Dr. V.S. Krishna Government College, Visakhapatnam",2024
+ZV-1040,B.Tech Computer Science (Cyber Security),"Mahindra University, Hyderabad",2024
+ZV-1041,B.Tech Computer Science (Data Science),"Gokaraju Rangaraju Institute of Engineering and Technology, Hyderabad",2025
+ZV-1042,B.Tech Computer Science & Engineering,SRM University AP,2026

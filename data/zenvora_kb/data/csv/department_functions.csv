@@ -1,0 +1,54 @@
+department_id,function
+D00,Company strategy and annual operating plan
+D00,Board and investor relations
+D00,Leadership team reviews (weekly)
+D00,"Culture, values and the monthly all-hands"
+D00,Final approver on policy and on senior hires
+D01,Talent acquisition and onboarding
+D01,Policy ownership and employee relations
+D01,Performance management and appraisal cycles
+D01,POSH Internal Committee administration
+D01,"Learning and development, engagement and exit management"
+D02,"Accounting, month-end close and statutory audit"
+D02,"Payroll processing and statutory filings (PF, ESI, TDS, professional tax)"
+D02,GST and corporate tax compliance
+D02,"Budgeting, forecasting and cloud-spend tracking"
+D02,Travel and expense reimbursement
+D03,"Core APIs, messaging gateway and billing services"
+D03,Zenvora Ledger reconciliation and e-invoicing
+D03,Service architecture and API standards
+D03,Performance and reliability of backend services
+D04,"Pulse web app (React, TypeScript)"
+D04,Pulse Mobile (Flutter)
+D04,Zenith Design System implementation
+D04,Accessibility and front-end performance
+D05,Data platform and pipelines (Project Beacon)
+D05,"Machine learning: intent detection, churn prediction, Zenvora Sage assistant"
+D05,Product and business analytics
+D05,Data governance and responsible-AI review
+D06,"Test strategy, automation frameworks and regression suites"
+D06,Release sign-off and quality gates
+D06,Performance and load testing
+D06,Model evaluation harness for AI features (with Data & AI)
+D07,AWS infrastructure as code (Terraform)
+D07,Kubernetes platform and CI/CD
+D07,"Observability, on-call and incident management"
+D07,"Disaster recovery, backups and cloud cost optimisation"
+D08,Product strategy and quarterly roadmaps
+D08,Product requirements and prioritisation
+D08,"UX research, interaction and visual design"
+D08,Zenith Design System ownership
+D09,"Enterprise and SME sales for Pulse, Ledger and Care"
+D09,US business development
+D09,"Demand generation, content and events"
+D09,"Customer references, pricing and contracts (with Finance and Legal review)"
+D10,Tier-1 and Tier-2 support for Pulse and Ledger customers
+D10,Managed customer care for 14 client brands (Zenvora Care)
+D10,"Shift rostering, SLA tracking and escalations"
+D10,Quality audits and agent training
+D10,Overflow coordination with partner BPO Sutradhar Business Services
+D11,"Laptops, MDM, networks and helpdesk"
+D11,"Identity and access management (joiner, mover, leaver)"
+D11,"Security monitoring, vulnerability management, phishing simulations"
+D11,ISO 27001 and SOC 2 compliance (Project Sentinel)
+D11,Security awareness training

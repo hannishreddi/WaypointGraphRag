@@ -1,0 +1,29 @@
+event_id,date,type,title,details
+EV001,2014-03-01,Founding,Zenvora incorporated in Hyderabad,Arvind Kulkarni and Meera Subramanian leave Kestrel Networks and start Zenvora from a rented room in Madhapur.
+EV002,2015-10-12,Product,Pulse 1.0 launches,"First release: shared inbox for email and SMS, with six pilot customers."
+EV003,2016-04-20,Funding,Seed round of INR 2.5 crore,Led by Godavari Angels Network.
+EV004,2016-06-13,Organisation,First Head of People & Culture joins,Lakshmi Prasanna Varma builds Zenvora's HR function.
+EV005,2017-08-01,Product,WhatsApp Business channel added to Pulse,Becomes the most-used channel within a year.
+EV006,2018-04-02,Office,Bengaluru Engineering Hub opens,"Opened to hire senior backend, ML and SRE engineers."
+EV007,2018-11-05,Product,Zenvora Care launches,Managed customer care using Pulse as the work tool. First client brand is Swift Courier.
+EV008,2019-04-01,Organisation,Data & AI team formed,Ananya Bhattacharya joins to start the function.
+EV009,2020-01-20,Product,Zenvora Ledger general availability,Invoicing and reconciliation for small businesses.
+EV010,2020-03-23,Organisation,Company moves to fully remote work,Response to the COVID-19 lockdown; Care Centre staff work in split shifts with transport support.
+EV011,2021-02-15,Office,Visakhapatnam Care Centre opens,Zenvora Care operations move from Hyderabad to Visakhapatnam.
+EV012,2021-06-28,Funding,Series A of INR 18 crore,Led by Deccan Capital Partners.
+EV013,2022-04-01,Policy,Hybrid Work Policy introduced,Three days in office per week replaces the fully remote model.
+EV014,2022-08-01,Project,Project Atlas starts,Monolith to microservices migration.
+EV015,2022-10-03,Office,Austin sales presence established,"Ashwin Pillai joins as Business Development Manager, US."
+EV016,2023-04-01,Project,ZenPeople HRMS goes live (Project Compass),"Attendance, leave, payroll and expenses in one system."
+EV017,2023-11-10,Award,Pulse named SME Tech Product of the Year,Awarded at the Southern India SaaS Summit 2023.
+EV018,2024-03-31,Project,Monolith decommissioned (Project Atlas complete),Deploy time down from 3 days to 40 minutes.
+EV019,2025-02-20,Compliance,ISO/IEC 27001:2022 certificate issued,Result of Project Sentinel.
+EV020,2025-02-28,Project,Project Beacon hands over to run team,Data platform in production.
+EV021,2025-07-31,Project,Project Horizon complete,Care Centre expands to 45 seats and four new brands.
+EV022,2025-09-30,Compliance,SOC 2 Type II report issued,Project Sentinel closes.
+EV023,2025-12-19,Project,Project Ember closes,Cloud spend down 31 percent.
+EV024,2026-03-02,Product,Zenvora Sage beta starts,AI assistant for Tier-1 support replies.
+EV025,2026-05-05,Product,Pulse Mobile 3.0 fully rolled out,Project Lighthouse complete.
+EV026,2026-06-01,Project,Project Nova starts,Churn-risk scoring and Pulse Insights.
+EV027,2026-09-15,Organisation,Tarun Mehta resigns,UI Designer serves a 60-day notice period; last working day 2026-11-14.
+EV028,2026-10-05,HR,H1 FY2026-27 appraisal window opens,Self-reviews due 2026-10-16; manager reviews due 2026-10-30.

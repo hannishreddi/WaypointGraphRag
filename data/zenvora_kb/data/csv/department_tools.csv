@@ -1,0 +1,61 @@
+department_id,tool
+D00,Slack
+D00,Confluence
+D00,Google Workspace
+D01,ZenPeople HRMS
+D01,Slack
+D01,Google Workspace
+D01,Greenhouse (recruiting)
+D02,Tally Prime
+D02,ZenPeople Expenses
+D02,Zoho Books
+D02,Google Sheets
+D03,GitHub Enterprise
+D03,Jira
+D03,Datadog
+D03,PostgreSQL
+D03,Kafka
+D03,Go
+D03,Python (FastAPI)
+D04,React
+D04,TypeScript
+D04,Flutter
+D04,Figma
+D04,Storybook
+D04,Firebase Crashlytics
+D05,Python
+D05,Airflow
+D05,dbt
+D05,Apache Iceberg
+D05,Trino
+D05,PyTorch
+D05,Metabase
+D06,Playwright
+D06,Postman
+D06,k6
+D06,TestRail
+D06,Jira
+D07,AWS
+D07,Terraform
+D07,Kubernetes (EKS)
+D07,GitHub Actions
+D07,Datadog
+D07,PagerDuty
+D08,Figma
+D08,Jira
+D08,Productboard
+D08,Mixpanel
+D08,Confluence
+D09,HubSpot CRM
+D09,LinkedIn Sales Navigator
+D09,Google Analytics
+D09,Canva
+D10,Zenvora Pulse (inbox)
+D10,Jira Service Management
+D10,Genesys Cloud (voice)
+D10,Slack
+D11,Jamf and Intune (MDM)
+D11,Okta
+D11,CrowdStrike
+D11,Jira Service Management
+D11,Vanta

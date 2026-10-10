@@ -1,0 +1,180 @@
+skill_id,skill
+SK001,API contract testing
+SK002,API design
+SK003,ATS administration
+SK004,AWS
+SK005,Accessibility (WCAG 2.1)
+SK006,Airflow
+SK007,Analytics
+SK008,Android
+SK009,Apache Iceberg
+SK010,Asset management
+SK011,Audit
+SK012,Automation frameworks
+SK013,Backend architecture
+SK014,Basic SQL
+SK015,Billing systems
+SK016,Budget tracking
+SK017,Budgeting
+SK018,Bug reporting
+SK019,CI/CD
+SK020,CRM hygiene
+SK021,Calibration
+SK022,Channel partnerships
+SK023,Chat and email support
+SK024,Chat support
+SK025,Coaching
+SK026,Compensation benchmarking
+SK027,Contact-centre operations
+SK028,Content marketing
+SK029,Contract negotiation
+SK030,Conversation design
+SK031,Cost accounting
+SK032,Cost optimisation
+SK033,Crash analytics
+SK034,Customer empathy
+SK035,Customer onboarding
+SK036,Customer research
+SK037,Dart
+SK038,Dashboard design
+SK039,Data platform design
+SK040,Data quality testing
+SK041,Design systems
+SK042,Distributed systems
+SK043,Employee relations
+SK044,Endpoint management
+SK045,Engineering leadership
+SK046,Engineering management
+SK047,Enterprise sales
+SK048,Enterprise selling
+SK049,Escalation handling
+SK050,Evaluation harnesses
+SK051,Event-driven architecture
+SK052,Events
+SK053,Evidence collection
+SK054,Excel
+SK055,Experimentation
+SK056,Figma
+SK057,Financial reporting
+SK058,Fintech
+SK059,Flutter
+SK060,Fundraising
+SK061,Fundraising and investor relations
+SK062,GST
+SK063,GST e-invoicing
+SK064,Git
+SK065,Go
+SK066,HR business partnering
+SK067,HR operations
+SK068,HR systems
+SK069,Helpdesk
+SK070,HubSpot
+SK071,ISO 27001
+SK072,Iconography
+SK073,Identity and access
+SK074,Identity management
+SK075,Illustration
+SK076,Incident management
+SK077,Incident response
+SK078,Interaction design
+SK079,Kafka
+SK080,Knowledge base writing
+SK081,Knowledge management
+SK082,Kubernetes
+SK083,Launch campaigns
+SK084,Linux
+SK085,MLOps
+SK086,Machine learning
+SK087,Marketing strategy
+SK088,Mentoring
+SK089,Metabase
+SK090,Mobile testing
+SK091,Model evaluation
+SK092,Month-end close
+SK093,Motion basics
+SK094,NLP
+SK095,Negotiation
+SK096,Networking
+SK097,Observability
+SK098,Offline-first design
+SK099,Onboarding
+SK100,Organisation design
+SK101,Outbound prospecting
+SK102,"PF, ESI and TDS filings"
+SK103,POSH compliance
+SK104,Payroll processing
+SK105,Peer coaching
+SK106,Performance testing
+SK107,Phishing simulation
+SK108,Platform engineering
+SK109,Playwright
+SK110,Policy design
+SK111,PostgreSQL
+SK112,PostgreSQL tuning
+SK113,Postman
+SK114,Pricing
+SK115,Pricing and contracts
+SK116,Pricing experiments
+SK117,Product management
+SK118,Product strategy
+SK119,Professional tax
+SK120,Pulse inbox
+SK121,Pulse inbox administration
+SK122,PyTorch
+SK123,Python
+SK124,Python (FastAPI)
+SK125,Python (pandas)
+SK126,Python scripting
+SK127,Quality audits
+SK128,Quality systems
+SK129,REST APIs
+SK130,REST and webhooks
+SK131,React
+SK132,Reconciliation
+SK133,Reconciliation engines
+SK134,Release management
+SK135,Responsible AI
+SK136,Retrieval-augmented generation
+SK137,Risk management
+SK138,Roadmapping
+SK139,Rostering
+SK140,SEO
+SK141,SIEM basics
+SK142,SLA design
+SK143,SLO design
+SK144,SMB sales
+SK145,SQL
+SK146,Sales leadership
+SK147,Security by design
+SK148,Security governance
+SK149,Solution design
+SK150,Stakeholder management
+SK151,Statistics
+SK152,Storybook
+SK153,System architecture
+SK154,Tally Prime
+SK155,Tax and statutory compliance
+SK156,Team building
+SK157,Team leadership
+SK158,Technical due diligence
+SK159,Technical recruiting
+SK160,Terraform
+SK161,Test case design
+SK162,Test strategy
+SK163,Testing
+SK164,Training design
+SK165,Troubleshooting
+SK166,TypeScript
+SK167,Typing and documentation
+SK168,UI design
+SK169,US market entry
+SK170,UX research
+SK171,Unit testing
+SK172,Vendor management
+SK173,Volume hiring
+SK174,Vulnerability management
+SK175,Web performance
+SK176,Workforce management
+SK177,Workforce planning
+SK178,dbt
+SK179,k6

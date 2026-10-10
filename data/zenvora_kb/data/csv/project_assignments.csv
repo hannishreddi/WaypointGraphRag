@@ -1,0 +1,66 @@
+project_id,employee_id,role,from_date,to_date,is_current
+PJ01,ZV-1003,Delivery lead,2022-08-01,2024-03-31,false
+PJ01,ZV-1004,Chief architect,2022-08-01,2024-03-31,false
+PJ01,ZV-1013,Billing and metering services,2022-08-01,2024-03-31,false
+PJ01,ZV-1028,Notification and webhook services,2022-08-01,2024-03-31,false
+PJ01,ZV-1005,Platform and migration lead,2022-08-01,2024-03-31,false
+PJ01,ZV-1026,Observability and cut-over reliability,2022-08-01,2024-03-31,false
+PJ01,ZV-1018,Contract and regression testing,2022-08-01,2024-03-31,false
+PJ01,ZV-1007,QA lead,2022-08-01,2024-03-31,false
+PJ02,ZV-1019,Project lead,2022-10-01,2023-04-30,false
+PJ02,ZV-1015,Payroll and finance integration,2022-10-01,2023-04-30,false
+PJ02,ZV-1030,Payroll configuration and statutory set-up,2022-10-01,2023-04-30,false
+PJ02,ZV-1025,Identity and device integration,2022-10-01,2023-04-30,false
+PJ02,ZV-1006,Executive sponsor,2022-10-01,2023-04-30,false
+PJ03,ZV-1017,Programme lead,2023-05-01,2025-02-28,false
+PJ03,ZV-1031,Lead data engineer,2023-05-01,2025-02-28,false
+PJ03,ZV-1024,Feature store and ML integration,2023-05-01,2025-02-28,false
+PJ03,ZV-1026,Infrastructure and observability,2023-05-01,2025-02-28,false
+PJ03,ZV-1035,Cloud infrastructure as code,2023-05-01,2025-02-28,false
+PJ04,ZV-1012,Programme lead and ISMS owner,2024-04-01,2025-09-30,false
+PJ04,ZV-1025,Asset inventory and access reviews,2024-04-01,2025-09-30,false
+PJ04,ZV-1040,Evidence collection and vulnerability management,2025-01-13,2025-09-30,false
+PJ04,ZV-1005,Infrastructure controls,2024-04-01,2025-09-30,false
+PJ04,ZV-1019,HR controls and training,2024-04-01,2025-09-30,false
+PJ04,ZV-1004,Secure development and code review controls,2024-04-01,2025-09-30,false
+PJ04,ZV-1001,Executive sponsor,2024-04-01,2025-09-30,false
+PJ05,ZV-1010,Programme and technical lead,2024-06-03,2026-05-31,false
+PJ05,ZV-1022,Lead mobile engineer,2024-06-03,2026-05-31,false
+PJ05,ZV-1037,Web parity and shared components,2024-06-03,2026-05-31,false
+PJ05,ZV-1029,UX lead,2024-06-03,2026-05-31,false
+PJ05,ZV-1033,UI design and icon set,2024-06-03,2026-05-31,false
+PJ05,ZV-1020,Product manager,2024-06-03,2026-05-31,false
+PJ05,ZV-1038,Device-matrix testing,2024-06-03,2026-05-31,false
+PJ05,ZV-1018,Automation,2024-06-03,2026-05-31,false
+PJ05,ZV-1023,Launch marketing,2024-06-03,2026-05-31,false
+PJ06,ZV-1014,Programme lead,2025-01-06,2025-07-31,false
+PJ06,ZV-1021,Operations and rostering,2025-01-06,2025-07-31,false
+PJ06,ZV-1032,Training curriculum and quality audits,2025-01-06,2025-07-31,false
+PJ06,ZV-1027,Peer trainer,2025-01-06,2025-07-31,false
+PJ06,ZV-1039,Training cohort and pilot agent,2025-01-06,2025-07-31,false
+PJ06,ZV-1036,Recruitment and onboarding,2025-01-06,2025-07-31,false
+PJ06,ZV-1025,Network and device set-up,2025-01-06,2025-07-31,false
+PJ06,ZV-1016,Client onboarding,2025-01-06,2025-07-31,false
+PJ07,ZV-1005,Project lead,2025-08-01,2025-12-19,false
+PJ07,ZV-1026,Workload rightsizing,2025-08-01,2025-12-19,false
+PJ07,ZV-1035,Storage tiering and tagging,2025-08-01,2025-12-19,false
+PJ07,ZV-1015,Cost allocation and budget tracking,2025-08-01,2025-12-19,false
+PJ07,ZV-1004,Service-level changes,2025-08-01,2025-12-19,false
+PJ07,ZV-1008,Executive sponsor,2025-08-01,2025-12-19,false
+PJ08,ZV-1017,Programme lead,2025-09-15,,true
+PJ08,ZV-1024,ML lead,2025-09-15,,true
+PJ08,ZV-1041,Pilot analytics,2025-09-15,,true
+PJ08,ZV-1018,Evaluation harness,2025-09-15,,true
+PJ08,ZV-1029,Conversation design,2025-09-15,,true
+PJ08,ZV-1020,Product manager,2025-09-15,,true
+PJ08,ZV-1021,Pilot lead at Care Centre,2025-09-15,,true
+PJ08,ZV-1027,Pilot agent and feedback,2025-09-15,,true
+PJ08,ZV-1032,Knowledge base and review guidelines,2025-09-15,,true
+PJ08,ZV-1023,Beta customer communications,2025-09-15,,true
+PJ09,ZV-1020,Product manager and lead,2026-06-01,,true
+PJ09,ZV-1024,Churn model,2026-06-01,,true
+PJ09,ZV-1041,Dashboard metrics and analysis,2026-06-01,,true
+PJ09,ZV-1028,Insights API,2026-06-01,,true
+PJ09,ZV-1042,Insights API (supports Sneha),2026-07-20,,true
+PJ09,ZV-1037,Dashboard front end,2026-06-01,,true
+PJ09,ZV-1029,UX,2026-06-01,,true

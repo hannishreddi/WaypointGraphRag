@@ -1,0 +1,121 @@
+employee_id,achievement
+ZV-1001,Raised the INR 2.5 crore seed round (2016) and the INR 18 crore Series A (2021).
+ZV-1001,Took revenue from zero to INR 21.6 crore in FY2025-26.
+ZV-1001,Started the monthly all-hands and the written 'say it plainly' memo habit.
+ZV-1002,Designed the original Pulse architecture and sponsored Project Atlas.
+ZV-1002,Executive sponsor of Project Beacon and Project Sage.
+ZV-1002,Chairs the quarterly architecture review board.
+ZV-1003,"Co-wrote the Pulse 1.0 backend with the founders, joining weeks before launch."
+ZV-1003,Delivery lead of Project Atlas (monolith to 14 services).
+ZV-1003,Set the engineering hiring bar and the code review standard.
+ZV-1004,Chief architect of Project Atlas.
+ZV-1004,Cut p95 API latency from 840 ms to 210 ms.
+ZV-1004,Wrote the internal API design guidelines.
+ZV-1005,Led the platform and migration work for Project Atlas (deploys from 3 days to 40 minutes).
+ZV-1005,"Led Project Ember: cloud spend down 31 percent, about INR 92 lakh a year."
+ZV-1005,Wrote the disaster-recovery runbooks and runs twice-yearly drills.
+ZV-1006,Built Zenvora's HR function from scratch and wrote the first policy suite.
+ZV-1006,Brought attrition from 24 percent (FY2021) to 11 percent (FY2026).
+ZV-1006,Executive sponsor of Project Compass (ZenPeople HRMS).
+ZV-1007,Raised regression automation coverage from 22 to 78 percent.
+ZV-1007,Defined the release quality gates still in use.
+ZV-1007,Member of the POSH Internal Committee.
+ZV-1008,Led financial due diligence for the Series A.
+ZV-1008,Delivered the company's first unqualified statutory audit report.
+ZV-1008,Executive sponsor of Project Ember (cloud cost optimisation).
+ZV-1009,Built the Sales & Marketing function and the US channel.
+ZV-1009,Grew annual recurring revenue to INR 21 crore by FY2025-26.
+ZV-1009,Sets the discount approval matrix with the CFO.
+ZV-1010,Created the Zenith Design System.
+ZV-1010,Programme and technical lead of Project Lighthouse.
+ZV-1010,Raised the Lighthouse performance score of the web app from 61 to 92.
+ZV-1011,Grew WhatsApp into Pulse's most-used channel and added voice and web chat.
+ZV-1011,Lifted customer NPS from 41 to 58.
+ZV-1011,Executive sponsor of Project Lighthouse and Project Nova.
+ZV-1012,Led Project Sentinel: ISO 27001 certificate on 2025-02-20 and SOC 2 Type II in September 2025.
+ZV-1012,No SEV1 security incidents in FY2025-26.
+ZV-1012,Wrote the Information Security and Acceptable Use policies.
+ZV-1013,Built the Ledger reconciliation engine.
+ZV-1013,Owner of the Atlas billing and metering services.
+ZV-1013,Engineering lead for Zenvora Ledger.
+ZV-1014,Set up Zenvora Care and the Visakhapatnam centre.
+ZV-1014,Raised CSAT from 86 to 93 percent.
+ZV-1014,"Led Project Horizon (20 to 45 seats, four new brands)."
+ZV-1015,Cut month-end close from 12 to 5 working days.
+ZV-1015,Built the payroll and ledger integration for Project Compass.
+ZV-1015,Owns cost allocation and the monthly FinOps review (Project Ember).
+ZV-1016,"Closed Kaveri Textiles, Bharat Bazaar Retail and Medilink Clinics."
+ZV-1016,Achieved 118 percent of quota in FY2025-26.
+ZV-1016,Onboarded the four new Care brands during Project Horizon.
+ZV-1017,Founded the Data & AI team in 2019.
+ZV-1017,Led Project Beacon (data platform) and Project Sage (AI assistant).
+ZV-1017,Churn-risk model improved customer retention by 14 percent in pilots.
+ZV-1018,Built the Playwright framework used across web and mobile parity tests.
+ZV-1018,Wrote the contract tests that de-risked Atlas cut-overs.
+ZV-1018,Built the golden-set evaluation harness for Sage.
+ZV-1019,Led Project Compass and the ZenPeople HRMS roll-out.
+ZV-1019,Presiding Officer of the POSH Internal Committee since 2022.
+ZV-1019,Designed the half-yearly performance cycle used since FY2023.
+ZV-1020,Product owner of Zenvora Ledger; GST e-invoicing launched under his ownership.
+ZV-1020,"Grew Ledger from 520 to 1,180 businesses."
+ZV-1020,"Product manager for Project Lighthouse, then lead of Project Nova."
+ZV-1021,Relocated from Hyderabad to Visakhapatnam in 2021 when Care moved.
+ZV-1021,Raised first-contact resolution from 71 to 84 percent.
+ZV-1021,Led the Sage pilot at the Care Centre (38 percent Tier-1 deflection).
+ZV-1022,Lead mobile engineer on Project Lighthouse.
+ZV-1022,Raised crash-free sessions from 97.1 to 99.6 percent.
+ZV-1022,Raised the app store rating from 3.9 to 4.6.
+ZV-1023,Tripled inbound leads in two years.
+ZV-1023,Ran the launch campaign for Pulse Mobile 3.0.
+ZV-1023,Publishes the annual Zenvora Customer Conversations Report.
+ZV-1024,ML lead of Project Sage; hallucination rate 1.4 percent on the golden set.
+ZV-1024,Raised intent classification accuracy from 91 to 96 percent.
+ZV-1024,Built the churn model for Project Nova (0.82 AUC).
+ZV-1025,Rolled out MDM to every laptop.
+ZV-1025,Helpdesk SLA adherence of 94 percent.
+ZV-1025,Set up devices and network for the Care Centre expansion (Project Horizon).
+ZV-1026,Introduced service-level objectives; mean time to recovery fell from 94 to 28 minutes.
+ZV-1026,Reliability lead for the Atlas cut-overs.
+ZV-1026,Rightsized workloads for Project Ember.
+ZV-1027,Consistently top-three CSAT in the team.
+ZV-1027,Peer trainer in Project Horizon.
+ZV-1027,Pilot agent for Sage and source of its feedback loop.
+ZV-1028,Built Ledger's GST e-invoicing integration.
+ZV-1028,Delivered the Atlas notification and webhook services.
+ZV-1028,Building the Insights API for Project Nova.
+ZV-1029,UX lead of Project Lighthouse: task success in usability tests rose from 71 to 93 percent.
+ZV-1029,Designed the Sage conversation patterns.
+ZV-1029,Owns the visual and interaction rules in Zenith DS.
+ZV-1030,"Automated monthly PF, ESI and TDS filings through ZenPeople."
+ZV-1030,Zero statutory penalty notices since joining.
+ZV-1030,Configured payroll rules during Project Compass.
+ZV-1031,Lead data engineer on Project Beacon.
+ZV-1031,Built over 300 modelled tables with automated quality tests.
+ZV-1031,Cut weekly report time from 6 hours to 25 minutes.
+ZV-1032,Introduced the five-audits-per-agent-per-week programme.
+ZV-1032,Designed the training curriculum for Project Horizon.
+ZV-1032,Maintains the Sage knowledge base review guidelines.
+ZV-1033,Designed the Lighthouse icon set and onboarding illustrations.
+ZV-1033,Produced launch assets with Marketing.
+ZV-1034,Built the US pipeline from zero to 19 customers.
+ZV-1034,"US annual recurring revenue of about US$210,000."
+ZV-1034,Presents Zenvora's SOC 2 report in US security reviews.
+ZV-1035,Took infrastructure-as-code coverage to 96 percent.
+ZV-1035,Led storage tiering and tagging for Project Ember.
+ZV-1035,Built the Beacon cloud foundations.
+ZV-1036,Closed 41 hires in FY2025-26.
+ZV-1036,Cut time to offer from 34 to 21 days.
+ZV-1036,Recruited and onboarded 18 people for Project Horizon.
+ZV-1037,Led the accessibility audit of the Pulse web app.
+ZV-1037,Cut the web bundle size by 38 percent.
+ZV-1037,Building the Insights dashboard front end for Project Nova.
+ZV-1038,Ran device-matrix testing for Project Lighthouse.
+ZV-1038,Grew automated mobile test cases from 120 to 310.
+ZV-1039,Joined in the first training cohort of Project Horizon.
+ZV-1039,Quality audit average of 96 percent.
+ZV-1040,Collected audit evidence for the SOC 2 Type II report.
+ZV-1040,Runs the quarterly phishing simulation.
+ZV-1041,Built the pilot metrics report for Project Sage.
+ZV-1041,Created the Insights dashboard metrics definitions for Project Nova.
+ZV-1042,Completed induction in August 2026 and shipped a first pull request in week two.
+ZV-1042,Supports the Insights API for Project Nova.

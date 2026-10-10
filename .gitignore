@@ -1,0 +1,27 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+build/
+dist/
+
+# local artefacts
+neo4j/
+eval_runs/
+.cache/
+
+# editors / os
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

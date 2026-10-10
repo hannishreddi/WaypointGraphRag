@@ -1,0 +1,252 @@
+id,category,hops,question,expected_answer,sources
+Q001,org_structure,1,Who does Meera Subramanian report to?,Arvind Kulkarni (Founder & Chief Executive Officer),ZV-1002
+Q002,org_structure,1,Who does Divya Krishnamurthy report to?,"Karthik Naidu (Director of Engineering, Backend)",ZV-1004
+Q003,org_structure,1,Who does Lakshmi Prasanna Varma report to?,Arvind Kulkarni (Founder & Chief Executive Officer),ZV-1006
+Q004,org_structure,1,Who does Ramesh Iyengar report to?,Arvind Kulkarni (Founder & Chief Executive Officer),ZV-1008
+Q005,org_structure,1,Who does Farhan Siddiqui report to?,Meera Subramanian (Co-Founder & Chief Technology Officer),ZV-1010
+Q006,org_structure,1,Who does Manoj Thomas report to?,Meera Subramanian (Co-Founder & Chief Technology Officer),ZV-1012
+Q007,org_structure,1,Who does Suresh Babu Kothapalli report to?,Arvind Kulkarni (Founder & Chief Executive Officer),ZV-1014
+Q008,org_structure,1,Who does Priyanka Choudhury report to?,Gaurav Malhotra (Chief Revenue Officer),ZV-1016
+Q009,org_structure,1,Who does Mohan Krishna report to?,Deepa Venkatesh (QA Manager),ZV-1018
+Q010,org_structure,1,Who does Rahul Khanna report to?,Sunita Banerjee (Head of Product),ZV-1020
+Q011,org_structure,1,Who does Keerthi Nair report to?,Farhan Siddiqui (Frontend & Mobile Lead),ZV-1022
+Q012,org_structure,1,Who does Vikram Rajan report to?,Ananya Bhattacharya (Head of Data & AI),ZV-1024
+Q013,org_structure,1,Who does Nikhil Joshi report to?,Prakash Raman (DevOps & Cloud Lead),ZV-1026
+Q014,org_structure,1,Who does Sneha Hegde report to?,Divya Krishnamurthy (Principal Backend Engineer),ZV-1028
+Q015,org_structure,1,Who does Pavan Kumar Goud report to?,Shalini Rao (Finance Controller),ZV-1030
+Q016,org_structure,1,Who does Anand Sagar report to?,Suresh Babu Kothapalli (Head of Customer Care),ZV-1032
+Q017,org_structure,1,Who does Ashwin Pillai report to?,Gaurav Malhotra (Chief Revenue Officer),ZV-1034
+Q018,org_structure,1,Who does Imran Qureshi report to?,Tanvi Deshpande (HR Business Partner),ZV-1036
+Q019,org_structure,1,Who does Swathi Kamat report to?,Deepa Venkatesh (QA Manager),ZV-1038
+Q020,org_structure,1,Who does Zaid Ansari report to?,Manoj Thomas (IT & Security Manager (CISO)),ZV-1040
+Q021,org_structure,1,Who does Arjun Menon report to?,Naveen Reddy (Senior Backend Engineer),ZV-1042
+Q022,employee_lookup,1,What is Arvind Kulkarni's job title and band?,"Founder & Chief Executive Officer, band Z8",ZV-1001
+Q023,employee_lookup,1,What is Divya Krishnamurthy's job title and band?,"Principal Backend Engineer, band Z5",ZV-1004
+Q024,employee_lookup,1,What is Deepa Venkatesh's job title and band?,"QA Manager, band Z5",ZV-1007
+Q025,employee_lookup,1,What is Farhan Siddiqui's job title and band?,"Frontend & Mobile Lead, band Z5",ZV-1010
+Q026,employee_lookup,1,What is Naveen Reddy's job title and band?,"Senior Backend Engineer, band Z4",ZV-1013
+Q027,employee_lookup,1,What is Priyanka Choudhury's job title and band?,"Enterprise Account Executive, band Z4",ZV-1016
+Q028,employee_lookup,1,What is Tanvi Deshpande's job title and band?,"HR Business Partner, band Z5",ZV-1019
+Q029,employee_lookup,1,What is Keerthi Nair's job title and band?,"Senior Mobile Engineer, band Z4",ZV-1022
+Q030,employee_lookup,1,What is Rekha Sharma's job title and band?,"Systems & Network Administrator, band Z3",ZV-1025
+Q031,employee_lookup,1,What is Sneha Hegde's job title and band?,"Backend Engineer, band Z3",ZV-1028
+Q032,employee_lookup,1,What is Pooja Agarwal's job title and band?,"Data Engineer, band Z3",ZV-1031
+Q033,employee_lookup,1,What is Ashwin Pillai's job title and band?,"Business Development Manager, US, band Z4",ZV-1034
+Q034,employee_lookup,1,What is Sai Teja Chowdary's job title and band?,"Frontend Engineer, band Z3",ZV-1037
+Q035,employee_lookup,1,What is Zaid Ansari's job title and band?,"Security Analyst, band Z2",ZV-1040
+Q036,org_structure,1,Who heads the Executive Office department?,Arvind Kulkarni (Founder & Chief Executive Officer),D00
+Q037,org_structure,1,How many employees are in Executive Office?,2,D00
+Q038,org_structure,1,Who heads the Human Resources (People & Culture) department?,Lakshmi Prasanna Varma (Head of People & Culture),D01
+Q039,org_structure,1,How many employees are in Human Resources (People & Culture)?,3,D01
+Q040,org_structure,1,Who heads the Finance & Accounts department?,Ramesh Iyengar (Chief Financial Officer),D02
+Q041,org_structure,1,How many employees are in Finance & Accounts?,3,D02
+Q042,org_structure,1,Who heads the Backend Engineering department?,"Karthik Naidu (Director of Engineering, Backend)",D03
+Q043,org_structure,1,How many employees are in Backend Engineering?,5,D03
+Q044,org_structure,1,Who heads the Frontend & Mobile Engineering department?,Farhan Siddiqui (Frontend & Mobile Lead),D04
+Q045,org_structure,1,How many employees are in Frontend & Mobile Engineering?,3,D04
+Q046,org_structure,1,Who heads the Data & AI department?,Ananya Bhattacharya (Head of Data & AI),D05
+Q047,org_structure,1,How many employees are in Data & AI?,4,D05
+Q048,org_structure,1,Who heads the Quality Assurance department?,Deepa Venkatesh (QA Manager),D06
+Q049,org_structure,1,How many employees are in Quality Assurance?,3,D06
+Q050,org_structure,1,Who heads the DevOps & Cloud Infrastructure department?,Prakash Raman (DevOps & Cloud Lead),D07
+Q051,org_structure,1,How many employees are in DevOps & Cloud Infrastructure?,3,D07
+Q052,org_structure,1,Who heads the Product & Design department?,Sunita Banerjee (Head of Product),D08
+Q053,org_structure,1,How many employees are in Product & Design?,4,D08
+Q054,org_structure,1,Who heads the Sales & Marketing department?,Gaurav Malhotra (Chief Revenue Officer),D09
+Q055,org_structure,1,How many employees are in Sales & Marketing?,4,D09
+Q056,org_structure,1,Who heads the Customer Support (Zenvora Care) department?,Suresh Babu Kothapalli (Head of Customer Care),D10
+Q057,org_structure,1,How many employees are in Customer Support (Zenvora Care)?,5,D10
+Q058,org_structure,1,Who heads the IT & Information Security department?,Manoj Thomas (IT & Security Manager (CISO)),D11
+Q059,org_structure,1,How many employees are in IT & Information Security?,3,D11
+Q060,org_structure,1,Who reports directly to Arvind Kulkarni?,Meera Subramanian; Lakshmi Prasanna Varma; Ramesh Iyengar; Sunita Banerjee; Gaurav Malhotra; Suresh Babu Kothapalli,ZV-1001
+Q061,org_structure,1,Who reports directly to Meera Subramanian?,Karthik Naidu; Farhan Siddiqui; Ananya Bhattacharya; Deepa Venkatesh; Prakash Raman; Manoj Thomas,ZV-1002
+Q062,org_structure,1,Who reports directly to Divya Krishnamurthy?,Naveen Reddy; Sneha Hegde,ZV-1004
+Q063,org_structure,1,Who reports directly to Farhan Siddiqui?,Keerthi Nair; Sai Teja Chowdary,ZV-1010
+Q064,org_structure,1,Who reports directly to Ananya Bhattacharya?,Vikram Rajan; Pooja Agarwal,ZV-1017
+Q065,org_structure,1,Who reports directly to Deepa Venkatesh?,Mohan Krishna; Swathi Kamat,ZV-1007
+Q066,org_structure,1,Who reports directly to Prakash Raman?,Nikhil Joshi; Bhavana Shetty,ZV-1005
+Q067,org_structure,1,Who reports directly to Sunita Banerjee?,Rahul Khanna; Isha Kapoor,ZV-1011
+Q068,org_structure,1,Who reports directly to Gaurav Malhotra?,Priyanka Choudhury; Ashwin Pillai; Meghana Prabhu,ZV-1009
+Q069,org_structure,1,Who reports directly to Suresh Babu Kothapalli?,Lavanya Murthy; Anand Sagar,ZV-1014
+Q070,org_structure,1,Who reports directly to Lavanya Murthy?,Kiran Kumar Patnaik; Bindu Madhavi,ZV-1021
+Q071,org_structure,1,Who reports directly to Manoj Thomas?,Rekha Sharma; Zaid Ansari,ZV-1012
+Q072,org_structure,2,Who is Karthik Naidu's manager's manager?,Arvind Kulkarni (Founder & Chief Executive Officer),"ZV-1003, ZV-1002"
+Q073,org_structure,2,Who is Deepa Venkatesh's manager's manager?,Arvind Kulkarni (Founder & Chief Executive Officer),"ZV-1007, ZV-1002"
+Q074,org_structure,2,Who is Naveen Reddy's manager's manager?,"Karthik Naidu (Director of Engineering, Backend)","ZV-1013, ZV-1004"
+Q075,org_structure,2,Who is Ananya Bhattacharya's manager's manager?,Arvind Kulkarni (Founder & Chief Executive Officer),"ZV-1017, ZV-1002"
+Q076,org_structure,2,Who is Rahul Khanna's manager's manager?,Arvind Kulkarni (Founder & Chief Executive Officer),"ZV-1020, ZV-1011"
+Q077,org_structure,2,Who is Meghana Prabhu's manager's manager?,Arvind Kulkarni (Founder & Chief Executive Officer),"ZV-1023, ZV-1009"
+Q078,org_structure,2,Who is Nikhil Joshi's manager's manager?,Meera Subramanian (Co-Founder & Chief Technology Officer),"ZV-1026, ZV-1005"
+Q079,org_structure,2,Who is Isha Kapoor's manager's manager?,Arvind Kulkarni (Founder & Chief Executive Officer),"ZV-1029, ZV-1011"
+Q080,org_structure,2,Who is Anand Sagar's manager's manager?,Arvind Kulkarni (Founder & Chief Executive Officer),"ZV-1032, ZV-1014"
+Q081,org_structure,2,Who is Bhavana Shetty's manager's manager?,Meera Subramanian (Co-Founder & Chief Technology Officer),"ZV-1035, ZV-1005"
+Q082,org_structure,2,Who is Swathi Kamat's manager's manager?,Meera Subramanian (Co-Founder & Chief Technology Officer),"ZV-1038, ZV-1007"
+Q083,org_structure,2,Who is Harsha Vardhan's manager's manager?,Ananya Bhattacharya (Head of Data & AI),"ZV-1041, ZV-1031"
+Q084,org_structure,3,Who heads the department that Meera Subramanian's manager belongs to?,Arvind Kulkarni (Executive Office),"ZV-1002, ZV-1001, D00"
+Q085,org_structure,3,Who heads the department that Lakshmi Prasanna Varma's manager belongs to?,Arvind Kulkarni (Executive Office),"ZV-1006, ZV-1001, D00"
+Q086,org_structure,3,Who heads the department that Farhan Siddiqui's manager belongs to?,Arvind Kulkarni (Executive Office),"ZV-1010, ZV-1002, D00"
+Q087,org_structure,3,Who heads the department that Suresh Babu Kothapalli's manager belongs to?,Arvind Kulkarni (Executive Office),"ZV-1014, ZV-1001, D00"
+Q088,org_structure,3,Who heads the department that Mohan Krishna's manager belongs to?,Deepa Venkatesh (Quality Assurance),"ZV-1018, ZV-1007, D06"
+Q089,org_structure,3,Who heads the department that Keerthi Nair's manager belongs to?,Farhan Siddiqui (Frontend & Mobile Engineering),"ZV-1022, ZV-1010, D04"
+Q090,org_structure,3,Who heads the department that Nikhil Joshi's manager belongs to?,Prakash Raman (DevOps & Cloud Infrastructure),"ZV-1026, ZV-1005, D07"
+Q091,org_structure,3,Who heads the department that Pavan Kumar Goud's manager belongs to?,Ramesh Iyengar (Finance & Accounts),"ZV-1030, ZV-1015, D02"
+Q092,org_structure,3,Who heads the department that Ashwin Pillai's manager belongs to?,Gaurav Malhotra (Sales & Marketing),"ZV-1034, ZV-1009, D09"
+Q093,org_structure,3,Who heads the department that Swathi Kamat's manager belongs to?,Deepa Venkatesh (Quality Assurance),"ZV-1038, ZV-1007, D06"
+Q094,org_structure,3,Who heads the department that Arjun Menon's manager belongs to?,Karthik Naidu (Backend Engineering),"ZV-1042, ZV-1013, D03"
+Q095,project,2,Which projects has Divya Krishnamurthy worked on?,Project Atlas; Project Sentinel; Project Ember,ZV-1004
+Q096,project,2,Which projects has Prakash Raman worked on?,Project Atlas; Project Sentinel; Project Ember,ZV-1005
+Q097,project,2,Which projects has Mohan Krishna worked on?,Project Atlas; Project Lighthouse; Project Sage,ZV-1018
+Q098,project,2,Which projects has Rahul Khanna worked on?,Project Lighthouse; Project Sage; Project Nova,ZV-1020
+Q099,project,2,Which projects has Vikram Rajan worked on?,Project Beacon; Project Sage; Project Nova,ZV-1024
+Q100,project,2,Which projects has Rekha Sharma worked on?,Project Compass; Project Sentinel; Project Horizon,ZV-1025
+Q101,project,2,Which projects has Nikhil Joshi worked on?,Project Atlas; Project Beacon; Project Ember,ZV-1026
+Q102,project,2,Which projects has Isha Kapoor worked on?,Project Lighthouse; Project Sage; Project Nova,ZV-1029
+Q103,project,1,Who sponsored Project Atlas and who led it?,Sponsor: Meera Subramanian. Lead: Karthik Naidu.,PJ01
+Q104,project,2,Which departments contributed to Project Atlas?,Backend Engineering; DevOps & Cloud Infrastructure; Quality Assurance,PJ01
+Q105,project,1,Who sponsored Project Compass and who led it?,Sponsor: Lakshmi Prasanna Varma. Lead: Tanvi Deshpande.,PJ02
+Q106,project,2,Which departments contributed to Project Compass?,Human Resources (People & Culture); Finance & Accounts; IT & Information Security,PJ02
+Q107,project,1,Who sponsored Project Beacon and who led it?,Sponsor: Meera Subramanian. Lead: Ananya Bhattacharya.,PJ03
+Q108,project,2,Which departments contributed to Project Beacon?,Data & AI; DevOps & Cloud Infrastructure,PJ03
+Q109,project,1,Who sponsored Project Sentinel and who led it?,Sponsor: Arvind Kulkarni. Lead: Manoj Thomas.,PJ04
+Q110,project,2,Which departments contributed to Project Sentinel?,Executive Office; IT & Information Security; DevOps & Cloud Infrastructure; Human Resources (People & Culture); Backend Engineering,PJ04
+Q111,project,1,Who sponsored Project Lighthouse and who led it?,Sponsor: Sunita Banerjee. Lead: Farhan Siddiqui.,PJ05
+Q112,project,2,Which departments contributed to Project Lighthouse?,Frontend & Mobile Engineering; Product & Design; Quality Assurance; Sales & Marketing,PJ05
+Q113,project,1,Who sponsored Project Horizon and who led it?,Sponsor: Suresh Babu Kothapalli. Lead: Suresh Babu Kothapalli.,PJ06
+Q114,project,2,Which departments contributed to Project Horizon?,Customer Support (Zenvora Care); Human Resources (People & Culture); IT & Information Security; Sales & Marketing,PJ06
+Q115,project,1,Who sponsored Project Ember and who led it?,Sponsor: Ramesh Iyengar. Lead: Prakash Raman.,PJ07
+Q116,project,2,Which departments contributed to Project Ember?,DevOps & Cloud Infrastructure; Finance & Accounts; Backend Engineering,PJ07
+Q117,project,1,Who sponsored Project Sage and who led it?,Sponsor: Meera Subramanian. Lead: Ananya Bhattacharya.,PJ08
+Q118,project,2,Which departments contributed to Project Sage?,Data & AI; Customer Support (Zenvora Care); Product & Design; Quality Assurance; Sales & Marketing,PJ08
+Q119,project,1,Who sponsored Project Nova and who led it?,Sponsor: Sunita Banerjee. Lead: Rahul Khanna.,PJ09
+Q120,project,2,Which departments contributed to Project Nova?,Product & Design; Data & AI; Backend Engineering; Frontend & Mobile Engineering,PJ09
+Q121,project,3,Who on Project Atlas works from Bengaluru?,Karthik Naidu; Divya Krishnamurthy; Sneha Hegde; Nikhil Joshi,PJ01
+Q122,project,3,Who on Project Beacon works from Bengaluru?,Vikram Rajan; Nikhil Joshi,PJ03
+Q123,project,3,Who on Project Sentinel works from Bengaluru?,Divya Krishnamurthy,PJ04
+Q124,project,3,Who on Project Horizon works from Visakhapatnam?,Suresh Babu Kothapalli; Lavanya Murthy; Anand Sagar; Kiran Kumar Patnaik; Bindu Madhavi,PJ06
+Q125,project,3,Who on Project Ember works from Bengaluru?,Nikhil Joshi; Divya Krishnamurthy,PJ07
+Q126,project,3,Who on Project Sage works from Bengaluru?,Vikram Rajan,PJ08
+Q127,project,3,Who on Project Sage works from Visakhapatnam?,Lavanya Murthy; Kiran Kumar Patnaik; Anand Sagar,PJ08
+Q128,project,3,Who on Project Nova works from Bengaluru?,Vikram Rajan; Sneha Hegde,PJ09
+Q129,project,3,Which engineers on Project Atlas report to Divya Krishnamurthy?,Naveen Reddy; Sneha Hegde,"PJ01, ZV-1004"
+Q130,project,3,Who on Project Lighthouse reports to Farhan Siddiqui?,Keerthi Nair; Sai Teja Chowdary,"PJ05, ZV-1010"
+Q131,project,3,Which members of Project Horizon work in the Customer Support department?,Suresh Babu Kothapalli; Lavanya Murthy; Anand Sagar; Kiran Kumar Patnaik; Bindu Madhavi,PJ06
+Q132,skills_experience,2,Which Zenvora employees previously worked at Kestrel Networks?,Arvind Kulkarni; Meera Subramanian; Karthik Naidu; Gaurav Malhotra; Sunita Banerjee; Manoj Thomas,resumes
+Q133,skills_experience,2,Which Zenvora employees previously worked at Brightpath Softech?,Lakshmi Prasanna Varma; Naveen Reddy; Priyanka Choudhury; Mohan Krishna; Rekha Sharma,resumes
+Q134,skills_experience,2,Which Zenvora employees previously worked at Larkspur Labs?,Tanvi Deshpande; Sai Teja Chowdary; Zaid Ansari; Harsha Vardhan; Arjun Menon,resumes
+Q135,skills_experience,2,Which Zenvora employees previously worked at Orbit Retail Tech?,Farhan Siddiqui; Sunita Banerjee; Tanvi Deshpande; Meghana Prabhu; Vikram Rajan; Isha Kapoor,resumes
+Q136,skills_experience,2,Which Zenvora employees previously worked at Helix BPO Services?,Suresh Babu Kothapalli; Kiran Kumar Patnaik; Imran Qureshi,resumes
+Q137,skills_experience,2,Which Zenvora employees previously worked at Finwise Analytics?,Ramesh Iyengar; Ananya Bhattacharya; Rahul Khanna; Pooja Agarwal,resumes
+Q138,skills_experience,2,Which Zenvora employees previously worked at Redwood Cart?,Keerthi Nair; Meghana Prabhu; Nikhil Joshi; Pavan Kumar Goud,resumes
+Q139,skills_experience,2,Which Zenvora employees previously worked at Maple Logic?,Karthik Naidu; Divya Krishnamurthy; Prakash Raman; Deepa Venkatesh,resumes
+Q140,skills_experience,2,Which Zenvora employees previously worked at Tessera Cloud?,Divya Krishnamurthy; Prakash Raman; Deepa Venkatesh; Manoj Thomas,resumes
+Q141,skills_experience,2,Which Zenvora employees previously worked at Zephyr Mobility?,Keerthi Nair; Sneha Hegde; Bhavana Shetty; Swathi Kamat,resumes
+Q142,skills_experience,2,Which Zenvora employees previously worked at PixelPetal Studio?,Farhan Siddiqui; Isha Kapoor; Tarun Mehta,resumes
+Q143,skills_experience,2,Which Zenvora employees previously worked at Nimbus Datasystems?,Gaurav Malhotra; Ananya Bhattacharya; Vikram Rajan; Nikhil Joshi,resumes
+Q144,skills_experience,2,Which Zenvora employees previously worked at Vantage Contact Solutions?,Suresh Babu Kothapalli; Lavanya Murthy; Anand Sagar,resumes
+Q145,skills_experience,2,"Who holds the certification 'AWS Certified Solutions Architect, Associate'?",Karthik Naidu; Bhavana Shetty,resumes
+Q146,skills_experience,2,Who holds the certification 'ISTQB Foundation'?,Mohan Krishna; Swathi Kamat,resumes
+Q147,skills_experience,2,Which employees list Enterprise sales as a skill?,Arvind Kulkarni; Gaurav Malhotra,resumes
+Q148,skills_experience,2,Which employees list Product strategy as a skill?,Arvind Kulkarni; Sunita Banerjee,resumes
+Q149,skills_experience,2,Which employees list Engineering management as a skill?,Meera Subramanian; Karthik Naidu,resumes
+Q150,skills_experience,2,Which employees list Employee relations as a skill?,Lakshmi Prasanna Varma; Tanvi Deshpande,resumes
+Q151,skills_experience,2,Which employees list Coaching as a skill?,Tanvi Deshpande; Lavanya Murthy; Anand Sagar,resumes
+Q152,skills_experience,2,Which employees list Go as a skill?,Karthik Naidu; Divya Krishnamurthy; Sneha Hegde,resumes
+Q153,skills_experience,2,Which employees list Kafka as a skill?,Karthik Naidu; Sneha Hegde,resumes
+Q154,skills_experience,2,Which employees list React as a skill?,Farhan Siddiqui; Sai Teja Chowdary,resumes
+Q155,skills_experience,2,Which employees list TypeScript as a skill?,Farhan Siddiqui; Sai Teja Chowdary,resumes
+Q156,skills_experience,2,Which employees list Flutter as a skill?,Farhan Siddiqui; Keerthi Nair,resumes
+Q157,skills_experience,2,Which employees list Design systems as a skill?,Farhan Siddiqui; Isha Kapoor,resumes
+Q158,skills_experience,2,Which employees list Playwright as a skill?,Mohan Krishna; Sai Teja Chowdary,resumes
+Q159,skills_experience,2,Which employees list Team building as a skill?,Sunita Banerjee; Ananya Bhattacharya,resumes
+Q160,skills_experience,2,Which employees list Team leadership as a skill?,Deepa Venkatesh; Lavanya Murthy,resumes
+Q161,skills_experience,2,Which employees list AWS as a skill?,Prakash Raman; Bhavana Shetty,resumes
+Q162,skills_experience,2,Which employees list Terraform as a skill?,Prakash Raman; Nikhil Joshi; Bhavana Shetty,resumes
+Q163,skills_experience,2,Which employees list Kubernetes as a skill?,Prakash Raman; Nikhil Joshi,resumes
+Q164,skills_experience,2,Which employees list Incident response as a skill?,Manoj Thomas; Nikhil Joshi,resumes
+Q165,skills_experience,2,Which employees list Python scripting as a skill?,Bhavana Shetty; Zaid Ansari,resumes
+Q166,skills_experience,2,Which employees list Figma as a skill?,Isha Kapoor; Tarun Mehta,resumes
+Q167,skills_experience,2,Which employees studied at JNTU Hyderabad?,Arvind Kulkarni; Prakash Raman; Naveen Reddy; Ashwin Pillai,resumes
+Q168,skills_experience,2,Which employees studied at Osmania University?,Lakshmi Prasanna Varma; Ramesh Iyengar; Sunita Banerjee; Manoj Thomas; Shalini Rao; Mohan Krishna; Imran Qureshi,resumes
+Q169,employee_lookup,2,Who joined Zenvora before 2016?,Arvind Kulkarni; Meera Subramanian; Karthik Naidu,employees.csv
+Q170,employee_lookup,2,Which employees are based in Bengaluru?,Karthik Naidu; Divya Krishnamurthy; Vikram Rajan; Nikhil Joshi; Sneha Hegde,L02
+Q171,employee_lookup,2,Which employees are based in Visakhapatnam?,Suresh Babu Kothapalli; Lavanya Murthy; Kiran Kumar Patnaik; Anand Sagar; Bindu Madhavi,L03
+Q172,employee_lookup,2,Which employees are based in Austin?,Ashwin Pillai,L04
+Q173,personalised,2,"How many days a week does Arjun Menon need to be in the office right now, and why?","Full WFO (all working days). Induction: first 90 days, until 18 Oct 2026 (ZEN-POL-002)","ZV-1042, ZEN-POL-002"
+Q174,personalised,2,"How many days a week does Tarun Mehta need to be in the office right now, and why?",Full WFO (all working days). Serving notice period (ZEN-POL-002),"ZV-1033, ZEN-POL-002"
+Q175,personalised,2,"How many days a week does Bindu Madhavi need to be in the office right now, and why?",On-site shift roster. Customer Support shift staff work on site (ZEN-DPL-CSC-01),"ZV-1039, ZEN-POL-002"
+Q176,personalised,2,"How many days a week does Ashwin Pillai need to be in the office right now, and why?",Remote-first (Austin). Austin Regional Supplement (ZEN-POL-002),"ZV-1034, ZEN-POL-002"
+Q177,personalised,2,"How many days a week does Pooja Agarwal need to be in the office right now, and why?",On leave. On maternity leave (ZEN-POL-003),"ZV-1031, ZEN-POL-002"
+Q178,personalised,2,"How many days a week does Sneha Hegde need to be in the office right now, and why?",Hybrid (3 days WFO). Standard rule (ZEN-POL-002),"ZV-1028, ZEN-POL-002"
+Q179,personalised,2,"How many days a week does Kiran Kumar Patnaik need to be in the office right now, and why?",On-site shift roster. Customer Support shift staff work on site (ZEN-DPL-CSC-01),"ZV-1027, ZEN-POL-002"
+Q180,personalised,2,"How many days a week does Gaurav Malhotra need to be in the office right now, and why?",Hybrid (3 days WFO). Standard rule (ZEN-POL-002),"ZV-1009, ZEN-POL-002"
+Q181,personalised,2,What is Sneha Hegde's notice period?,60 days (band Z3),"ZV-1028, ZEN-POL-003"
+Q182,personalised,2,What is Karthik Naidu's notice period?,90 days (band Z6),"ZV-1003, ZEN-POL-003"
+Q183,personalised,2,What is Gaurav Malhotra's notice period?,120 days (band Z7),"ZV-1009, ZEN-POL-003"
+Q184,personalised,2,What is Arjun Menon's notice period?,30 days (still on probation),"ZV-1042, ZEN-POL-003"
+Q185,personalised,2,Is Karthik Naidu eligible for a sabbatical as of 10 Oct 2026?,Yes. Joined 14 Sep 2015 (11.1 years of service; 5 years required).,"ZV-1003, ZEN-POL-003"
+Q186,personalised,2,Is Sneha Hegde eligible for a sabbatical as of 10 Oct 2026?,Yes. Joined 14 Jun 2021 (5.3 years of service; 5 years required).,"ZV-1028, ZEN-POL-003"
+Q187,personalised,2,Is Imran Qureshi eligible for a sabbatical as of 10 Oct 2026?,No. Joined 2 May 2023 (3.4 years of service; 5 years required).,"ZV-1036, ZEN-POL-003"
+Q188,personalised,2,Is Harsha Vardhan eligible for a sabbatical as of 10 Oct 2026?,No. Joined 2 Jun 2025 (1.4 years of service; 5 years required).,"ZV-1041, ZEN-POL-003"
+Q189,personalised,2,Is Naveen Reddy eligible for a sabbatical as of 10 Oct 2026?,Yes. Joined 2 Jul 2018 (8.3 years of service; 5 years required).,"ZV-1013, ZEN-POL-003"
+Q190,personalised,2,Is Zaid Ansari eligible for a sabbatical as of 10 Oct 2026?,No. Joined 13 Jan 2025 (1.7 years of service; 5 years required).,"ZV-1040, ZEN-POL-003"
+Q191,personalised,3,What is the maximum hotel cost per night for Arjun Menon on a trip to Mumbai?,"INR 4,500 (band Z2, Tier-1 city)","ZV-1042, ZEN-DPL-FIN-01"
+Q192,personalised,3,What is the maximum hotel cost per night for Karthik Naidu on a trip to Visakhapatnam?,"INR 5,500 (band Z6, Tier-2 city)","ZV-1003, ZEN-DPL-FIN-01"
+Q193,personalised,3,What is the maximum hotel cost per night for Gaurav Malhotra on a trip to Pune?,"INR 11,000 (band Z7, Tier-1 city)","ZV-1009, ZEN-DPL-FIN-01"
+Q194,personalised,3,What is the maximum hotel cost per night for Lavanya Murthy on a trip to Chennai?,"INR 7,000 (band Z4, Tier-1 city)","ZV-1021, ZEN-DPL-FIN-01"
+Q195,personalised,3,What is the maximum hotel cost per night for Sai Teja Chowdary on a trip to Visakhapatnam?,"INR 3,500 (band Z3, Tier-2 city)","ZV-1037, ZEN-DPL-FIN-01"
+Q196,personalised,3,What is the maximum hotel cost per night for Ramesh Iyengar on a trip to Bengaluru?,"INR 11,000 (band Z7, Tier-1 city)","ZV-1008, ZEN-DPL-FIN-01"
+Q197,personalised,3,"Who approves a business trip costing INR 60,000 for Sneha Hegde?","The department head, Karthik Naidu, because the amount is between INR 25,001 and INR 1,00,000.","ZV-1028, ZEN-DPL-FIN-01"
+Q198,personalised,3,"Who approves a business trip costing INR 60,000 for Mohan Krishna?","The department head, Deepa Venkatesh, because the amount is between INR 25,001 and INR 1,00,000.","ZV-1018, ZEN-DPL-FIN-01"
+Q199,personalised,3,"Who approves a business trip costing INR 60,000 for Priyanka Choudhury?","The department head, Gaurav Malhotra, because the amount is between INR 25,001 and INR 1,00,000.","ZV-1016, ZEN-DPL-FIN-01"
+Q200,personalised,3,"Who approves a business trip costing INR 60,000 for Keerthi Nair?","The department head, Farhan Siddiqui, because the amount is between INR 25,001 and INR 1,00,000.","ZV-1022, ZEN-DPL-FIN-01"
+Q201,personalised,3,Who must approve a recommendation to terminate Divya Krishnamurthy's employment?,Karthik Naidu (department head) recommends; Head of People & Culture (Lakshmi Prasanna Varma) approves; the CEO (Arvind Kulkarni) gives final approval because the band is Z5 or above.,"ZV-1004, ZEN-POL-004"
+Q202,personalised,3,Who must approve a recommendation to terminate Naveen Reddy's employment?,Karthik Naidu (department head) recommends; Head of People & Culture (Lakshmi Prasanna Varma) approves. CEO final approval is only needed for band Z5 and above.,"ZV-1013, ZEN-POL-004"
+Q203,personalised,3,Who must approve a recommendation to terminate Isha Kapoor's employment?,Sunita Banerjee (department head) recommends; Head of People & Culture (Lakshmi Prasanna Varma) approves. CEO final approval is only needed for band Z5 and above.,"ZV-1029, ZEN-POL-004"
+Q204,personalised,1,Who is on maternity leave and until when?,"Pooja Agarwal, until 28 February 2027 (started 1 September 2026).",ZV-1031
+Q205,personalised,1,Who is serving a notice period and when is the last working day?,"Tarun Mehta; last working day 14 November 2026 (resigned 15 September 2026, 60-day notice).",ZV-1033
+Q206,personalised,2,When does Arjun Menon's induction period end?,18 Oct 2026 (90 calendar days after joining on 20 July 2026).,"ZV-1042, ZEN-POL-002"
+Q207,personalised,1,What are the dates for H1 FY2026-27 self-reviews and manager reviews?,Self-reviews 5 to 16 October 2026; manager reviews 19 to 30 October 2026.,ZEN-DPL-HR-01
+Q208,policy,1,How many days a week do I need to come to the office?,"Three days per week as per your team roster. Tuesday to Thursday are the anchor days. Some groups (new joiners in their first 90 days, people serving notice, trainees and Care Centre shift staff) work from office every working day.",ZEN-POL-002
+Q209,policy,1,I just joined. Can I work from home?,Not during your first 90 calendar days. Induction means working from the office on all working days.,ZEN-POL-002
+Q210,policy,1,I resigned. Do I still get remote days?,No. Employees serving notice work from office on all working days.,ZEN-POL-002
+Q211,policy,1,How many casual and sick leave days do I get?,8 casual leave and 8 sick leave days per financial year. A medical certificate is needed for sick leave of more than 2 consecutive days.,ZEN-POL-003
+Q212,policy,1,How does Earned Leave work?,"You earn 1.5 days a month (18 a year) from joining, and can use it after probation. You can carry forward up to a balance of 30 days; anything above is encashed in April.",ZEN-POL-003
+Q213,policy,1,What is the notice period?,"60 days for bands Z1 to Z3, 90 days for Z4 to Z6, 120 days for Z7 and Z8. During probation it is 30 days.",ZEN-POL-003
+Q214,policy,1,How long is maternity leave?,26 weeks for the first two children and 12 weeks from the third child.,ZEN-POL-003
+Q215,policy,1,Can I take a sabbatical?,"After 5 years of service you can take up to 4 weeks unpaid, with approval from your department head and the Head of People & Culture.",ZEN-POL-003
+Q216,policy,1,What happens if I get a verbal warning?,"It is Phase 1 of progressive discipline. If the issue continues, Phase 2 is a written warning with a PIP issued within 5 business days.",ZEN-POL-004
+Q217,policy,1,Can I appeal a disciplinary action?,Yes. Send your information within 5 business days to the Head of People & Culture. A final appeal goes to the CEO.,ZEN-POL-004
+Q218,policy,1,Which offences skip the warnings?,"Sexual harassment, theft or fraud, violence, working under the influence, intentional data breaches and illegal acts.",ZEN-POL-004
+Q219,policy,1,Can I use my company email for personal things?,No. Company email is for company business only.,ZEN-POL-005
+Q220,policy,1,Can I paste customer data into an AI chatbot?,"No, unless the tool is on the approved list for that data class. Never paste Confidential or Restricted data into unapproved tools.",ZEN-POL-005
+Q221,policy,1,I clicked a phishing link. What do I do?,Report it within 1 hour to security@zenvora.example or in #incidents. You will not be punished for reporting.,ZEN-POL-006
+Q222,policy,1,My laptop was stolen.,Report it within 2 hours to the helpdesk and security@zenvora.example.,ZEN-DPL-ITS-01
+Q223,policy,1,Who is on the POSH Internal Committee?,"Tanvi Deshpande (Presiding Officer), Deepa Venkatesh, Lavanya Murthy and external member Adv. Vasundhara Rao. Email posh@zenvora.example.",ZEN-POL-008
+Q224,policy,1,How long do I have to make a POSH complaint?,"3 months from the incident, extendable by 3 months.",ZEN-POL-008
+Q225,policy,1,Is there a cab for night shifts?,"Yes, for any shift ending between 20:00 and 06:00, with GPS tracking and a security escort for women on night routes.",ZEN-POL-007
+Q226,policy,1,How do I report an injury or near miss?,Within 24 hours through the EHS form in ZenPeople or ehs@zenvora.example.,ZEN-POL-007
+Q227,policy,1,What is my hotel limit when I travel?,"It depends on your band and the city tier. For example, Z4 to Z6 may spend INR 7,000 a night in a Tier-1 city and INR 5,500 in a Tier-2 city.",ZEN-DPL-FIN-01
+Q228,policy,1,Who approves my travel claim?,"Your manager up to INR 25,000, your department head up to INR 1,00,000 and the CFO above that. International trips need the CEO.",ZEN-DPL-FIN-01
+Q229,policy,1,When are appraisals?,Half-yearly. H1 FY2026-27 self-reviews are due 16 October 2026 and manager reviews by 30 October.,ZEN-DPL-HR-01
+Q230,policy,1,How many reviewers does my pull request need?,"One for most services. Two, including a Principal Engineer or Director, for billing, payments and authentication services.",ZEN-DPL-BKE-01
+Q231,policy,1,What must be true before QA signs off a release?,"Zero open P0 or P1 defects, regression pass rate at least 98 percent, 80 percent coverage on new code, a passing performance test and a clean security scan.",ZEN-DPL-QAT-01
+Q232,policy,1,What are the incident severities?,"SEV1 is a full outage, data loss or breach (acknowledge in 15 minutes). SEV2 is a major degradation (30 minutes). SEV3 is minor (4 hours). SEV4 is low impact (next business day).",ZEN-DPL-DCL-01
+Q233,policy,1,Who approves a 25 percent discount?,The CEO and CFO. The CRO can approve up to 20 percent.,ZEN-DPL-SAM-01
+Q234,policy,1,What are the Care Centre shifts?,"A: 06:00 to 15:00. B: 13:00 to 22:00. C (night, voluntary): 21:00 to 06:00.",ZEN-DPL-CSC-01
+Q235,policy,1,What are the support SLA targets?,"P1: 15 minutes first response, 4 hours resolution. P2: 1 hour and 8 hours. P3: 4 hours and 24 hours. P4: 1 business day and 3 business days.",ZEN-DPL-CSC-01
+Q236,policy,1,Who do I contact for IT help?,Slack #ask-it or it-helpdesk@zenvora.example. Helpdesk runs 08:00 to 20:00 IST on weekdays.,ZEN-DPL-ITS-01
+Q237,policy,1,Can I do freelance work on weekends?,"Not without written approval from your department head and the Head of People & Culture, and never for competing work.",ZEN-POL-001
+Q238,policy,1,Do I have to declare a gift from a customer?,"Yes if it is worth more than INR 3,000, within 7 days of receiving it.",ZEN-POL-001
+Q239,cross_document,2,Which policies refer to the Progressive Discipline Policy (ZEN-POL-004)?,ZEN-DPL-FIN-01 (Travel and Expense Reimbursement Policy); ZEN-DPL-HR-01 (Performance Management and Appraisal Policy); ZEN-POL-001 (Code of Conduct and Business Ethics Policy); ZEN-POL-002 (Hybrid Work Policy); ZEN-POL-003 (Leave Policy); ZEN-POL-005 (Acceptable Use and Electronic Communication Policy); ZEN-POL-006 (Information Security Policy); ZEN-POL-008 (Prevention of Sexual Harassment (POSH) Policy),"ZEN-DPL-FIN-01, ZEN-DPL-HR-01, ZEN-POL-001, ZEN-POL-002, ZEN-POL-003, ZEN-POL-005, ZEN-POL-006, ZEN-POL-008"
+Q240,cross_document,2,Which policies refer to the Information Security Policy (ZEN-POL-006)?,"ZEN-DPL-BKE-01 (Backend Engineering Standards and Code Review Policy); ZEN-DPL-DAI-01 (Data Governance and Responsible AI Policy); ZEN-DPL-DCL-01 (Cloud Operations, On-call and Incident Management Policy); ZEN-DPL-ITS-01 (Asset Management and Access Control Policy); ZEN-DPL-SAM-01 (Sales Discounts, Contracts and Marketing Communications Policy); ZEN-POL-001 (Code of Conduct and Business Ethics Policy); ZEN-POL-002 (Hybrid Work Policy); ZEN-POL-004 (Progressive Discipline Policy); ZEN-POL-005 (Acceptable Use and Electronic Communication Policy)","ZEN-DPL-BKE-01, ZEN-DPL-DAI-01, ZEN-DPL-DCL-01, ZEN-DPL-ITS-01, ZEN-DPL-SAM-01, ZEN-POL-001, ZEN-POL-002, ZEN-POL-004, ZEN-POL-005"
+Q241,cross_document,2,"Which policies refer to the Cloud Operations, On-call and Incident Management Policy (ZEN-DPL-DCL-01)?","ZEN-DPL-BKE-01 (Backend Engineering Standards and Code Review Policy); ZEN-DPL-CSC-01 (Support Operations, Shift and SLA Policy); ZEN-DPL-DAI-01 (Data Governance and Responsible AI Policy); ZEN-DPL-FME-01 (Frontend and Mobile Release and Accessibility Policy); ZEN-DPL-ITS-01 (Asset Management and Access Control Policy); ZEN-DPL-QAT-01 (Quality Gates and Release Sign-off Policy); ZEN-POL-006 (Information Security Policy)","ZEN-DPL-BKE-01, ZEN-DPL-CSC-01, ZEN-DPL-DAI-01, ZEN-DPL-FME-01, ZEN-DPL-ITS-01, ZEN-DPL-QAT-01, ZEN-POL-006"
+Q242,cross_document,2,Which policies refer to the Data Governance and Responsible AI Policy (ZEN-DPL-DAI-01)?,"ZEN-DPL-CSC-01 (Support Operations, Shift and SLA Policy); ZEN-DPL-QAT-01 (Quality Gates and Release Sign-off Policy); ZEN-POL-005 (Acceptable Use and Electronic Communication Policy); ZEN-POL-006 (Information Security Policy)","ZEN-DPL-CSC-01, ZEN-DPL-QAT-01, ZEN-POL-005, ZEN-POL-006"
+Q243,cross_document,3,Who is the Presiding Officer of the POSH Internal Committee and who does she report to?,"Tanvi Deshpande (HR Business Partner); she reports to Lakshmi Prasanna Varma, Head of People & Culture.","ZEN-POL-008, ZV-1019"
+Q244,cross_document,3,"Who prepared and who approved the Hybrid Work Policy, and what are their titles?",Prepared by Tanvi Deshpande (HR Business Partner); reviewed by Lakshmi Prasanna Varma (Head of People & Culture); approved by Arvind Kulkarni (Founder & CEO).,ZEN-POL-002
+Q245,cross_document,3,"Which department owns the Cloud Operations, On-call and Incident Management Policy and who wrote it?",DevOps & Cloud Infrastructure; prepared by Prakash Raman.,ZEN-DPL-DCL-01
+Q246,cross_document,3,A Z3 engineer on notice period asks to work from home on Mondays. What is the answer?,No. Employees serving notice work from office on all working days (ZEN-POL-002).,"ZEN-POL-002, ZEN-POL-003"
+Q247,cross_document,3,A Customer Support specialist wants to work from home on Fridays. Is that allowed?,"No. Support staff on the Care Centre shift roster work on site, except in a declared contingency (ZEN-DPL-CSC-01 and ZEN-POL-002).","ZEN-DPL-CSC-01, ZEN-POL-002"
+Q248,cross_document,3,"If a security incident is a data breach, how quickly must it be reported internally and to CERT-In?",Internally within 1 hour of discovery; the CISO reports to CERT-In within 6 hours where legally required.,ZEN-POL-006
+Q249,cross_document,3,"Who certified Zenvora under ISO 27001, when, and who led that project?","The ISO/IEC 27001:2022 certificate was issued on 20 February 2025 through Project Sentinel, led by Manoj Thomas (CISO).","PJ04, ZEN-POL-006"
+Q250,cross_document,3,"Which project reduced cloud costs and by how much, and who sponsored it?","Project Ember cut annual AWS spend by 31 percent (about INR 92 lakh a year); sponsored by Ramesh Iyengar (CFO), led by Prakash Raman.",PJ07
+Q251,cross_document,3,Who runs the Care Centre pilot of Sage and what was the result?,Lavanya Murthy led the pilot; it deflected 38 percent of Tier-1 tickets (Project Sage).,PJ08

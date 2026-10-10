@@ -1,0 +1,28 @@
+project_id,goal
+PJ01,Cut deploy time from days to under an hour
+PJ01,Bring p95 API latency below 250 ms
+PJ01,Let teams deploy services independently
+PJ02,One system of record for employee data
+PJ02,Automated payroll with statutory filings
+PJ02,"Self-service leave, attendance and expense claims"
+PJ03,Single source of truth for product and finance data
+PJ03,Hourly freshness for Tier-1 tables
+PJ03,PII masking and governed access
+PJ04,ISO 27001 certificate
+PJ04,SOC 2 Type I then Type II
+PJ04,Security training and access reviews that run themselves
+PJ05,Crash-free sessions above 99.5 percent
+PJ05,App store rating above 4.5
+PJ05,Offline-first inbox
+PJ06,Support four new client brands
+PJ06,Hire and train 12 in-house agents plus partner overflow
+PJ06,Keep CSAT at 90 percent or above during ramp
+PJ07,Cut annual AWS spend by 25 percent
+PJ07,Tag every resource to a team and product
+PJ07,Monthly cost review with Finance
+PJ08,Deflect at least 35 percent of Tier-1 tickets
+PJ08,Hallucination rate below 2 percent on the golden set
+PJ08,General availability by 2026-11-30
+PJ09,Churn model with at least 0.80 AUC
+PJ09,Insights dashboard in the web app
+PJ09,Beta with 25 customers by 2026-12-15

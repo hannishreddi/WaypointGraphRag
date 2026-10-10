@@ -1,0 +1,9 @@
+band,level,meaning,notice_period_days
+Z1,Trainee / Intern,"Learning role, full-time induction on site.",60
+Z2,Associate,"Early career, works with close guidance.",60
+Z3,Engineer / Specialist / Executive,Independent contributor on well-defined work.,60
+Z4,Senior / Lead Specialist,"Owns a component or customer segment, mentors others.",90
+Z5,Principal / Manager / Team Lead,Owns a team outcome or a major component.,90
+Z6,Director / Department Head,Runs a department and its budget.,90
+Z7,Vice President / Chief / Head of Function,"Leads a function, member of the leadership team.",120
+Z8,Founder-Executive (C-suite),Founders and top executives.,120
