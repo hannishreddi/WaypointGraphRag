@@ -32,10 +32,15 @@ Read `docs/DESIGN.md` for the design and `PLAN.md` for the build order. Work thr
 Windows: run every target with `mingw32-make`.
 - `make install` deps into .venv · `make up` start Neo4j and wait until healthy (http://localhost:7474) · `make down` stop it
 - `make load` build the graph from CSVs (1.2) · `make index` chunk, embed, create indexes (1.3)
-- `make test` unit tests · `make eval-dev` · `make eval-test` · `make serve` run API and UI on http://localhost:8000
+- `make test` unit tests (neo4j-marked tests skip with a reason if Neo4j is down) · `make test-graph` only the neo4j-marked tests, fails if Neo4j is unreachable (sets REQUIRE_NEO4J=1) · `make eval-dev` · `make eval-test` · `make serve` run API and UI on http://localhost:8000
 - Reset only this project's Neo4j data: `docker compose down -v` (volumes `mini_project_graph_rag_neo4j_*`). The unrelated `neo4j-local` container and its `neo4j_data`/`neo4j_logs` volumes are not ours; leave them alone.
+
+## Decisions
+- 1.2 graph has the 12 labels of `neo4j_import.cypher` (391 nodes). PolicySection nodes are created in 1.3 together with Document/Chunk; Event nodes are under "Later" in PLAN.md.
+- Skill nodes are loaded exactly as in the CSV; alias normalisation belongs to 2.1.
+- Graph reads go through `waypoint.graph.db.run_read` (guard + `execute_read`).
 
 ## When unsure
 Ask me one short question with a recommended default. Do not expand scope beyond PLAN.md; list ideas under "Later" in PLAN.md instead.
 
-Status: slice 1.1 done, next 1.2
+Status: slice 1.2 done, next 1.3

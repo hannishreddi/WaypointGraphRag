@@ -28,4 +28,5 @@ include = ["waypoint*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-markers = ["neo4j: needs a running Neo4j (make up)"]
+markers = ["neo4j: needs a running Neo4j (make up); `make test-graph` fails instead of skipping"]
+filterwarnings = ["ignore:'asyncio.iscoroutinefunction' is deprecated:DeprecationWarning:neo4j"]
