@@ -1,6 +1,6 @@
 """Eval runner (PLAN 1.4). Only `make eval-test` may pass --split test (rule 2).
 
-    python -m waypoint.eval.run --split dev --system echo [--limit N] [--no-judge]
+    python -m waypoint.eval.run --split dev --system echo [--limit N] [--ids Q003 Q052 ...] [--no-judge]
 
 Writes eval_runs/<YYYYmmdd-HHMMSS>_<system>_<split>/ with results.csv, summary.md
 (by hops and by category), run_config.json and judge_review.csv (a seeded 10% sample
@@ -15,6 +15,10 @@ command resumes where it stopped and redoes nothing. Error rows are not checkpoi
 so they are retried. A QuotaStop (daily quota, or one request larger than the
 per-minute quota) ends the run cleanly with the checkpoint kept; the output files are
 written once every question is done.
+
+--ids runs only the chosen questions of the split (unknown ids are an error, so a test
+id cannot be named on the dev split). The subset shares the checkpoint of the full run:
+the ids are not part of the config hash, so a later full run reuses the finished rows.
 """
 from __future__ import annotations
 
@@ -146,7 +150,8 @@ def _summary(rows: list[dict[str, Any]], config: dict[str, Any], judge: Judge | 
         return out
 
     skipped = sum(r["status"] == "skipped" for r in rows)
-    lines = [f"# Eval: {config['system']} on {config['split']}", "",
+    lines = [f"# Eval: {config['system']} on {config['split']}"
+             f"{' (subset: ' + ' '.join(config['ids']) + ')' if config.get('ids') else ''}", "",
              f"- as of {config['as_of']} | commit {config['git_commit'][:10]}{' (dirty)' if config['git_dirty'] else ''}"
              f" | {len(rows)} questions | default asker {config['default_asker']}",
              "- score: mean over scored rows (exact, set-F1, judge 1 / 0.5 / 0); skipped rows are excluded",
@@ -194,18 +199,31 @@ def _load_checkpoint(path: Path) -> dict[str, dict[str, Any]]:
     return done
 
 
+def select_questions(questions: list[qmod.Question], ids: list[str] | None) -> list[qmod.Question]:
+    """The questions with the given ids, in split order; every id must be in the split."""
+    if not ids:
+        return questions
+    known = {q.id for q in questions}
+    unknown = [i for i in ids if i not in known]
+    if unknown:
+        raise ValueError(f"not in this split: {', '.join(unknown)}")
+    wanted = set(ids)
+    return [q for q in questions if q.id in wanted]
+
+
 def run_eval(*, split: str, system: System, judge: Judge | None, out_root: Path = EVAL_RUNS_DIR,
-             limit: int | None = None, as_of: date = DEFAULT_AS_OF,
+             limit: int | None = None, ids: list[str] | None = None, as_of: date = DEFAULT_AS_OF,
              models: dict[str, str | None] | None = None,
              api_calls: Callable[[], int] | None = None, checkpoint_dir: Path | None = None,
              waits: Callable[[], float] | None = None) -> Path:
     """Evaluate `system` on `split`, resuming from its checkpoint. Raises RunStopped on a QuotaStop."""
     if getattr(system, "dev_only", False) and split != "dev":
         raise ValueError(f"{system.name} runs on the dev split only")
-    questions = qmod.load_questions(split)[:limit]
+    questions = select_questions(qmod.load_questions(split), ids)[:limit]
     config: dict[str, Any] = {
         "system": system.name, "system_config": getattr(system, "config_id", ""), "split": split,
-        "as_of": as_of.isoformat(), "limit": limit, "n_questions": len(questions), "models": models or {},
+        "as_of": as_of.isoformat(), "limit": limit, "ids": ids, "n_questions": len(questions),
+        "models": models or {},
         "judge": None if judge is None else {"model": judge.model, "prompt_version": PROMPT_VERSION},
         "default_asker": qmod.DEFAULT_ASKER, "asker_overrides": qmod.ASKER_OVERRIDES,
         "git_commit": _git("rev-parse", "HEAD"), "git_dirty": bool(_git("status", "--porcelain")),
@@ -263,6 +281,7 @@ def main(argv: list[str] | None = None) -> Path:
     p.add_argument("--split", choices=["dev", "test"], required=True)
     p.add_argument("--system", choices=sorted(SYSTEMS), default="echo")
     p.add_argument("--limit", type=int, default=None, help="first N questions of the split")
+    p.add_argument("--ids", nargs="+", default=None, help="run only these question ids of the split")
     p.add_argument("--no-judge", action="store_true", help="skip judge-routed rows (no API calls)")
     p.add_argument("--out", type=Path, default=EVAL_RUNS_DIR, help=argparse.SUPPRESS)
     args = p.parse_args(argv)
@@ -287,10 +306,13 @@ def main(argv: list[str] | None = None) -> Path:
         judge = Judge(client, model=str(models["model_fast"]))
     try:
         out = run_eval(split=args.split, system=system, judge=judge, out_root=args.out, limit=args.limit,
+                       ids=args.ids,
                        models=models, api_calls=client.total_requests if client is not None else None,
                        waits=getattr(client, "total_wait_s", None))
     except RunStopped as exc:
         raise SystemExit(f"run stopped cleanly: {exc}") from None
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from None
     print(f"wrote {out}\n")
     print((out / "summary.md").read_text(encoding="utf-8"))
     return out

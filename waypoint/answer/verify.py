@@ -24,6 +24,7 @@ from dataclasses import dataclass, field
 from waypoint.answer.pack import ContextPack
 from waypoint.retrieval.linking import link_entities
 
+VERSION = "verify-v1"  # part of S5's config_id: a change re-answers checkpointed questions
 Date = tuple[int | None, int, int | None]  # (year, month, day)
 
 _MONTHS = {"jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6, "jul": 7, "aug": 8, "sep": 9,

@@ -171,3 +171,24 @@ def test_latency_excl_wait_and_trace_columns(tmp_path: Path) -> None:
         assert r["verifier"] == "pass" and json.loads(r["trace"]) == {"verifier": "pass"}
     summary = (out / "summary.md").read_text(encoding="utf-8")
     assert "p50 latency excl. wait ms" in summary and "verifier: {'pass': 3}" in summary
+
+
+def test_ids_runs_only_chosen_questions(tmp_path: Path) -> None:
+    dev = load_split_ids("dev")
+    chosen = [dev[5], dev[1]]
+    system = RecordingSystem()
+    out = runmod.run_eval(split="dev", system=system, judge=None, out_root=tmp_path, ids=chosen,
+                          models={"model_fast": "f", "model_answer": "a"})
+    assert [r["id"] for r in read_rows(out / "results.csv")] == [dev[1], dev[5]]  # split order
+    assert len(system.calls) == 2
+    assert json.loads((out / "run_config.json").read_text(encoding="utf-8"))["ids"] == chosen
+    assert "subset" in (out / "summary.md").read_text(encoding="utf-8")
+    # the subset shares the full run's checkpoint: a full run re-answers only the other 58
+    full = runmod.run_eval(split="dev", system=system, judge=None, out_root=tmp_path,
+                           models={"model_fast": "f", "model_answer": "a"})
+    assert len(system.calls) == 60 and len(read_rows(full / "results.csv")) == 60
+
+
+def test_ids_outside_split_rejected(tmp_path: Path) -> None:
+    with pytest.raises(ValueError, match="not in this split"):
+        runmod.run_eval(split="dev", system=RecordingSystem(), judge=None, out_root=tmp_path, ids=["Q999"])

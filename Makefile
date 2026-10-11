@@ -29,9 +29,9 @@ test-graph: export REQUIRE_NEO4J = 1
 test-graph:  ## neo4j-marked tests only; fail if Neo4j is unreachable
 	$(PY) -m pytest -q -m neo4j
 
-# make eval-dev SYSTEM=echo LIMIT=10 NO_JUDGE=1
+# make eval-dev SYSTEM=echo LIMIT=10 NO_JUDGE=1 IDS="Q003 Q052"
 SYSTEM ?= echo
-EVAL_FLAGS = --system $(SYSTEM) $(if $(LIMIT),--limit $(LIMIT)) $(if $(NO_JUDGE),--no-judge)
+EVAL_FLAGS = --system $(SYSTEM) $(if $(LIMIT),--limit $(LIMIT)) $(if $(IDS),--ids $(IDS)) $(if $(NO_JUDGE),--no-judge)
 
 eval-dev:  ## dev split (60 questions)
 	$(PY) -m waypoint.eval.run --split dev $(EVAL_FLAGS)

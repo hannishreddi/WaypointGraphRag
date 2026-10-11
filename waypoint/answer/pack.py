@@ -29,6 +29,7 @@ from waypoint.retrieval.plan import Evidence, StepResult, merge
 from waypoint.retrieval.router import Route
 from waypoint.rules.engine import RuleResult
 
+VERSION = "pack-v1"  # part of S5's config_id: a change re-answers checkpointed questions
 Kind = Literal["identity", "graph", "rule", "passage", "unresolved", "note"]
 _SECTION = re.compile(r"^s(\d+)$")
 

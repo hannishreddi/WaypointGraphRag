@@ -24,7 +24,9 @@ from neo4j import Driver
 
 from waypoint.answer.generate import NOT_FOUND, generate
 from waypoint.answer.generate import PROMPT_VERSION as ANSWER_PROMPT
+from waypoint.answer.pack import VERSION as PACK_VERSION
 from waypoint.answer.pack import build_pack
+from waypoint.answer.verify import VERSION as VERIFIER_VERSION
 from waypoint.answer.verify import verify
 from waypoint.config import get_settings
 from waypoint.contract import Response, Usage
@@ -45,7 +47,8 @@ class S5Waypoint:
                  embedder: QueryEmbedder | None = None, router: Router | None = None) -> None:
         self.client, self.model, self.driver, self.embedder = client, model_answer, driver, embedder
         self.router = router or Router(client, model=model_fast)
-        self.config_id = f"{ANSWER_PROMPT}:{ROUTER_PROMPT}:{model_answer}:{model_fast}"
+        self.config_id = (f"{ANSWER_PROMPT}:{ROUTER_PROMPT}:{PACK_VERSION}:{VERIFIER_VERSION}:"
+                          f"{model_answer}:{model_fast}")
 
     @classmethod
     def from_settings(cls) -> S5Waypoint:
