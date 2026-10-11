@@ -28,8 +28,9 @@ Gate: a scoreboard with S1 and S3 numbers on the dev split.
 ## Day 2: the core (router, templates, rules, verifier)
 Gate: S5 beats S1 on 1-hop and 2-hop dev questions, and the rule tests pass.
 
-- [ ] **2.1 Entity linking.** "Build an alias table from employees, departments, projects, policies (full names, first names when unique, titles, IDs, short codes like ZEN-POL-004). Add `link_entities(text)` and tests."
+- [x] **2.1 Entity linking.** "Build an alias table from employees, departments, projects, policies (full names, first names when unique, titles, IDs, short codes like ZEN-POL-004). Add `link_entities(text)` and tests."
   - Note: Skill nodes are loaded exactly as in skills.csv (1.2). Skill alias normalisation (Python / Python (FastAPI) / Python scripting) is handled here.
+  - Done: `waypoint.retrieval.aliases` (672 aliases from 6 CSVs) and `waypoint.retrieval.linking.link_entities`. Dev report (`python -m waypoint.eval.linking_report`): recall 42/42 against `waypoint.eval.entities` (weak reference), 0 misses, 0 false links after the proper-name rule (Q137 "Finwise Analytics"). Organisations, locations and schools are not linked (out of 2.1 scope); the 2.2 previous-employer and location templates need them.
 - [ ] **2.2 Cypher templates.** "Implement the templates listed in DESIGN.md as parameterised functions returning rows plus the nodes and edges used (for the subgraph). One test per template against known answers from eval/questions.csv dev questions only."
 - [ ] **2.3 Rule engine.** "Implement predicates and the evaluator from DESIGN.md with derived attributes computed from `as_of`. Write predicates for the MVP rules. Tests: for every employee, computed work mode, notice period and tenure must match employees.csv at 2026-10-10; Arjun Menon must change at 2026-10-19; Pooja Agarwal must show on leave; Tarun Mehta full office."
 - [ ] **2.4 Router.** "Implement the router as one LLM call returning a Pydantic-validated JSON (intent, entities, needs_identity, confidence). On low confidence run two paths and merge. Evaluate routing accuracy on dev questions first."
