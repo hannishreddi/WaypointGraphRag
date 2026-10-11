@@ -1,4 +1,4 @@
-"""Systems the runner can evaluate, by name (`--system`). S5 registers here later."""
+"""Systems the runner can evaluate, by name (`--system`)."""
 from __future__ import annotations
 
 import time
@@ -20,8 +20,15 @@ class EchoSystem:
                         latency_ms=(time.perf_counter() - t0) * 1000)
 
 
+def _s5() -> System:
+    from waypoint.answer.system import S5Waypoint  # needs Neo4j and the router; import lazily
+
+    return S5Waypoint.from_settings()
+
+
 SYSTEMS: dict[str, Callable[[], System]] = {
     "echo": EchoSystem,
     "s1": S1VectorRAG.from_settings,
     "s3": S3FullContext.from_settings,
+    "s5": _s5,
 }

@@ -150,3 +150,24 @@ def test_show_dev_prints_only_dev(monkeypatch: pytest.MonkeyPatch, capsys: pytes
     assert requested == ["dev"]
     assert printed == real("dev") and len(printed) == 60
     assert "60 dev question(s)" in out
+
+
+class TracingSystem(RecordingSystem):
+    name = "tracing"
+
+    def answer(self, question: str, asker_id: str, as_of: date) -> Response:
+        self.waited += 2.0  # pretend the client slept 2 s for rate limiting
+        return super().answer(question, asker_id, as_of).model_copy(update={"trace": {"verifier": "pass"}})
+
+
+def test_latency_excl_wait_and_trace_columns(tmp_path: Path) -> None:
+    system = TracingSystem()
+    system.waited = 0.0
+    out = runmod.run_eval(split="dev", system=system, judge=None, out_root=tmp_path, limit=3,
+                          waits=lambda: system.waited)
+    rows = read_rows(out / "results.csv")
+    for r in rows:
+        assert float(r["latency_excl_wait_ms"]) == pytest.approx(float(r["latency_ms"]) - 2000, abs=0.2)
+        assert r["verifier"] == "pass" and json.loads(r["trace"]) == {"verifier": "pass"}
+    summary = (out / "summary.md").read_text(encoding="utf-8")
+    assert "p50 latency excl. wait ms" in summary and "verifier: {'pass': 3}" in summary

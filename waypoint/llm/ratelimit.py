@@ -16,6 +16,7 @@ class RateLimiter:
         self.rpm, self.min_rpm = rpm, min(min_rpm, rpm)
         self._clock, self._sleep = clock, sleep
         self._last: float | None = None
+        self.waited_s = 0.0  # total time spent sleeping in wait()
 
     def wait(self) -> float | None:
         """Block until the next request may start; return seconds idle since the
@@ -23,6 +24,7 @@ class RateLimiter:
         if self._last is not None:
             gap = self._clock() - self._last
             if gap < 60.0 / self.rpm:
+                self.waited_s += 60.0 / self.rpm - gap
                 self._sleep(60.0 / self.rpm - gap)
         now = self._clock()
         idle = None if self._last is None else now - self._last

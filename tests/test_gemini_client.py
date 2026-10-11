@@ -200,4 +200,5 @@ def test_rate_limiter_floor() -> None:
         lim.slow_down()
     assert lim.rpm == 1
     assert lim.wait() is None and lim.wait() == 60.0 and t.sleeps == [60.0]
+    assert lim.waited_s == 60.0  # pacing sleep is counted (latency excl. wait in the eval)
 

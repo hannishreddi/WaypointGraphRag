@@ -163,7 +163,8 @@ class Route:
     low_confidence: bool
     cached: bool = False
     llm_calls: int = 0  # complete() calls made now (0 when cached), validation retry included
-    usage: Usage = field(default_factory=Usage)
+    usage: Usage = field(default_factory=Usage)  # tokens spent now (empty when cached)
+    recorded_usage: Usage = field(default_factory=Usage)  # tokens of the call that produced it, cached or not
 
     @property
     def intent(self) -> str:
@@ -191,7 +192,8 @@ class Router:
         if path.is_file():
             rec = json.loads(path.read_text(encoding="utf-8"))
             out = RouterOutput.model_validate(rec["output"], context=ctx)
-            return Route(question, asker_id, out, links, out.confidence < self.low_confidence, cached=True)
+            return Route(question, asker_id, out, links, out.confidence < self.low_confidence, cached=True,
+                         recorded_usage=Usage.model_validate(rec.get("usage") or {}))
         counting = _Counting(self.client)
         try:
             out, usage = complete_json(counting, model=self.model, system=system_prompt(), prompt=user,
@@ -204,7 +206,7 @@ class Router:
             "output": out.model_dump(), "llm_calls": counting.n, "usage": usage.model_dump(),
             "date": datetime.now().date().isoformat()}, ensure_ascii=False, indent=1), encoding="utf-8")
         return Route(question, asker_id, out, links, out.confidence < self.low_confidence,
-                     llm_calls=counting.n, usage=usage)
+                     llm_calls=counting.n, usage=usage, recorded_usage=usage)
 
 
 def paths_to_run(route: Route) -> tuple[list[Step], list[Step] | None]:

@@ -5,6 +5,8 @@
 Writes eval_runs/<YYYYmmdd-HHMMSS>_<system>_<split>/ with results.csv, summary.md
 (by hops and by category), run_config.json and judge_review.csv (a seeded 10% sample
 of judged rows with an empty human_verdict column for hand checking).
+Latency is recorded in total and without client-side waiting (rate-limiter pacing and
+per-minute 429 sleeps, `waits`), and a system's `Response.trace` goes into results.csv.
 
 Checkpoint and resume: every finished question (answer + verdict) is appended to
 <out>/.checkpoints/<system>_<split>_<config hash>.jsonl. The hash covers the system and
@@ -44,8 +46,8 @@ REVIEW_FRACTION = 0.1
 REVIEW_SEED = 42
 FIELDS = ["id", "category", "hops", "asker_id", "scorer", "status", "score", "verdict", "reason",
           "source_recall", "citation_precision", "n_citations", "input_tokens", "output_tokens",
-          "cached_input_tokens", "api_calls", "latency_ms", "route", "detail", "question",
-          "expected_answer", "answer"]
+          "cached_input_tokens", "api_calls", "latency_ms", "latency_excl_wait_ms", "route", "verifier",
+          "trace", "detail", "question", "expected_answer", "answer"]
 REVIEW_FIELDS = ["id", "question", "expected_answer", "answer", "verdict", "reason", "human_verdict"]
 
 
@@ -70,11 +72,13 @@ def _run_dir(out_root: Path, system: str, split: str) -> Path:
     return path
 
 
-def _evaluate(q: qmod.Question, system: System, judge: Judge | None, as_of: date) -> dict[str, Any]:
+def _evaluate(q: qmod.Question, system: System, judge: Judge | None, as_of: date,
+              waits: Callable[[], float] | None = None) -> dict[str, Any]:
     asker = qmod.asker_for(q.id)
     row: dict[str, Any] = {"id": q.id, "category": q.category, "hops": q.hops, "asker_id": asker,
                            "question": q.question, "expected_answer": q.expected_answer}
     t0 = time.perf_counter()
+    waited0 = waits() if waits is not None else None
     try:
         resp = system.answer(q.question, asker, as_of)
     except QuotaStop:
@@ -84,6 +88,7 @@ def _evaluate(q: qmod.Question, system: System, judge: Judge | None, as_of: date
                       "detail": f"{type(exc).__name__}: {exc}", "answer": "", "source_recall": 0.0,
                       "latency_ms": round((time.perf_counter() - t0) * 1000, 1)}
     latency = (time.perf_counter() - t0) * 1000
+    waited_ms = (waits() - waited0) * 1000 if waits is not None and waited0 is not None else None
     recall, precision = source_metrics(gold_sources(q), resp.citations)
     result = score_answer(assign_scorer(q), q, resp.answer, load_entities())
     row |= {"scorer": result.kind, "score": result.score, "detail": result.detail, "answer": resp.answer,
@@ -91,6 +96,9 @@ def _evaluate(q: qmod.Question, system: System, judge: Judge | None, as_of: date
             "n_citations": len(resp.citations), "input_tokens": resp.usage.input_tokens,
             "output_tokens": resp.usage.output_tokens,
             "cached_input_tokens": resp.usage.cached_input_tokens, "latency_ms": round(latency, 1),
+            "latency_excl_wait_ms": None if waited_ms is None else round(latency - waited_ms, 1),
+            "verifier": resp.trace.get("verifier"),
+            "trace": json.dumps(resp.trace, ensure_ascii=False) if resp.trace else None,
             "status": "scored"}
     if result.kind == "judge":
         if judge is None:
@@ -113,17 +121,20 @@ def _fmt(v: float | None, digits: int = 2) -> str:
 def _table(title: str, groups: dict[str, list[dict[str, Any]]]) -> list[str]:
     lines = [f"## {title}", "",
              "| group | n | scored | skipped | score | source recall | citation precision | tokens/q "
-             "| cached in/q | p50 latency ms |",
-             "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|"]
+             "| cached in/q | p50 latency ms | p50 latency excl. wait ms |",
+             "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|"]
     for name, rows in groups.items():
         counted = [r for r in rows if r["status"] in ("scored", "error")]
         tokens = _mean((r.get("input_tokens") or 0) + (r.get("output_tokens") or 0) for r in rows)
         latency = statistics.median(r["latency_ms"] for r in rows) if rows else None
+        net = [r["latency_excl_wait_ms"] for r in rows if r.get("latency_excl_wait_ms") not in (None, "")]
+        latency_net = statistics.median(net) if net else None
         lines.append(
             f"| {name} | {len(rows)} | {len(counted)} | {sum(r['status'] == 'skipped' for r in rows)} "
             f"| {_fmt(_mean(r['score'] for r in counted))} | {_fmt(_mean(r['source_recall'] for r in rows))} "
             f"| {_fmt(_mean(r.get('citation_precision') for r in rows))} | {_fmt(tokens, 0)} "
-            f"| {_fmt(_mean(r.get('cached_input_tokens') or 0 for r in rows), 0)} | {_fmt(latency, 1)} |")
+            f"| {_fmt(_mean(r.get('cached_input_tokens') or 0 for r in rows), 0)} | {_fmt(latency, 1)} "
+            f"| {_fmt(latency_net, 1)} |")
     return lines + [""]
 
 
@@ -148,6 +159,10 @@ def _summary(rows: list[dict[str, Any]], config: dict[str, Any], judge: Judge | 
     calls = [r["api_calls"] for r in rows if r.get("api_calls") not in (None, "")]
     if calls:
         lines.append(f"- LLM API calls (answer + judge HTTP requests incl. retries, all sessions): {sum(calls)}")
+    verdicts = [r.get("verifier") for r in rows if r.get("verifier")]
+    if verdicts:
+        counts = {v: verdicts.count(v) for v in sorted(set(verdicts))}
+        lines.append(f"- verifier: {counts} (regenerated/failed = triggered)")
     if config.get("resumed_rows"):
         lines.append(f"- resumed {config['resumed_rows']} finished rows from the checkpoint")
     lines += ["", *_table("Overall", {"all": rows}), *_table("By hops", group("hops")),
@@ -182,7 +197,8 @@ def _load_checkpoint(path: Path) -> dict[str, dict[str, Any]]:
 def run_eval(*, split: str, system: System, judge: Judge | None, out_root: Path = EVAL_RUNS_DIR,
              limit: int | None = None, as_of: date = DEFAULT_AS_OF,
              models: dict[str, str | None] | None = None,
-             api_calls: Callable[[], int] | None = None, checkpoint_dir: Path | None = None) -> Path:
+             api_calls: Callable[[], int] | None = None, checkpoint_dir: Path | None = None,
+             waits: Callable[[], float] | None = None) -> Path:
     """Evaluate `system` on `split`, resuming from its checkpoint. Raises RunStopped on a QuotaStop."""
     if getattr(system, "dev_only", False) and split != "dev":
         raise ValueError(f"{system.name} runs on the dev split only")
@@ -208,7 +224,7 @@ def run_eval(*, split: str, system: System, judge: Judge | None, out_root: Path 
             continue
         before = api_calls() if api_calls is not None else 0
         try:
-            row = _evaluate(q, system, judge, as_of)
+            row = _evaluate(q, system, judge, as_of, waits)
         except QuotaStop as exc:
             raise RunStopped(f"stopped at question {i + 1}/{len(questions)} ({q.id}): {exc}\n"
                              f"{len(rows)} finished questions are checkpointed in {ckpt}; "
@@ -271,7 +287,8 @@ def main(argv: list[str] | None = None) -> Path:
         judge = Judge(client, model=str(models["model_fast"]))
     try:
         out = run_eval(split=args.split, system=system, judge=judge, out_root=args.out, limit=args.limit,
-                       models=models, api_calls=client.total_requests if client is not None else None)
+                       models=models, api_calls=client.total_requests if client is not None else None,
+                       waits=getattr(client, "total_wait_s", None))
     except RunStopped as exc:
         raise SystemExit(f"run stopped cleanly: {exc}") from None
     print(f"wrote {out}\n")

@@ -81,6 +81,7 @@ class GeminiClient:
         self._limiters: dict[str, RateLimiter] = {}
         self.calls: dict[str, int] = {}  # generateContent HTTP requests per model, retries included
         self.rate_limited: dict[str, int] = {}  # 429s per model
+        self.quota_wait_s = 0.0  # seconds slept after per-minute 429s
 
     @classmethod
     def from_settings(cls) -> GeminiClient:
@@ -97,6 +98,11 @@ class GeminiClient:
 
     def total_requests(self) -> int:
         return sum(self.calls.values())
+
+    def total_wait_s(self) -> float:
+        """Client-side waiting so far: rate-limiter pacing plus sleeps after per-minute 429s
+        (not 5xx back-off). The eval reports latency with and without it."""
+        return self.quota_wait_s + sum(lim.waited_s for lim in self._limiters.values())
 
     def _body(self, system: str, prompt: str, max_tokens: int, json_mode: bool) -> dict[str, Any]:
         config: dict[str, Any] = {"temperature": self.temperature, "maxOutputTokens": max_tokens}
@@ -140,7 +146,9 @@ class GeminiClient:
                 if failures > self.max_retries:
                     raise LLMError(f"{model}: still rate limited after {self.max_retries} retries: {q.message}")
                 limiter.slow_down()
-                self._sleep(max(q.retry_after_s or 0.0, MINUTE_WAIT_S))
+                wait = max(q.retry_after_s or 0.0, MINUTE_WAIT_S)
+                self.quota_wait_s += wait
+                self._sleep(wait)
                 continue
             if resp.status_code >= 500:
                 failures = self._backoff(model, failures, f"HTTP {resp.status_code}: {resp.text[:200]}")

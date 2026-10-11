@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from datetime import date
-from typing import Annotated, Literal, Protocol, runtime_checkable
+from typing import Annotated, Any, Literal, Protocol, runtime_checkable
 
 from pydantic import BaseModel, Field
 
@@ -63,6 +63,9 @@ class Response(BaseModel):
     subgraph: Subgraph = Subgraph()
     usage: Usage = Usage()  # LLM tokens spent producing this answer
     latency_ms: float = 0.0
+    # Diagnostics for the eval (verifier outcome, router cache, ...). Not part of the
+    # contract: excluded from model_dump / JSON, so the API returns exactly the fields above.
+    trace: dict[str, Any] = Field(default_factory=dict, exclude=True)
 
 
 @runtime_checkable

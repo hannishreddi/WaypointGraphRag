@@ -37,8 +37,9 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, model_validat
 from waypoint.contract import Citation, ChunkCitation, Subgraph
 from waypoint.graph import templates as T
 from waypoint.graph.load import read_csv
+from waypoint.retrieval.access import search_for_asker
 from waypoint.retrieval.linking import LinkResult
-from waypoint.retrieval.search import DOC_TYPES, Hit, QueryEmbedder, search_text
+from waypoint.retrieval.search import DOC_TYPES, Hit, QueryEmbedder
 from waypoint.rules.engine import RuleResult, load_rules
 from waypoint.rules.engine import evaluate as evaluate_rule
 
@@ -350,9 +351,9 @@ def run_plan(plan: list[Step], *, driver: Driver, asker_id: str, as_of: date,
                 params = {a: v for a, v in args.items() if a != "subject"}
                 res.output = evaluate_rule(spec.name, args.get("subject"), asker_id, as_of, params,
                                            driver=driver if load_rules()[spec.name].people else None)
-            else:  # text_search, public chunks only until the 2.5 access filter
-                res.output = search_text(args["query"], k=k, doc_type=args.get("doc_type"),
-                                         entity_id=args.get("entity_id"), driver=driver, embedder=embedder)
+            else:  # text_search: restricted chunks only for the subject, their manager or HR
+                res.output = search_for_asker(args["query"], asker_id, k=k, doc_type=args.get("doc_type"),
+                                              entity_id=args.get("entity_id"), driver=driver, embedder=embedder)
         results.append(res)
     return results
 

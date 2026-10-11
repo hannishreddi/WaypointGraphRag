@@ -2,7 +2,7 @@
 
 Both run fixed queries through waypoint.graph.db.run_read_trusted (read transaction,
 parameters only). Restricted chunks are excluded unless include_restricted=True;
-the caller (2.5 access filter) decides that from the asker. To still return k
+answer paths never set it themselves: `waypoint.retrieval.access` decides per hit. To still return k
 public hits, the index is asked for k + the number of restricted chunks.
 
 Optional filters (PLAN 2.4): `doc_type` (one of DOC_TYPES) and `entity_id` (only chunks
@@ -55,12 +55,17 @@ def doc_ids_for(driver: Driver, entity_id: str) -> list[str]:
     return [r["doc_id"] for r in run_read(driver, DOC_IDS_FOR, {"id": entity_id})]
 
 
+def restricted_count(driver: Driver) -> int:
+    """Number of restricted chunks (the access filter over-fetches by this much)."""
+    return int(run_read_trusted(driver, "restricted_chunk_count", {})[0]["n"])
+
+
 def _n(driver: Driver, k: int, include_restricted: bool, filtered: bool) -> int:
     if filtered:
         return run_read_trusted(driver, "chunk_count", {})[0]["n"]
     if include_restricted:
         return k
-    return k + run_read_trusted(driver, "restricted_chunk_count", {})[0]["n"]
+    return k + restricted_count(driver)
 
 
 def _filters(driver: Driver, doc_type: str | None, entity_id: str | None) -> dict[str, Any]:
