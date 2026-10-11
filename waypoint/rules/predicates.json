@@ -1,0 +1,173 @@
+{
+  "WORK_MODE": {
+    "description": "Where the subject works at as_of: on leave, a full-WFO group, Care Centre roster, Austin remote-first, or the standard 3 days.",
+    "restricted": true,
+    "subject_params": ["department_code", "band", "base_city"],
+    "cases": [
+      {"id": "ON_LEAVE",
+       "when": {"attr": "status_category", "op": "==", "value": "on_leave"},
+       "result": {"work_mode": "On leave", "reason": "On leave: {status}"},
+       "sources": [{"policy": "ZEN-POL-003", "section": 3}]},
+      {"id": "SERVING_NOTICE",
+       "when": {"attr": "status_category", "op": "==", "value": "serving_notice"},
+       "result": {"work_mode": "Full WFO (all working days)", "reason": "Serving notice period: in office on all working days until the last working day"},
+       "sources": [{"policy": "ZEN-POL-002", "section": 4, "rule_id": "R004"}, {"policy": "ZEN-POL-003", "section": 5}]},
+      {"id": "TRAINEE_Z1",
+       "when": {"attr": "band", "op": "==", "value": "Z1"},
+       "result": {"work_mode": "Full WFO (all working days)", "reason": "Band Z1 trainees and interns work from office on all working days"},
+       "sources": [{"policy": "ZEN-POL-002", "section": 4, "rule_id": "R002"}]},
+      {"id": "INDUCTION",
+       "when": {"attr": "days_since_join", "op": "<=", "value": 90},
+       "result": {"work_mode": "Full WFO (all working days)", "reason": "Induction: first 90 days, until {induction_end|date}"},
+       "sources": [{"policy": "ZEN-POL-002", "section": 4, "rule_id": "R003"}]},
+      {"id": "UNALLOCATED",
+       "when": {"attr": "unallocated_working_days", "op": ">", "value": 10},
+       "result": {"work_mode": "Full WFO (all working days)", "reason": "Not allocated to any project or work stream for more than 10 working days"},
+       "sources": [{"policy": "ZEN-POL-002", "section": 4, "rule_id": "R005"}]},
+      {"id": "CARE_CENTRE_ROSTER",
+       "when": {"attr": "department_code", "op": "==", "value": "CSC"},
+       "result": {"work_mode": "On-site shift roster", "reason": "Customer Support shift staff work on site; working from home only in a declared contingency"},
+       "sources": [{"policy": "ZEN-POL-002", "section": 4, "rule_id": "R006"}, {"policy": "ZEN-DPL-CSC-01", "section": 3}]},
+      {"id": "AUSTIN_REMOTE_FIRST",
+       "when": {"attr": "base_city", "op": "==", "value": "Austin"},
+       "result": {"work_mode": "Remote-first (Austin)", "reason": "Austin Regional Supplement: Austin office employees are remote-first"},
+       "sources": [{"policy": "ZEN-POL-002", "section": 10, "rule_id": "R012"}]},
+      {"id": "STANDARD",
+       "when": {"all": []},
+       "result": {"work_mode": "Hybrid (3 days WFO)", "reason": "Standard rule: at least 3 days a week in office as set in the team roster; Tuesday to Thursday are anchor days"},
+       "sources": [{"policy": "ZEN-POL-002", "section": 3, "rule_id": "R001"}]}
+    ]
+  },
+  "NOTICE_PERIOD": {
+    "description": "Notice period in days: 30 during probation, otherwise by band.",
+    "restricted": true,
+    "cases": [
+      {"id": "IN_PROBATION",
+       "when": {"attr": "in_probation", "op": "==", "value": true},
+       "result": {"notice_period_days": 30, "reason": "On probation until {probation_end|date}"},
+       "sources": [{"policy": "ZEN-POL-003", "section": 5, "rule_id": "R018"}]},
+      {"id": "Z1_TO_Z3",
+       "when": {"attr": "band", "op": "in", "value": ["Z1", "Z2", "Z3"]},
+       "result": {"notice_period_days": 60, "reason": "Band {band}"},
+       "sources": [{"policy": "ZEN-POL-003", "section": 5, "rule_id": "R019"}]},
+      {"id": "Z4_TO_Z6",
+       "when": {"attr": "band", "op": "in", "value": ["Z4", "Z5", "Z6"]},
+       "result": {"notice_period_days": 90, "reason": "Band {band}"},
+       "sources": [{"policy": "ZEN-POL-003", "section": 5, "rule_id": "R019"}]},
+      {"id": "Z7_Z8",
+       "when": {"attr": "band", "op": "in", "value": ["Z7", "Z8"]},
+       "result": {"notice_period_days": 120, "reason": "Band {band}"},
+       "sources": [{"policy": "ZEN-POL-003", "section": 5, "rule_id": "R019"}]}
+    ]
+  },
+  "SABBATICAL_ELIGIBILITY": {
+    "description": "Unpaid sabbatical of up to 4 weeks, once, after at least 5 years of service.",
+    "cases": [
+      {"id": "ELIGIBLE",
+       "when": {"attr": "completed_service_years", "op": ">=", "value": 5},
+       "result": {"eligible": true, "reason": "Joined {join_date|date} ({tenure_years} years of service; 5 years required)", "max_weeks": 4, "approvals": "department head and Head of People & Culture"},
+       "sources": [{"policy": "ZEN-POL-003", "section": 7, "rule_id": "R020"}]},
+      {"id": "NOT_YET",
+       "when": {"attr": "completed_service_years", "op": "<", "value": 5},
+       "result": {"eligible": false, "reason": "Joined {join_date|date} ({tenure_years} years of service; 5 years required)"},
+       "sources": [{"policy": "ZEN-POL-003", "section": 7, "rule_id": "R020"}]}
+    ]
+  },
+  "HOTEL_CAP": {
+    "description": "Hotel limit per night by band and destination city tier.",
+    "params": ["city"],
+    "subject_params": ["band"],
+    "cases": [
+      {"id": "Z1_Z3_TIER1", "when": {"all": [{"attr": "band", "op": "in", "value": ["Z1", "Z2", "Z3"]}, {"attr": "city_tier", "op": "==", "value": 1}]},
+       "result": {"cap_inr": 4500, "reason": "Band {band}, Tier-{city_tier} city ({city})"}, "sources": [{"policy": "ZEN-DPL-FIN-01", "section": 4}]},
+      {"id": "Z1_Z3_TIER2", "when": {"all": [{"attr": "band", "op": "in", "value": ["Z1", "Z2", "Z3"]}, {"attr": "city_tier", "op": "==", "value": 2}]},
+       "result": {"cap_inr": 3500, "reason": "Band {band}, Tier-{city_tier} city ({city})"}, "sources": [{"policy": "ZEN-DPL-FIN-01", "section": 4}]},
+      {"id": "Z4_Z6_TIER1", "when": {"all": [{"attr": "band", "op": "in", "value": ["Z4", "Z5", "Z6"]}, {"attr": "city_tier", "op": "==", "value": 1}]},
+       "result": {"cap_inr": 7000, "reason": "Band {band}, Tier-{city_tier} city ({city})"}, "sources": [{"policy": "ZEN-DPL-FIN-01", "section": 4}]},
+      {"id": "Z4_Z6_TIER2", "when": {"all": [{"attr": "band", "op": "in", "value": ["Z4", "Z5", "Z6"]}, {"attr": "city_tier", "op": "==", "value": 2}]},
+       "result": {"cap_inr": 5500, "reason": "Band {band}, Tier-{city_tier} city ({city})"}, "sources": [{"policy": "ZEN-DPL-FIN-01", "section": 4}]},
+      {"id": "Z7_Z8_TIER1", "when": {"all": [{"attr": "band", "op": "in", "value": ["Z7", "Z8"]}, {"attr": "city_tier", "op": "==", "value": 1}]},
+       "result": {"cap_inr": 11000, "reason": "Band {band}, Tier-{city_tier} city ({city})"}, "sources": [{"policy": "ZEN-DPL-FIN-01", "section": 4}]},
+      {"id": "Z7_Z8_TIER2", "when": {"all": [{"attr": "band", "op": "in", "value": ["Z7", "Z8"]}, {"attr": "city_tier", "op": "==", "value": 2}]},
+       "result": {"cap_inr": 8500, "reason": "Band {band}, Tier-{city_tier} city ({city})"}, "sources": [{"policy": "ZEN-DPL-FIN-01", "section": 4}]}
+    ]
+  },
+  "EXPENSE_APPROVER": {
+    "description": "Who approves a trip or claim, by amount (INR); international trips go to the CEO; the CEO's own travel to the CFO.",
+    "params": ["amount", "international"],
+    "param_defaults": {"international": false},
+    "people": true,
+    "cases": [
+      {"id": "CEO_OWN_TRAVEL", "when": {"attr": "is_top", "op": "==", "value": true},
+       "result": {"roles": {"approver": "cfo"}, "reason": "The CEO's own travel is approved by the CFO"},
+       "sources": [{"policy": "ZEN-DPL-FIN-01", "section": 3, "rule_id": "R044"}]},
+      {"id": "INTERNATIONAL", "when": {"attr": "international", "op": "==", "value": true},
+       "result": {"roles": {"approver": "ceo", "budget": "cfo"}, "reason": "Any international trip: CEO, and CFO for budget"},
+       "sources": [{"policy": "ZEN-DPL-FIN-01", "section": 3, "rule_id": "R044"}]},
+      {"id": "UP_TO_25K", "when": {"attr": "amount", "op": "<=", "value": 25000},
+       "result": {"roles": {"approver": "manager"}, "reason": "Up to INR 25,000: reporting manager"},
+       "sources": [{"policy": "ZEN-DPL-FIN-01", "section": 3, "rule_id": "R044"}]},
+      {"id": "UP_TO_1L", "when": {"attr": "amount", "op": "<=", "value": 100000},
+       "result": {"roles": {"approver": "department_head"}, "reason": "INR 25,001 to INR 1,00,000: department head"},
+       "sources": [{"policy": "ZEN-DPL-FIN-01", "section": 3, "rule_id": "R044"}]},
+      {"id": "ABOVE_1L", "when": {"attr": "amount", "op": ">", "value": 100000},
+       "result": {"roles": {"approver": "cfo"}, "reason": "Above INR 1,00,000: Chief Financial Officer"},
+       "sources": [{"policy": "ZEN-DPL-FIN-01", "section": 3, "rule_id": "R044"}]}
+    ]
+  },
+  "TERMINATION_APPROVAL": {
+    "description": "Who recommends and approves terminating the subject: department head recommends, Head of People & Culture approves, CEO gives final approval for Z5 and above.",
+    "people": true,
+    "cases": [
+      {"id": "Z5_AND_ABOVE", "when": {"attr": "band", "op": "in", "value": ["Z5", "Z6", "Z7", "Z8"]},
+       "result": {"roles": {"recommends": "department_head", "approves": "hr_head", "final_approval": "ceo"}, "reason": "Band {band} is Z5 or above: CEO gives the final approval"},
+       "sources": [{"policy": "ZEN-POL-004", "section": 7, "rule_id": "R024"}]},
+      {"id": "BELOW_Z5", "when": {"attr": "band", "op": "in", "value": ["Z1", "Z2", "Z3", "Z4"]},
+       "result": {"roles": {"recommends": "department_head", "approves": "hr_head"}, "reason": "Band {band} is below Z5: Head of People & Culture approval is final"},
+       "sources": [{"policy": "ZEN-POL-004", "section": 7, "rule_id": "R024"}]}
+    ]
+  },
+  "LEAVE_ENTITLEMENTS": {
+    "description": "Leave entitlements per financial year (1 April to 31 March), and whether Earned Leave can be used yet.",
+    "base": {"entitlements": {
+      "Casual Leave (CL)": "8 days", "Sick Leave (SL)": "8 days", "Earned Leave (EL)": "18 days (1.5 per month)",
+      "Public holidays": "12 days", "Maternity leave": "26 weeks (first two children), 12 weeks (third child onwards)",
+      "Paternity leave": "10 working days", "Marriage leave": "5 working days", "Bereavement leave": "5 working days",
+      "Volunteer days": "2 days", "Compensatory off": "1 day per holiday or weekly off worked"},
+      "notes": "CL and SL are pro-rated in the year of joining; medical certificate for more than 2 consecutive sick days; EL carries forward up to a balance of 30 days"},
+    "cases": [
+      {"id": "IN_PROBATION", "when": {"attr": "in_probation", "op": "==", "value": true},
+       "result": {"earned_leave_available": false, "reason": "Earned Leave accrues from joining and can be used after probation, which ends {probation_end|date}"},
+       "sources": [{"policy": "ZEN-POL-003", "section": 3, "rule_id": "R013"}, {"policy": "ZEN-POL-003", "section": 3, "rule_id": "R014"},
+                   {"policy": "ZEN-POL-003", "section": 3, "rule_id": "R015"}, {"policy": "ZEN-POL-003", "section": 3, "rule_id": "R016"},
+                   {"policy": "ZEN-POL-003", "section": 3, "rule_id": "R017"}, {"policy": "ZEN-POL-003", "section": 5, "rule_id": "R018"}]},
+      {"id": "CONFIRMED", "when": {"attr": "in_probation", "op": "==", "value": false},
+       "result": {"earned_leave_available": true, "reason": "Probation ended {probation_end|date}"},
+       "sources": [{"policy": "ZEN-POL-003", "section": 3, "rule_id": "R013"}, {"policy": "ZEN-POL-003", "section": 3, "rule_id": "R014"},
+                   {"policy": "ZEN-POL-003", "section": 3, "rule_id": "R015"}, {"policy": "ZEN-POL-003", "section": 3, "rule_id": "R016"},
+                   {"policy": "ZEN-POL-003", "section": 3, "rule_id": "R017"}, {"policy": "ZEN-POL-003", "section": 5, "rule_id": "R018"}]}
+    ]
+  },
+  "INDUCTION_END": {
+    "description": "Last day of the 90-day induction (full WFO) and whether the subject is still in it.",
+    "cases": [
+      {"id": "IN_INDUCTION", "when": {"attr": "days_since_join", "op": "<=", "value": 90},
+       "result": {"induction_end": "{induction_end}", "in_induction": true},
+       "sources": [{"policy": "ZEN-POL-002", "section": 4, "rule_id": "R003"}]},
+      {"id": "INDUCTION_OVER", "when": {"attr": "days_since_join", "op": ">", "value": 90},
+       "result": {"induction_end": "{induction_end}", "in_induction": false},
+       "sources": [{"policy": "ZEN-POL-002", "section": 4, "rule_id": "R003"}]}
+    ]
+  },
+  "PROBATION_END": {
+    "description": "Last day of the 6-month probation and whether the subject is still on probation.",
+    "cases": [
+      {"id": "ON_PROBATION", "when": {"attr": "in_probation", "op": "==", "value": true},
+       "result": {"probation_end": "{probation_end}", "in_probation": true},
+       "sources": [{"policy": "ZEN-POL-003", "section": 5, "rule_id": "R018"}]},
+      {"id": "CONFIRMED", "when": {"attr": "in_probation", "op": "==", "value": false},
+       "result": {"probation_end": "{probation_end}", "in_probation": false},
+       "sources": [{"policy": "ZEN-POL-003", "section": 5, "rule_id": "R018"}]}
+    ]
+  }
+}

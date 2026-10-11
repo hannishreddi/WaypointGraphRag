@@ -25,6 +25,7 @@ include = ["waypoint*"]
 
 [tool.setuptools.package-data]
 "waypoint.api" = ["static/*"]
+"waypoint.rules" = ["predicates.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
