@@ -219,6 +219,8 @@ def run_eval(*, split: str, system: System, judge: Judge | None, out_root: Path 
     """Evaluate `system` on `split`, resuming from its checkpoint. Raises RunStopped on a QuotaStop."""
     if getattr(system, "dev_only", False) and split != "dev":
         raise ValueError(f"{system.name} runs on the dev split only")
+    if getattr(system, "safety_only", False):
+        raise ValueError(f"{system.name} is a safety-set baseline; run it with python -m waypoint.eval.safety")
     questions = select_questions(qmod.load_questions(split), ids)[:limit]
     config: dict[str, Any] = {
         "system": system.name, "system_config": getattr(system, "config_id", ""), "split": split,
@@ -295,6 +297,8 @@ def main(argv: list[str] | None = None) -> Path:
     system = SYSTEMS[args.system]()
     if getattr(system, "dev_only", False) and args.split != "dev":
         raise SystemExit(f"{args.system} runs on the dev split only")
+    if getattr(system, "safety_only", False):
+        raise SystemExit(f"{args.system} runs on the safety set only (python -m waypoint.eval.safety)")
     client = None
     if not args.no_judge or args.system != "echo":
         from waypoint.llm.client import get_llm_client
