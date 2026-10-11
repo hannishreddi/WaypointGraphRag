@@ -1,0 +1,694 @@
+[
+ {
+  "id": "Q003",
+  "question": "Who does Lakshmi Prasanna Varma report to?",
+  "asker_id": "ZV-1006",
+  "answer": "Arvind Kulkarni. He is the Founder & Chief Executive Officer.",
+  "issues_v1": [
+   "name 'Arvind Kulkarni. He' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "manager(employee_id=ZV-1006) returned 1 row\n- employee_id: ZV-1001; name: Arvind Kulkarni; title: Founder & Chief Executive Officer",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q052",
+  "question": "Who heads the Product & Design department?",
+  "asker_id": "ZV-1006",
+  "answer": "Sunita Banerjee. She is the Head of Product for the Product & Design department.",
+  "issues_v1": [
+   "name 'Sunita Banerjee. She' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "department_head(department_id=D08) returned 1 row\n- employee_id: ZV-1011; name: Sunita Banerjee; title: Head of Product; department_id: D08; department: Product & Design",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q058",
+  "question": "Who heads the IT & Information Security department?",
+  "asker_id": "ZV-1006",
+  "answer": "Manoj Thomas. He is the IT & Security Manager (CISO) for the IT & Information Security department.",
+  "issues_v1": [
+   "name 'Manoj Thomas. He' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "department_head(department_id=D11) returned 1 row\n- employee_id: ZV-1012; name: Manoj Thomas; title: IT & Security Manager (CISO); department_id: D11; department: IT & Information Security",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q062",
+  "question": "Who reports directly to Divya Krishnamurthy?",
+  "asker_id": "ZV-1006",
+  "answer": "Naveen Reddy; Sneha Hegde. These employees report directly to Divya Krishnamurthy.",
+  "issues_v1": [
+   "name 'Sneha Hegde. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "direct_reports(employee_id=ZV-1004) returned 2 rows\n- employee_id: ZV-1013; name: Naveen Reddy; title: Senior Backend Engineer\n- employee_id: ZV-1028; name: Sneha Hegde; title: Backend Engineer",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q064",
+  "question": "Who reports directly to Ananya Bhattacharya?",
+  "asker_id": "ZV-1006",
+  "answer": "Pooja Agarwal; Vikram Rajan. These employees report directly to Ananya Bhattacharya.",
+  "issues_v1": [
+   "name 'Vikram Rajan. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "direct_reports(employee_id=ZV-1017) returned 2 rows\n- employee_id: ZV-1031; name: Pooja Agarwal; title: Data Engineer\n- employee_id: ZV-1024; name: Vikram Rajan; title: Senior ML Engineer",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q068",
+  "question": "Who reports directly to Gaurav Malhotra?",
+  "asker_id": "ZV-1006",
+  "answer": "Ashwin Pillai; Meghana Prabhu; Priyanka Choudhury. These individuals are the direct reports of Gaurav Malhotra.",
+  "issues_v1": [
+   "name 'Priyanka Choudhury. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "direct_reports(employee_id=ZV-1009) returned 3 rows\n- employee_id: ZV-1034; name: Ashwin Pillai; title: Business Development Manager, US\n- employee_id: ZV-1023; name: Meghana Prabhu; title: Marketing Manager\n- employee_id: ZV-1016; name: Priyanka Choudhury; title: Enterprise Account Executive",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q087",
+  "question": "Who heads the department that Suresh Babu Kothapalli's manager belongs to?",
+  "asker_id": "ZV-1006",
+  "answer": "Arvind Kulkarni. He is the head of the Executive Office department.",
+  "issues_v1": [
+   "name 'Arvind Kulkarni. He' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "manager(employee_id=ZV-1014) returned 1 row\n- employee_id: ZV-1001; name: Arvind Kulkarni; title: Founder & Chief Executive Officer",
+    "path": "primary"
+   },
+   {
+    "id": "step2",
+    "kind": "graph",
+    "text": "employee_card(employee_id=ZV-1001) returned 1 row\n- employee_id: ZV-1001; name: Arvind Kulkarni; title: Founder & Chief Executive Officer; band: Z8; join_date: 2014-03-01; department_id: D00; department: Executive Office; location_id: L01; location: Hyderabad HQ",
+    "path": "primary"
+   },
+   {
+    "id": "step3",
+    "kind": "graph",
+    "text": "department_head(department_id=D00) returned 1 row\n- employee_id: ZV-1001; name: Arvind Kulkarni; title: Founder & Chief Executive Officer; department_id: D00; department: Executive Office",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q091",
+  "question": "Who heads the department that Pavan Kumar Goud's manager belongs to?",
+  "asker_id": "ZV-1006",
+  "answer": "Ramesh Iyengar. He is the head of the Finance & Accounts department, which is where Shalini Rao, the manager of Pavan Kumar Goud, works.",
+  "issues_v1": [
+   "name 'Ramesh Iyengar. He' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "manager(employee_id=ZV-1030) returned 1 row\n- employee_id: ZV-1015; name: Shalini Rao; title: Finance Controller",
+    "path": "primary"
+   },
+   {
+    "id": "step2",
+    "kind": "graph",
+    "text": "employee_card(employee_id=ZV-1015) returned 1 row\n- employee_id: ZV-1015; name: Shalini Rao; title: Finance Controller; band: Z5; join_date: 2018-11-05; department_id: D02; department: Finance & Accounts; location_id: L01; location: Hyderabad HQ",
+    "path": "primary"
+   },
+   {
+    "id": "step3",
+    "kind": "graph",
+    "text": "department_head(department_id=D02) returned 1 row\n- employee_id: ZV-1008; name: Ramesh Iyengar; title: Chief Financial Officer; department_id: D02; department: Finance & Accounts",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q096",
+  "question": "Which projects has Prakash Raman worked on?",
+  "asker_id": "ZV-1006",
+  "answer": "Project Atlas; Project Sentinel; Project Ember. These are the projects Prakash Raman (ZV-1005) has worked on.",
+  "issues_v1": [
+   "name 'Project Ember. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "projects_of(employee_id=ZV-1005) returned 3 rows\n- project_id: PJ01; project: Project Atlas; role: Platform and migration lead; from_date: 2022-08-01; to_date: 2024-03-31; is_current: no\n- project_id: PJ04; project: Project Sentinel; role: Infrastructure controls; from_date: 2024-04-01; to_date: 2025-09-30; is_current: no\n- project_id: PJ07; project: Project Ember; role: Project lead; from_date: 2025-08-01; to_date: 2025-12-19; is_current: no",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q102",
+  "question": "Which projects has Isha Kapoor worked on?",
+  "asker_id": "ZV-1006",
+  "answer": "Project Lighthouse; Project Sage; Project Nova. These are the projects Isha Kapoor (ZV-1029) has worked on.",
+  "issues_v1": [
+   "name 'Project Nova. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "projects_of(employee_id=ZV-1029) returned 3 rows\n- project_id: PJ05; project: Project Lighthouse; role: UX lead; from_date: 2024-06-03; to_date: 2026-05-31; is_current: no\n- project_id: PJ08; project: Project Sage; role: Conversation design; from_date: 2025-09-15; is_current: yes\n- project_id: PJ09; project: Project Nova; role: UX; from_date: 2026-06-01; is_current: yes",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q104",
+  "question": "Which departments contributed to Project Atlas?",
+  "asker_id": "ZV-1006",
+  "answer": "Backend Engineering; DevOps & Cloud Infrastructure; Quality Assurance. These departments contributed to Project Atlas.",
+  "issues_v1": [
+   "name 'Quality Assurance. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "project_departments(project_id=PJ01) returned 3 rows\n- department_id: D03; name: Backend Engineering\n- department_id: D07; name: DevOps & Cloud Infrastructure\n- department_id: D06; name: Quality Assurance",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q110",
+  "question": "Which departments contributed to Project Sentinel?",
+  "asker_id": "ZV-1006",
+  "answer": "Backend Engineering; DevOps & Cloud Infrastructure; Executive Office; Human Resources (People & Culture); IT & Information Security. These departments contributed to Project Sentinel.",
+  "issues_v1": [
+   "name '& Information Security. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "project_departments(project_id=PJ04) returned 5 rows\n- department_id: D03; name: Backend Engineering\n- department_id: D07; name: DevOps & Cloud Infrastructure\n- department_id: D00; name: Executive Office\n- department_id: D01; name: Human Resources (People & Culture)\n- department_id: D11; name: IT & Information Security",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q113",
+  "question": "Who sponsored Project Horizon and who led it?",
+  "asker_id": "ZV-1006",
+  "answer": "Suresh Babu Kothapalli sponsored Project Horizon and Suresh Babu Kothapalli led it.",
+  "issues_v1": [
+   "name 'Project Horizon and Suresh Babu Kothapalli' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "project_leadership(entity_id=PJ06) returned 2 rows\n- relation: SPONSORS; employee_id: ZV-1014; name: Suresh Babu Kothapalli; title: Head of Customer Care; target_id: PJ06; target: Project Horizon\n- relation: LEADS; employee_id: ZV-1014; name: Suresh Babu Kothapalli; title: Head of Customer Care; target_id: PJ06; target: Project Horizon",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q119",
+  "question": "Who sponsored Project Nova and who led it?",
+  "asker_id": "ZV-1006",
+  "answer": "Sunita Banerjee sponsored Project Nova and Rahul Khanna led it.",
+  "issues_v1": [
+   "name 'Project Nova and Rahul Khanna' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "project_leadership(entity_id=PJ09) returned 2 rows\n- relation: SPONSORS; employee_id: ZV-1011; name: Sunita Banerjee; title: Head of Product; target_id: PJ09; target: Project Nova\n- relation: LEADS; employee_id: ZV-1020; name: Rahul Khanna; title: Senior Product Manager; target_id: PJ09; target: Project Nova",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q122",
+  "question": "Who on Project Beacon works from Bengaluru?",
+  "asker_id": "ZV-1006",
+  "answer": "Nikhil Joshi; Vikram Rajan. These employees were assigned to the project team at the Bengaluru Engineering Hub.",
+  "issues_v1": [
+   "name 'Vikram Rajan. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "project_team(project_id=PJ03, location_id=L02) returned 2 rows\n- employee_id: ZV-1026; name: Nikhil Joshi; title: Site Reliability Engineer; role: Infrastructure and observability; from_date: 2023-05-01; to_date: 2025-02-28; is_current: no; location_id: L02; location: Bengaluru Engineering Hub; manager_id: ZV-1005\n- employee_id: ZV-1024; name: Vikram Rajan; title: Senior ML Engineer; role: Feature store and ML integration; from_date: 2023-05-01; to_date: 2025-02-28; is_current: no; location_id: L02; location: Bengaluru Engineering Hub; manager_id: ZV-1017",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q127",
+  "question": "Who on Project Sage works from Visakhapatnam?",
+  "asker_id": "ZV-1006",
+  "answer": "Anand Sagar; Kiran Kumar Patnaik; Lavanya Murthy. These employees are currently assigned to the project team at the Visakhapatnam Care Centre.",
+  "issues_v1": [
+   "name 'Lavanya Murthy. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "project_team(project_id=PJ08, location_id=L03) returned 3 rows\n- employee_id: ZV-1032; name: Anand Sagar; title: Quality & Training Analyst; role: Knowledge base and review guidelines; from_date: 2025-09-15; is_current: yes; location_id: L03; location: Visakhapatnam Care Centre; manager_id: ZV-1014\n- employee_id: ZV-1027; name: Kiran Kumar Patnaik; title: Senior Customer Support Specialist; role: Pilot agent and feedback; from_date: 2025-09-15; is_current: yes; location_id: L03; location: Visakhapatnam Care Centre; manager_id: ZV-1021\n- employee_id: ZV-1021; name: Lavanya Murthy; title: Support Team Lead; role: Pilot lead at Care Centre; from_date: 2025-09-15; is_current: yes; location_id: L03; location: Visakhapatnam Care Centre; manager_id: ZV-1014",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q129",
+  "question": "Which engineers on Project Atlas report to Divya Krishnamurthy?",
+  "asker_id": "ZV-1006",
+  "answer": "Naveen Reddy; Sneha Hegde. These engineers were part of Project Atlas and reported to Divya Krishnamurthy.",
+  "issues_v1": [
+   "name 'Sneha Hegde. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "project_team(project_id=PJ01, reports_to=ZV-1004) returned 2 rows\n- employee_id: ZV-1013; name: Naveen Reddy; title: Senior Backend Engineer; role: Billing and metering services; from_date: 2022-08-01; to_date: 2024-03-31; is_current: no; location_id: L01; location: Hyderabad HQ; manager_id: ZV-1004\n- employee_id: ZV-1028; name: Sneha Hegde; title: Backend Engineer; role: Notification and webhook services; from_date: 2022-08-01; to_date: 2024-03-31; is_current: no; location_id: L02; location: Bengaluru Engineering Hub; manager_id: ZV-1004",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q136",
+  "question": "Which Zenvora employees previously worked at Helix BPO Services?",
+  "asker_id": "ZV-1006",
+  "answer": "Imran Qureshi; Kiran Kumar Patnaik; Suresh Babu Kothapalli. These employees were previously employed at ORG004.",
+  "issues_v1": [
+   "name 'Suresh Babu Kothapalli. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "previous_employer(org_id=ORG004) returned 3 rows\n- employee_id: ZV-1036; name: Imran Qureshi; role_title: Recruitment Associate; start: 2021-06; end: 2023-04\n- employee_id: ZV-1027; name: Kiran Kumar Patnaik; role_title: Customer Support Executive; start: 2018-07; end: 2021-04\n- employee_id: ZV-1014; name: Suresh Babu Kothapalli; role_title: Team Lead, then Operations Manager; start: 2005-07; end: 2013-03",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q137",
+  "question": "Which Zenvora employees previously worked at Finwise Analytics?",
+  "asker_id": "ZV-1006",
+  "answer": "Ananya Bhattacharya; Pooja Agarwal; Rahul Khanna; Ramesh Iyengar. These employees were previously employed at Finwise Analytics.",
+  "issues_v1": [
+   "name 'Ramesh Iyengar. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "previous_employer(org_id=ORG003) returned 4 rows\n- employee_id: ZV-1017; name: Ananya Bhattacharya; role_title: Data Scientist, then Lead Data Scientist; start: 2010-07; end: 2016-03\n- employee_id: ZV-1031; name: Pooja Agarwal; role_title: Data Engineer; start: 2018-07; end: 2021-12\n- employee_id: ZV-1020; name: Rahul Khanna; role_title: Product Manager; start: 2017-06; end: 2019-10\n- employee_id: ZV-1008; name: Ramesh Iyengar; role_title: Finance Controller, then Director of Finance; start: 2008-04; end: 2017-01",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q144",
+  "question": "Which Zenvora employees previously worked at Vantage Contact Solutions?",
+  "asker_id": "ZV-1006",
+  "answer": "Anand Sagar; Lavanya Murthy; Suresh Babu Kothapalli. These employees were previously employed at ORG017.",
+  "issues_v1": [
+   "name 'Suresh Babu Kothapalli. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "previous_employer(org_id=ORG017) returned 3 rows\n- employee_id: ZV-1032; name: Anand Sagar; role_title: Quality Analyst; start: 2015-07; end: 2022-02\n- employee_id: ZV-1021; name: Lavanya Murthy; role_title: Customer Service Executive, then Team Lead; start: 2010-07; end: 2019-11\n- employee_id: ZV-1014; name: Suresh Babu Kothapalli; role_title: Senior Operations Manager; start: 2013-04; end: 2018-08",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q150",
+  "question": "Which employees list Employee relations as a skill?",
+  "asker_id": "ZV-1006",
+  "answer": "Lakshmi Prasanna Varma; Tanvi Deshpande. These employees have listed Employee relations as a skill.",
+  "issues_v1": [
+   "name 'Tanvi Deshpande. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "skill_holders(skill_id=SK043) returned 2 rows\n- employee_id: ZV-1006; name: Lakshmi Prasanna Varma; title: Head of People & Culture; skill_id: SK043; skill: Employee relations\n- employee_id: ZV-1019; name: Tanvi Deshpande; title: HR Business Partner; skill_id: SK043; skill: Employee relations",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q153",
+  "question": "Which employees list Kafka as a skill?",
+  "asker_id": "ZV-1006",
+  "answer": "Karthik Naidu; Sneha Hegde. These employees have Kafka listed as a skill.",
+  "issues_v1": [
+   "name 'Sneha Hegde. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "skill_holders(skill_id=SK079) returned 2 rows\n- employee_id: ZV-1003; name: Karthik Naidu; title: Director of Engineering, Backend; skill_id: SK079; skill: Kafka\n- employee_id: ZV-1028; name: Sneha Hegde; title: Backend Engineer; skill_id: SK079; skill: Kafka",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q155",
+  "question": "Which employees list TypeScript as a skill?",
+  "asker_id": "ZV-1006",
+  "answer": "Farhan Siddiqui; Sai Teja Chowdary. These employees have listed TypeScript as a skill.",
+  "issues_v1": [
+   "name 'Sai Teja Chowdary. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "skill_holders(skill_id=SK166) returned 2 rows\n- employee_id: ZV-1010; name: Farhan Siddiqui; title: Frontend & Mobile Lead; skill_id: SK166; skill: TypeScript\n- employee_id: ZV-1037; name: Sai Teja Chowdary; title: Frontend Engineer; skill_id: SK166; skill: TypeScript",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q193",
+  "question": "What is the maximum hotel cost per night for Gaurav Malhotra on a trip to Pune?",
+  "asker_id": "ZV-1006",
+  "answer": "11000 INR. This is the cap for band Z7 employees traveling to Tier-1 cities.",
+  "issues_v1": [
+   "name 'INR. This' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "rule",
+    "text": "rule HOTEL_CAP for subject ZV-1009 as of 2026-10-10\nstatus: ok\ncase: Z7_Z8_TIER1\ncap_inr: 11000\nreason: Band Z7, Tier-1 city (Pune)\ninputs: band: Z7; city_tier: 1; city: Pune\npolicy: ZEN-DPL-FIN-01 section 4",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q195",
+  "question": "What is the maximum hotel cost per night for Sai Teja Chowdary on a trip to Visakhapatnam?",
+  "asker_id": "ZV-1006",
+  "answer": "3500 INR. This is the hotel cost cap for band Z3 employees traveling to Tier-2 cities.",
+  "issues_v1": [
+   "name 'INR. This' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "rule",
+    "text": "rule HOTEL_CAP for subject ZV-1037 as of 2026-10-10\nstatus: ok\ncase: Z1_Z3_TIER2\ncap_inr: 3500\nreason: Band Z3, Tier-2 city (Visakhapatnam)\ninputs: band: Z3; city_tier: 2; city: Visakhapatnam\npolicy: ZEN-DPL-FIN-01 section 4",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q196",
+  "question": "What is the maximum hotel cost per night for Ramesh Iyengar on a trip to Bengaluru?",
+  "asker_id": "ZV-1006",
+  "answer": "11000 INR. This is the hotel cap for band Z7 in a Tier-1 city.",
+  "issues_v1": [
+   "name 'INR. This' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "rule",
+    "text": "rule HOTEL_CAP for subject ZV-1008 as of 2026-10-10\nstatus: ok\ncase: Z7_Z8_TIER1\ncap_inr: 11000\nreason: Band Z7, Tier-1 city (Bengaluru)\ninputs: band: Z7; city_tier: 1; city: Bengaluru\npolicy: ZEN-DPL-FIN-01 section 4",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q218",
+  "question": "Which offences skip the warnings?",
+  "asker_id": "ZV-1006",
+  "answer": "Sexual harassment; Theft, fraud, bribery or falsification of records, credentials or expense claims; Violence, threats or fighting at work; Working under the influence of alcohol or drugs; Intentional breach of data security or deliberate misuse of customer data; Illegal behaviour; Deliberate data theft or access to illegal content; Harassment. These offences are not subject to progressive discipline steps and may lead to immediate termination.",
+  "issues_v1": [
+   "name 'Harassment. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "ZEN-POL-004::s8::0",
+    "kind": "passage",
+    "text": "ZEN-POL-004 Progressive Discipline Policy (version 2, effective 2024-01-01). Section 8: Issues not subject to progressive discipline.\nThe following can lead to immediate suspension or termination, without earlier steps:\n- Sexual harassment (investigated by the Internal Committee under ZEN-POL-008).\n- Theft, fraud, bribery or falsification of records, credentials or expense claims.\n- Violence, threats or fighting at work.\n- Working under the influence of alcohol or drugs.\n- Intentional breach of data security or deliberate misuse of customer data (ZEN-POL-006).\n- Illegal behaviour, which may also be reported to the police.",
+    "path": "primary"
+   },
+   {
+    "id": "ZEN-POL-005::s10::0",
+    "kind": "passage",
+    "text": "ZEN-POL-005 Acceptable Use and Electronic Communication Policy (version 3, effective 2025-06-01). Section 10: Consequences of misuse.\nAbuse or misuse of company technology leads to warnings or disciplinary action under the Progressive Discipline Policy (ZEN-POL-004), up to and including termination. Deliberate data theft or access to illegal content may lead to immediate termination.",
+    "path": "primary"
+   },
+   {
+    "id": "ZEN-POL-001::s10::0",
+    "kind": "passage",
+    "text": "ZEN-POL-001 Code of Conduct and Business Ethics Policy (version 3, effective 2024-04-01). Section 10: Consequences.\nBreaches of this Code are handled under the Progressive Discipline Policy (ZEN-POL-004). Fraud, bribery, theft and harassment are not subject to progressive steps and may lead to immediate termination.",
+    "path": "primary"
+   },
+   {
+    "id": "ZEN-POL-004::s6::0",
+    "kind": "passage",
+    "text": "ZEN-POL-004 Progressive Discipline Policy (version 2, effective 2024-01-01). Section 6: Phase 3: Suspension and final written warning.\nUsed when temporary removal from work is the most effective action. The immediate manager may suspend an employee with pay pending an investigation when safety or evidence is at risk (up to 15 working days). Suspension as part of normal progression needs approval from the department head and the Head of People & Culture. Suspension without pay needs the CEO's approval and is limited to full-day increments. Pay is restored in full if the investigation clears the employee.",
+    "path": "primary"
+   },
+   {
+    "id": "ZEN-POL-004::s7::0",
+    "kind": "passage",
+    "text": "ZEN-POL-004 Progressive Discipline Policy (version 2, effective 2024-01-01). Section 7: Phase 4: Recommendation for termination.\nThe department head may recommend termination. The recommendation needs approval from the Head of People & Culture. For employees in band Z5 and above, the CEO gives the final approval. Termination may happen without earlier phases for serious misconduct.",
+    "path": "primary"
+   }
+  ]
+ },
+ {
+  "id": "Q239",
+  "question": "Which policies refer to the Progressive Discipline Policy (ZEN-POL-004)?",
+  "asker_id": "ZV-1006",
+  "answer": "Travel and Expense Reimbursement Policy; Performance Management and Appraisal Policy; Code of Conduct and Business Ethics Policy; Hybrid Work Policy; Leave Policy; Acceptable Use and Electronic Communication Policy; Information Security Policy; Prevention of Sexual Harassment (POSH) Policy. These policies reference the Progressive Discipline Policy (ZEN-POL-004).",
+  "issues_v1": [
+   "name 'Policy. These' is not in the context"
+  ],
+  "items": [
+   {
+    "id": "asker",
+    "kind": "identity",
+    "text": "The asker (I, me, my) is Lakshmi Prasanna Varma (ZV-1006), Head of People & Culture, band Z7, Human Resources (People & Culture) (D01), based at Hyderabad HQ (L01), joined 2016-06-13.",
+    "path": ""
+   },
+   {
+    "id": "step1",
+    "kind": "graph",
+    "text": "policy_references(policy_id=ZEN-POL-004, direction=in) returned 8 rows\n- policy_id: ZEN-DPL-FIN-01; title: Travel and Expense Reimbursement Policy\n- policy_id: ZEN-DPL-HR-01; title: Performance Management and Appraisal Policy\n- policy_id: ZEN-POL-001; title: Code of Conduct and Business Ethics Policy\n- policy_id: ZEN-POL-002; title: Hybrid Work Policy\n- policy_id: ZEN-POL-003; title: Leave Policy\n- policy_id: ZEN-POL-005; title: Acceptable Use and Electronic Communication Policy\n- policy_id: ZEN-POL-006; title: Information Security Policy\n- policy_id: ZEN-POL-008; title: Prevention of Sexual Harassment (POSH) Policy",
+    "path": "primary"
+   }
+  ]
+ }
+]

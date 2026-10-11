@@ -5,7 +5,8 @@ An answer passes when
   item of the context pack;
 - every name in it appears in the evidence (the rendered pack plus the question): the
   entities `link_entities` finds (by id or by the surface text) and every run of two or
-  more Capitalised words (a leading sentence word may be dropped);
+  more Capitalised words within one sentence and line, joined by spaces or of/&/for/the
+  but not by "and" (a leading sentence word may be dropped);
 - every number appears in the evidence by value, after normalisation: Indian and Western
   digit grouping (1,00,000 = 100,000), lakh/crore/k, ordinals (3rd), number words
   (two .. ninety-nine, hundred; "one" and "zero" are skipped, they are mostly not
@@ -24,7 +25,7 @@ from dataclasses import dataclass, field
 from waypoint.answer.pack import ContextPack
 from waypoint.retrieval.linking import link_entities
 
-VERSION = "verify-v1"  # part of S5's config_id: a change re-answers checkpointed questions
+VERSION = "verify-v2"  # part of S5's config_id: a change re-answers checkpointed questions
 Date = tuple[int | None, int, int | None]  # (year, month, day)
 
 _MONTHS = {"jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6, "jul": 7, "aug": 8, "sep": 9,
@@ -53,8 +54,12 @@ _WORD_NUM = re.compile(
     re.IGNORECASE)
 _SKIP_WORDS = {"zero", "one"}
 
-_CAP = r"[A-Z][\w'’&.\-]*"
-_PHRASE = re.compile(rf"{_CAP}(?:(?:\s+(?:of|and|&|for|the|de|da|van)\s+|\s+){_CAP})+")
+# A Capitalised word; a dot only inside it (Node.js), so a phrase never runs across a
+# sentence end ("Arvind Kulkarni. He"). Words join on spaces, never across a line break,
+# and on of/&/for/the/de/da/van; not on "and", which joins two separate names in lists
+# ("Project Nova and Rahul Khanna"): each side is checked on its own.
+_CAP = r"[A-Z][\w'’&\-]*(?:\.\w[\w'’&\-]*)*"
+_PHRASE = re.compile(rf"{_CAP}(?:(?:[ \t]+(?:of|&|for|the|de|da|van)[ \t]+|[ \t]+){_CAP})+")
 _LEADING = {"yes", "no", "the", "a", "an", "i", "in", "on", "at", "as", "for", "from", "your", "you", "my",
             "this", "that", "since", "until", "per", "under", "both", "each", "all", "only", "ask", "contact",
             "and", "or", "but", "so", "also", "if", "when", "after", "before", "with", "to", "by", "it"}
@@ -126,12 +131,18 @@ def date_supported(d: Date, evidence: list[Date]) -> bool:
                for e in evidence)
 
 
+def _leading(word: str) -> bool:
+    """A sentence opener or connector, not part of a name; an acronym (IT, AI) is kept."""
+    w = word.strip(".,")
+    return w in ("&", "of", "for", "the") or (w.lower() in _LEADING and not (len(w) > 1 and w.isupper()))
+
+
 def names(text: str) -> list[str]:
     """Runs of two or more Capitalised words (possessive 's removed)."""
     out = []
     for m in _PHRASE.finditer(text):
         words = re.sub(r"['’]s\b", "", m.group(0)).rstrip(".").split()
-        while words and words[0].lower().strip(".,") in _LEADING:
+        while words and _leading(words[0]):
             words = words[1:]
         if len(words) >= 2:
             out.append(" ".join(words))
