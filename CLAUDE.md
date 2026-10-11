@@ -33,7 +33,9 @@ Windows: run every target with `mingw32-make`.
 - `make install` deps into .venv · `make up` start Neo4j and wait until healthy (http://localhost:7474) · `make down` stop it
 - `make load` build the graph from CSVs (1.2) · `make index` chunk, embed, create indexes (1.3); needs the graph loaded; embeddings cached in `.cache/embeddings/`, so a re-run makes 0 API calls
 - `.venv\Scripts\python.exe -m waypoint.retrieval.index --dry-run` chunk counts and planned API calls, no calls or writes · `.venv\Scripts\python.exe -m waypoint.retrieval.search "query" -k 3 [--fulltext]` public chunk search
-- `make test` unit tests (neo4j-marked tests skip with a reason if Neo4j is down; index tests fail if the embedding cache is incomplete, so run `make index` first) · `make test-graph` only the neo4j-marked tests, fails if Neo4j is unreachable (sets REQUIRE_NEO4J=1) · `make eval-dev` · `make eval-test` · `make serve` run API and UI on http://localhost:8000
+- `.venv\Scripts\python.exe -m waypoint.eval.split` creates `eval/split.json` (done once; refuses to overwrite without `--force`)
+- `make eval-dev SYSTEM=echo [LIMIT=10] [NO_JUDGE=1]` runs the dev split; `NO_JUDGE=1` marks judge-routed rows skipped (no API calls). Output in `eval_runs/<timestamp>_<system>_<split>/`: results.csv, summary.md, run_config.json, judge_review.csv (fill `human_verdict` by hand). Judge verdicts cached in `.cache/judge/`.
+- `make test` unit tests (neo4j-marked tests skip with a reason if Neo4j is down; index tests fail if the embedding cache is incomplete, so run `make index` first) · `make test-graph` only the neo4j-marked tests, fails if Neo4j is unreachable (sets REQUIRE_NEO4J=1) · `make eval-test` (same flags; the only target that exports `WAYPOINT_EVAL_TEST=1`, without which test ids cannot be loaded) · `make serve` run API and UI on http://localhost:8000
 - Reset only this project's Neo4j data: `docker compose down -v` (volumes `mini_project_graph_rag_neo4j_*`). The unrelated `neo4j-local` container and its `neo4j_data`/`neo4j_logs` volumes are not ours; leave them alone.
 
 ## Decisions
@@ -43,8 +45,13 @@ Windows: run every target with `mingw32-make`.
 - 1.3 chunk graph: `(Chunk)-[:PART_OF]->(Document)-[:DESCRIBES]->(entity)`, `(Policy)-[:HAS_SECTION]->(PolicySection)<-[:OF_SECTION]-(Chunk)`, `(Chunk)-[:MENTIONS]->(Employee|Department|Project|Product|Policy)`. Chunk id `<doc_id>::<section>::<part>`. PolicySections come from the Markdown numbered sections (176); `policy_sections.csv` (119) leaves out Objective, Applies to and Disclaimer.
 - MENTIONS are exact, case-sensitive matches of ids, full names and policy codes from the CSVs, longest first, in the chunk body only. First names, titles and short names wait for 2.1.
 - Sensitivity: a line is restricted when it states a specific person's employment status, leave or notice (profile record rows Employment status / Current work mode / Notice period, or a status phrase with a resolvable employee). Such lines move to a separate `::restricted` chunk with `subject_id`; policy text is never restricted. 46 restricted chunks. Arjun's induction stays public. `search_text`/`search_fulltext` return public chunks unless `include_restricted=True` (the 2.5 access filter decides).
+- 1.4 eval: no asker column in questions.csv. Default asker ZV-1006 (Lakshmi, Head of People & Culture, HR), because gold answers reveal restricted facts (notice, leave) that only HR/manager/self may see; `ASKER_OVERRIDES` Q209 -> ZV-1042 ("I just joined"), Q210 -> ZV-1033 ("I resigned"); asker recorded per row. The main eval therefore cannot show the access filter: the 3.3 safety questions must use non-authorized askers.
+- 1.4 scorers (`waypoint.eval.scorers`, by gold shape): exact 92 (integer, `Name (gloss)`, `title, band Zn`), set-F1 85 (every `;` item is a known entity), judge 74 (sentences, `;`-joined clauses). Exact = normalised whole-token containment; an entity key also requires no other same-type entity in the answer (question entities ignored), else the row goes to the judge. Judge: MODEL_FAST, verdict correct/partial/incorrect = 1/0.5/0, answer passed as an escaped JSON string inside `<candidate_answer>` and never followed as instructions.
+- 1.4 sources are entity ids, not file names; `resumes`/`employees.csv` mean the people named in the gold answer. `waypoint.eval.sources.citation_entities` maps policy/graph/chunk citations to entity ids; citation precision is a lower bound.
+- 1.4 split: 60 dev / 191 test, 15 category x hops strata, none under 3 questions, every stratum has >= 1 dev and >= 1 test (Hamilton allocation, seed 42). Dev results by category are noisy (60 questions, 1 to 14 per stratum): report test-split numbers for claims.
+- `waypoint.contract`: `Response` (DESIGN contract + usage + latency_ms) and the `System` protocol; citations are `policy`, `graph` or `chunk`. `waypoint.llm.structured.complete_json` implements rule 4 for every LLM JSON call.
 
 ## When unsure
 Ask me one short question with a recommended default. Do not expand scope beyond PLAN.md; list ideas under "Later" in PLAN.md instead.
 
-Status: slice 1.3 done, next 1.4
+Status: slice 1.4 done, next 1.5

@@ -17,7 +17,8 @@ dist/
 
 # local artefacts
 neo4j/
-eval_runs/
+eval_runs/*
+!eval_runs/final/
 .cache/
 
 # editors / os
