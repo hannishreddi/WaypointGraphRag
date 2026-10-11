@@ -118,31 +118,55 @@ function citedEdges(citations) {
   return keys;
 }
 
+// Policy citations {id, section} -> PolicySection ids as in the graph ("ZEN-POL-002#4").
+function citedSections(citations) {
+  return new Set(citations.filter((c) => c.type === "policy" && c.section !== null && c.section !== undefined)
+    .map((c) => `${c.id}#${c.section}`));
+}
+
+function showDetail(node) {
+  const box = $("node-detail");
+  if (!node) { box.textContent = ""; return; }
+  const d = node.data();
+  const head = `${d.label} (${d.kind} ${d.id})`;
+  box.textContent = d.detail ? `${head}\nWaypoint reasoning (derived, not stored in the graph): ${d.detail}` : head;
+}
+
 function drawGraph(subgraph, citations) {
   const note = $("graph-note");
   if (cy) { cy.destroy(); cy = null; }
+  showDetail(null);
   if (typeof cytoscape !== "function") {
     note.textContent = "Cytoscape.js did not load (offline or blocked CDN); the subgraph cannot be drawn.";
     return;
   }
   const ids = new Set(subgraph.nodes.map((n) => n.id));
   const cited = citedEdges(citations);
-  const citedNodes = new Set();
+  const sections = citedSections(citations);
+  const hot = new Set();
   const elements = subgraph.nodes.map((n) => ({
-    data: { id: n.id, label: n.name || n.id, kind: n.label },
+    data: { id: n.id, label: n.name || n.id, kind: n.label, detail: n.detail || "" },
   }));
   const seen = new Set();
+  let highlighted = 0;
   for (const e of subgraph.edges) {
     const key = `${e.source}|${e.type}|${e.target}`;
     if (!ids.has(e.source) || !ids.has(e.target) || seen.has(key)) continue;
     seen.add(key);
-    const isCited = cited.has(key);
-    if (isCited) { citedNodes.add(e.source); citedNodes.add(e.target); }
-    elements.push({ data: { id: key, source: e.source, target: e.target, label: e.type }, classes: isCited ? "cited" : "" });
+    const classes = [];
+    const isCited = cited.has(key) || (e.derived && sections.has(e.target));
+    if (isCited || e.role === "decisive") classes.push(e.role === "checked" ? "checked" : "cited");
+    else if (e.role === "checked") classes.push("checked");
+    if (e.derived) classes.push("derived");
+    if (classes.includes("cited")) { hot.add(e.source); hot.add(e.target); highlighted += 1; }
+    const label = e.derived ? "derived (rule case)" : e.type;
+    elements.push({ data: { id: key, source: e.source, target: e.target, label }, classes: classes.join(" ") });
   }
-  elements.forEach((x) => { if (!x.data.source && citedNodes.has(x.data.id)) x.classes = "cited"; });
+  elements.forEach((x) => {
+    if (!x.data.source && (hot.has(x.data.id) || sections.has(x.data.id))) x.classes = "cited";
+  });
   note.textContent = subgraph.nodes.length
-    ? `${subgraph.nodes.length} nodes, ${seen.size} edges; ${cited.size} cited edge(s) highlighted.`
+    ? `${subgraph.nodes.length} nodes, ${seen.size} edges; ${highlighted} cited or decisive edge(s) highlighted.`
     : "No graph evidence for this answer (policy text, a refusal or not found).";
   if (!subgraph.nodes.length) return;
   cy = cytoscape({
@@ -156,13 +180,19 @@ function drawGraph(subgraph, citations) {
       { selector: "node[kind = 'Department']", style: { "background-color": "#e0a15a", shape: "round-rectangle" } },
       { selector: "node[kind = 'Project'], node[kind = 'Product']", style: { "background-color": "#7cc08a", shape: "hexagon" } },
       { selector: "node[kind = 'Policy']", style: { "background-color": "#c58ad6", shape: "round-rectangle" } },
+      { selector: "node[kind = 'PolicySection']", style: { "background-color": "#e7c6f0", shape: "rectangle" } },
+      { selector: "node[detail != '']", style: { "border-width": 2, "border-style": "dashed", "border-color": "#7a4d00" } },
       { selector: "edge", style: { label: "data(label)", "font-size": 9, color: "#6b7385", width: 1.5,
         "line-color": "#c3c9d6", "target-arrow-color": "#c3c9d6", "target-arrow-shape": "triangle",
         "curve-style": "bezier", "text-rotation": "autorotate", "text-background-color": "#fcfcfd", "text-background-opacity": 1 } },
+      { selector: "edge.checked", style: { width: 2.5, "line-color": "#e8a33d", "target-arrow-color": "#e8a33d" } },
       { selector: "edge.cited", style: { width: 4, "line-color": "#d6453d", "target-arrow-color": "#d6453d", color: "#9b1c1c" } },
-      { selector: "node.cited", style: { "border-width": 3, "border-color": "#d6453d" } },
+      { selector: "edge.derived", style: { "line-style": "dashed", "font-style": "italic" } },
+      { selector: "node.cited", style: { "border-width": 3, "border-style": "solid", "border-color": "#d6453d" } },
     ],
   });
+  cy.on("tap", "node", (evt) => showDetail(evt.target));
+  cy.on("tap", (evt) => { if (evt.target === cy) showDetail(null); });
 }
 
 async function onAsk(event) {

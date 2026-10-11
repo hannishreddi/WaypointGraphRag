@@ -25,7 +25,7 @@ from fastapi.staticfiles import StaticFiles
 from neo4j.exceptions import Neo4jError, ServiceUnavailable
 from pydantic import BaseModel, ConfigDict, Field
 
-from waypoint.api.cache import AnswerCache
+from waypoint.api.cache import RESPONSE_SCHEMA, AnswerCache
 from waypoint.config import DEFAULT_AS_OF
 from waypoint.contract import Response, System
 from waypoint.graph.db import run_read
@@ -157,7 +157,8 @@ def create_app(*, system: System | None = None, driver: Any = None, cache: Answe
             return _error(503, "The graph database is unreachable; run `make up`.")
         out = resp.model_dump(mode="json")
         svc.cache.put(key, out, question=req.question, asker_id=req.asker_id, as_of=req.as_of.isoformat(),
-                      system=system.name, config_id=getattr(system, "config_id", system.name))
+                      system=system.name, config_id=getattr(system, "config_id", system.name),
+                      schema=RESPONSE_SCHEMA)
         return AskResponse.model_validate({**out, "cached": False})
 
     @app.get("/employees", response_model=list[Employee])

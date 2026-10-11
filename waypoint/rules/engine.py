@@ -220,7 +220,28 @@ _EDGES = {  # attribute -> (relationship, target id field, target label, target 
 }
 
 
-def _fact_evidence(s: EmployeeFacts, used: dict[str, Any]) -> tuple[list[str], Subgraph]:
+# Rule 6 facts: never written into a subgraph detail, for any asker.
+RESTRICTED_ATTRS = frozenset({"status", "status_category"})
+_DATE_DERIVED = frozenset({"days_since_join", "tenure_years", "completed_service_years", "in_probation",
+                           "induction_end", "probation_end"})
+
+
+def _leaves(pred: dict[str, Any]) -> list[tuple[str, str, Any]]:
+    """(attr, op, value) of every comparison in a predicate."""
+    for key in ("all", "any"):
+        if key in pred:
+            return [leaf for p in pred[key] for leaf in _leaves(p)]
+    if "not" in pred:
+        return [(a, f"not {op}", v) for a, op, v in _leaves(pred["not"])]
+    return [(pred["attr"], pred["op"], pred["value"])]
+
+
+def _decisive(case: Case) -> set[str]:
+    return {a for a, _, _ in _leaves(case.when)}
+
+
+def _fact_evidence(s: EmployeeFacts, used: dict[str, Any], decisive: set[str] = frozenset()
+                   ) -> tuple[list[str], Subgraph]:
     nodes = {s.employee_id: SubgraphNode(id=s.employee_id, label="Employee", name=s.name)}
     edges: dict[tuple[str, str, str], SubgraphEdge] = {}
     for attr in used:
@@ -231,19 +252,70 @@ def _fact_evidence(s: EmployeeFacts, used: dict[str, Any]) -> tuple[list[str], S
         if target is None:
             continue
         nodes.setdefault(target, SubgraphNode(id=target, label=label, name=str(getattr(s, name_field) or "")))
-        edges.setdefault((s.employee_id, rel, target), SubgraphEdge(source=s.employee_id, type=rel, target=target))
+        key = (s.employee_id, rel, target)
+        role = "decisive" if attr in decisive else "checked"
+        if key not in edges or role == "decisive":
+            edges[key] = SubgraphEdge(source=s.employee_id, type=rel, target=target, role=role)
     sub = Subgraph(nodes=list(nodes.values()), edges=list(edges.values()))
     return [f"{e.source} -{e.type}-> {e.target}" for e in sub.edges], sub
 
 
+def _fmt(v: Any) -> str:
+    return "yes" if v is True else "no" if v is False else str(v)
+
+
+def _subject_detail(rule: Rule, case: Case, subject: EmployeeFacts, used: dict[str, Any]) -> str:
+    """Public facts the fired case depends on, then the other public facts read. Restricted
+    attributes (status) are left out even for an authorised asker; the answer carries them."""
+    conds = _leaves(case.when)
+    dec = [f"{a} = {_fmt(used[a])} (case needs {op} {_fmt(v)})" for a, op, v in conds
+           if a in used and a not in RESTRICTED_ATTRS]
+    if any(a in RESTRICTED_ATTRS for a, _, _ in conds):
+        dec.append("a restricted fact (shown only in the answer, to an authorised asker)")
+    if not conds:
+        dec.append("no earlier case applies")
+    facts = dict(used)
+    if _DATE_DERIVED & set(facts):
+        facts.setdefault("join_date", subject.join_date.isoformat())
+    shown = {a for a, _, _ in conds} | RESTRICTED_ATTRS | set(rule.params)
+    checked = [f"{a} = {_fmt(v)}" for a, v in facts.items() if a not in shown]
+    # A case named after a restricted fact (ON_LEAVE, SERVING_NOTICE) would reveal it.
+    name = "" if _decisive(case) & RESTRICTED_ATTRS else f", case {case.id}"
+    out = f"Rule {rule.id}{name}. Decisive: {'; '.join(dec)}."
+    return out + (f" Also checked: {'; '.join(checked)}." if checked else "")
+
+
+def _section_detail(rule: Rule, case: Case, value: dict[str, Any]) -> str:
+    if _decisive(case) & RESTRICTED_ATTRS:
+        return f"Rule {rule.id}: the applicable case depends on a restricted fact."
+    reason = value.get("reason")
+    return f"Rule {rule.id}, case {case.id}" + (f": {reason}" if isinstance(reason, str) else "")
+
+
+def _rule_evidence(rule: Rule, case: Case, subject: EmployeeFacts | None, used: dict[str, Any],
+                   value: dict[str, Any]) -> tuple[list[str], Subgraph]:
+    """Fact edges (decisive or checked), the cited policy sections, and the derived
+    RULE_CASE edge subject -> section. Paths are the fact edges only (citations unchanged)."""
+    paths: list[str] = []
+    sub = Subgraph()
+    if subject is not None:
+        paths, sub = _fact_evidence(subject, used, _decisive(case))
+        sub.nodes[0] = sub.nodes[0].model_copy(update={"detail": _subject_detail(rule, case, subject, used)})
+    nodes, edges = list(sub.nodes), list(sub.edges)
+    for s in dict.fromkeys((s.policy, s.section) for s in case.sources):
+        sid = f"{s[0]}#{s[1]}"  # PolicySection.section_id in the graph
+        nodes += [SubgraphNode(id=s[0], label="Policy", name=s[0]),
+                  SubgraphNode(id=sid, label="PolicySection", name=f"{s[0]} §{s[1]}",
+                               detail=_section_detail(rule, case, value))]
+        edges.append(SubgraphEdge(source=s[0], type="HAS_SECTION", target=sid))
+        if subject is not None:
+            edges.append(SubgraphEdge(source=subject.employee_id, type="RULE_CASE", target=sid,
+                                      role="decisive", derived=True))
+    return paths, Subgraph().merge(Subgraph(nodes=nodes, edges=edges))
+
+
 def _merge(a: Subgraph, b: Subgraph) -> Subgraph:
-    nodes = {n.id: n for n in a.nodes}
-    for n in b.nodes:
-        nodes.setdefault(n.id, n)
-    edges = {(e.source, e.type, e.target): e for e in a.edges}
-    for e in b.edges:
-        edges.setdefault((e.source, e.type, e.target), e)
-    return Subgraph(nodes=list(nodes.values()), edges=list(edges.values()))
+    return a.merge(b)
 
 
 def _resolve_people(driver: Driver, subject: EmployeeFacts, roles: dict[str, str]
@@ -328,10 +400,7 @@ def evaluate(rule_id: str, subject_id: str | None, asker_id: str, as_of: date,
         if not any(c.id == s.policy and c.section == s.section for c in citations if isinstance(c, PolicyCitation)):
             citations.append(PolicyCitation(id=s.policy, section=s.section))
     policy_rules = list(dict.fromkeys(s.rule_id for s in fired.sources if s.rule_id))
-    subgraph = Subgraph()
-    paths: list[str] = []
-    if subject is not None:
-        paths, subgraph = _fact_evidence(subject, attrs.used)
+    paths, subgraph = _rule_evidence(rule, fired, subject, attrs.used, value)
     if rule.people and subject is not None and driver is not None:
         people, ppaths, psub, notes = _resolve_people(driver, subject, value["roles"])
         value["people"] = people

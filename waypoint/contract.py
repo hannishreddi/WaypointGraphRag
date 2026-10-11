@@ -30,17 +30,39 @@ class SubgraphNode(BaseModel):
     id: str
     label: str
     name: str = ""
+    # Rule evidence (3.2): Waypoint's reasoning about this node (decisive facts, fired case).
+    # Public facts only: never status, leave or notice.
+    detail: str = ""
 
 
 class SubgraphEdge(BaseModel):
     source: str
     target: str
     type: str
+    # Rule evidence (3.2): "decisive" = the fired case depends on it, "checked" = read to rule
+    # out an earlier case; "" for template edges.
+    role: Literal["", "decisive", "checked"] = ""
+    # True for edges Waypoint infers (RULE_CASE subject -> policy section), not stored in the graph.
+    derived: bool = False
 
 
 class Subgraph(BaseModel):
     nodes: list[SubgraphNode] = []
     edges: list[SubgraphEdge] = []
+
+    def merge(self, other: Subgraph) -> Subgraph:
+        """Union by node id and (source, type, target); the first copy wins unless a later one
+        carries rule evidence (detail, role) the first lacks."""
+        nodes: dict[str, SubgraphNode] = {}
+        for n in [*self.nodes, *other.nodes]:
+            if n.id not in nodes or (n.detail and not nodes[n.id].detail):
+                nodes[n.id] = n
+        edges: dict[tuple[str, str, str], SubgraphEdge] = {}
+        for e in [*self.edges, *other.edges]:
+            k = (e.source, e.type, e.target)
+            if k not in edges or (e.role and not edges[k].role):
+                edges[k] = e
+        return Subgraph(nodes=list(nodes.values()), edges=list(edges.values()))
 
 
 class Usage(BaseModel):

@@ -40,6 +40,13 @@
       <h2>Evidence subgraph</h2>
       <div id="graph" class="graph"></div>
       <p id="graph-note" class="note">Ask a question to see the nodes and edges behind the answer. Cited paths are highlighted.</p>
+      <p class="legend">
+        <span class="lg-decisive">cited / decisive fact</span>
+        <span class="lg-checked">fact checked by the rule</span>
+        <span class="lg-derived">derived (rule case)</span>
+      </p>
+      <p class="note">Dashed "derived (rule case)" edges and node details are Waypoint's reasoning (which rule case fired and why), not data stored in the graph. Click a node to see its detail.</p>
+      <p id="node-detail" class="node-detail" aria-live="polite"></p>
     </section>
   </main>
 </body>

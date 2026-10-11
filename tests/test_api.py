@@ -149,6 +149,31 @@ def test_cache_key_covers_question_asker_date_and_config() -> None:
                 k("q", "ZV-1042", date(2026, 10, 10), "s5", "cfg2")}) == 5
 
 
+def test_stale_response_schema_entry_is_ignored(tmp_path: Path) -> None:
+    from waypoint.api.cache import RESPONSE_SCHEMA
+    fake = FakeSystem()
+    cache = AnswerCache(tmp_path / "answers")
+    stale = {"answer": "stale 3.1 answer", "route": "fact_list_count", "as_of": "2026-10-10",
+             "confidence": 0.9, "citations": [], "subgraph": {"nodes": [], "edges": []}}
+    cache.put(AnswerCache.key(ASK["question"], ASK["asker_id"], date(2026, 10, 10), fake.name, fake.config_id,
+                              schema="response-v1"), stale)
+    assert RESPONSE_SCHEMA != "response-v1"
+    r = client(tmp_path, fake).post("/ask", json=ASK).json()
+    assert r["cached"] is False and r["answer"] == "Karthik Naidu." and fake.calls == 1
+
+
+def test_contract_marks_derived_edges() -> None:
+    from waypoint.contract import SubgraphEdge, SubgraphNode
+    from waypoint.rules.engine import evaluate
+    assert SubgraphEdge.model_fields["derived"].default is False
+    assert SubgraphNode.model_fields["detail"].default == ""
+    r = evaluate("WORK_MODE", "ZV-1042", "ZV-1042", date(2026, 10, 10))
+    dumped = Response(answer="x", route="personal_rule", as_of=date(2026, 10, 10),
+                      subgraph=r.subgraph).model_dump(mode="json")["subgraph"]["edges"]
+    assert {(e["type"], e["derived"]) for e in dumped} == {("RULE_CASE", True), ("IN_BAND", False),
+                                                           ("HAS_SECTION", False)}
+
+
 def test_s5_config_id_carries_every_version() -> None:
     from waypoint.answer.generate import PROMPT_VERSION as A
     from waypoint.answer.pack import VERSION as P
@@ -207,6 +232,9 @@ def test_static_page_never_uses_html_sinks() -> None:
     for sink in ("innerHTML", "outerHTML", "insertAdjacentHTML", "document.write", "eval(", "new Function"):
         assert sink not in js and sink not in html, sink
     assert "textContent" in js
+    # Derived rule evidence is visibly marked: dashed, labelled, explained in the caption.
+    assert '"derived (rule case)"' in js and '"line-style": "dashed"' in js
+    assert "derived (rule case)" in html and "not data stored in the graph" in html
     assert not re.search(r"<script(?![^>]*\bsrc=)[^>]*>", html), "inline <script> block"
     assert not re.search(r"\son[a-z]+\s*=", html), "inline event handler"
 

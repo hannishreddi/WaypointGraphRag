@@ -412,16 +412,11 @@ def collect(steps: list[StepResult], path: PathName = "primary") -> Evidence:
 
 
 def merge(a: Evidence, b: Evidence) -> Evidence:
-    """a's items first, then b's; nodes, edges and citations deduplicated, first one kept."""
-    nodes: dict[str, Any] = {}
-    for n in [*a.subgraph.nodes, *b.subgraph.nodes]:
-        nodes.setdefault(n.id, n)
-    edges: dict[tuple[str, str, str], Any] = {}
-    for e in [*a.subgraph.edges, *b.subgraph.edges]:
-        edges.setdefault((e.source, e.type, e.target), e)
+    """a's items first, then b's; nodes, edges and citations deduplicated, first one kept
+    (a node or edge with rule evidence replaces a bare copy, see `Subgraph.merge`)."""
     cites: dict[str, Citation] = {}
     for c in [*a.citations, *b.citations]:
         cites.setdefault(c.model_dump_json(), c)
     return Evidence(items=[*a.items, *b.items],
-                    subgraph=Subgraph(nodes=list(nodes.values()), edges=list(edges.values())),
+                    subgraph=a.subgraph.merge(b.subgraph),
                     citations=list(cites.values()))
