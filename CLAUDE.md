@@ -86,4 +86,4 @@ Windows: run every target with `mingw32-make`.
 ## When unsure
 Ask me one short question with a recommended default. Do not expand scope beyond PLAN.md; list ideas under "Later" in PLAN.md instead.
 
-Status: slice 3.2 done (demo 21/22 live checks; open: HR over-refusal on restricted passages, see docs/demo.md; S5 dev 0.96 from 2.6 unchanged), next 3.3
+Status: slice 3.2 done (demo 21/22 live checks; open: HR over-refusal on restricted passages, see docs/demo.md; S5 dev 0.96 from 2.6 unchanged), next 3.3a (3.3 split into 3.3a-d; protocol in docs/DESIGN.md)
