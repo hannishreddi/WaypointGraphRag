@@ -58,4 +58,4 @@ Windows: run every target with `mingw32-make`.
 ## When unsure
 Ask me one short question with a recommended default. Do not expand scope beyond PLAN.md; list ideas under "Later" in PLAN.md instead.
 
-Status: slice 1.5 code and S1 dev run done; S3 dev run in progress, then tick 1.5; next 2.1
+Status: slice 1.5 done, next 2.1
