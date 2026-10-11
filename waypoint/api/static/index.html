@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Waypoint · Zenvora onboarding assistant</title>
+  <!-- The id stops Cytoscape from injecting its own <style> (blocked by CSP style-src 'self'). -->
+  <link id="__________cytoscape_stylesheet" rel="stylesheet" href="/static/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.34.3/dist/cytoscape.min.js"
+          integrity="sha384-qPKQxl9uMXOw7vSTUDAnpUilhLuulovw6P5Z4db4bqxW5VhumS7przEmHX0iM0Oc"
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Waypoint</h1>
+    <p class="sub">Ask about Zenvora's people, teams, projects and policies. Fictional data; demo only.</p>
+    <div class="controls">
+      <label>Asking as
+        <select id="asker" aria-label="Asking as"></select>
+      </label>
+      <label>As of
+        <input id="as-of" type="date" value="2026-10-10">
+      </label>
+      <label class="check"><input id="fresh" type="checkbox"> bypass cache</label>
+      <span id="health" class="health"></span>
+    </div>
+    <p class="warn">Identity is chosen here and not authenticated: anyone can pick anyone.</p>
+  </header>
+  <main>
+    <section class="chat">
+      <div id="log" class="log" aria-live="polite"></div>
+      <form id="ask-form" class="ask">
+        <input id="question" type="text" maxlength="1000" autocomplete="off"
+               placeholder="e.g. Who reports to Meera Subramanian?" required>
+        <button id="send" type="submit">Ask</button>
+      </form>
+    </section>
+    <section class="evidence">
+      <h2>Evidence subgraph</h2>
+      <div id="graph" class="graph"></div>
+      <p id="graph-note" class="note">Ask a question to see the nodes and edges behind the answer. Cited paths are highlighted.</p>
+    </section>
+  </main>
+</body>
+</html>

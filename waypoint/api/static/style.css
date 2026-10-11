@@ -1,0 +1,44 @@
+/* Cytoscape would inject this rule itself; CSP blocks injected <style>, so it lives here. */
+.__________cytoscape_container { position: relative; }
+
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color: #1d2330; background: #f5f6f8; }
+header { padding: 12px 20px; background: #fff; border-bottom: 1px solid #dde1e7; }
+h1 { margin: 0; font-size: 20px; }
+h2 { margin: 0 0 8px; font-size: 15px; }
+.sub, .note { margin: 2px 0 8px; color: #5b6475; font-size: 13px; }
+.warn { margin: 6px 0 0; color: #8a5a00; font-size: 12px; }
+.controls { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.controls label { font-size: 13px; color: #3a4252; }
+.controls select, .controls input[type=date] { margin-left: 6px; padding: 4px 6px; font: inherit; }
+.controls select { max-width: 420px; }
+.check { display: flex; gap: 4px; align-items: center; }
+.health { font-size: 12px; padding: 2px 8px; border-radius: 10px; background: #eee; }
+.health.up { background: #e3f4e8; color: #1c6b37; }
+.health.down { background: #fbe4e4; color: #9b1c1c; }
+
+main { display: grid; grid-template-columns: minmax(360px, 1fr) minmax(360px, 1fr); gap: 16px; padding: 16px 20px; }
+@media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+.chat, .evidence { background: #fff; border: 1px solid #dde1e7; border-radius: 8px; padding: 12px; }
+.chat { display: flex; flex-direction: column; min-height: 70vh; }
+.log { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-bottom: 8px; }
+.msg { border-radius: 8px; padding: 8px 10px; }
+.msg.q { align-self: flex-end; background: #e8eefc; max-width: 85%; }
+.msg.a { background: #f7f8fa; border: 1px solid #e6e9ee; cursor: pointer; }
+.msg.a.selected { border-color: #4a6fd6; }
+.msg.err { background: #fbe4e4; color: #9b1c1c; }
+.msg.loading { color: #5b6475; font-style: italic; }
+.who { font-size: 11px; color: #6b7385; margin-bottom: 2px; }
+.text { white-space: pre-wrap; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.chip { font-size: 12px; padding: 2px 8px; border-radius: 12px; border: 1px solid; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chip.policy { background: #fff4e0; border-color: #e7b35a; color: #7a4d00; }
+.chip.graph { background: #e6f0ff; border-color: #7aa2e8; color: #1f478f; font-family: ui-monospace, Consolas, monospace; }
+.chip.chunk { background: #eef7ee; border-color: #8cc49a; color: #23602f; font-family: ui-monospace, Consolas, monospace; }
+.footer { margin-top: 8px; font-size: 12px; color: #6b7385; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.badge { font-size: 11px; padding: 0 6px; border-radius: 8px; background: #ece4fb; color: #5a2ea6; }
+.ask { display: flex; gap: 8px; margin-top: 8px; }
+.ask input { flex: 1; padding: 8px 10px; font: inherit; border: 1px solid #c7ccd6; border-radius: 6px; }
+.ask button { padding: 8px 16px; font: inherit; border: 0; border-radius: 6px; background: #3557c2; color: #fff; cursor: pointer; }
+.ask button:disabled { background: #9aa6c8; cursor: progress; }
+.graph { height: 62vh; border: 1px solid #e6e9ee; border-radius: 6px; background: #fcfcfd; }
