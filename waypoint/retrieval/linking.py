@@ -13,6 +13,11 @@ Restricted aliases (common English words, see `aliases`) link only when
   count), and, for "generic" aliases, is not the first word of a sentence.
 So "the Atlas of the world", "Data retention ...", "Finwise Analytics" and lowercase
 "data" do not link, while "Who worked on Atlas?", "Atlas was ..." and "the data team" do.
+
+`link_mentions(text)` (2.4) adds the unresolved mentions: tokens shaped like an id
+(ZEN-POL-099, ZV-9999, D99, PJ99) that are not in the alias table, so downstream can
+answer "no such policy/person" instead of guessing. ZEN-/ZV- codes match in any case;
+the short codes (D99, PJ99, PR07, L09, ORG099, SK999) only in upper case.
 """
 from __future__ import annotations
 
@@ -39,6 +44,33 @@ class EntityMatch:
     start: int
     end: int
     canonical_id: str  # merged skill id for skills; equals id otherwise
+
+
+@dataclass(frozen=True)
+class UnresolvedMention:
+    surface: str
+    label: str  # the entity type the id shape implies
+    start: int
+    end: int
+
+
+@dataclass(frozen=True)
+class LinkResult:
+    matches: tuple[EntityMatch, ...]
+    unresolved: tuple[UnresolvedMention, ...]
+
+
+_B, _E = r"(?<![\w-])", r"(?![\w-])"
+ID_SHAPES: tuple[tuple[str, re.Pattern[str]], ...] = (
+    ("Policy", re.compile(rf"{_B}ZEN-(?:POL-\d+|DPL-[A-Z]{{2,4}}-\d+){_E}", re.IGNORECASE)),
+    ("Employee", re.compile(rf"{_B}ZV-\d+{_E}", re.IGNORECASE)),
+    ("Department", re.compile(rf"{_B}D\d{{2,}}{_E}")),
+    ("Project", re.compile(rf"{_B}PJ\d+{_E}")),
+    ("Product", re.compile(rf"{_B}PR\d+{_E}")),
+    ("Location", re.compile(rf"{_B}L\d{{2,}}{_E}")),
+    ("Organization", re.compile(rf"{_B}ORG\d+{_E}")),
+    ("Skill", re.compile(rf"{_B}SK\d+{_E}")),
+)
 
 
 @cache
@@ -103,3 +135,14 @@ def link_entities(text: str) -> list[EntityMatch]:
         canonical = canonical_skill(eid) if label == "Skill" else eid
         matches.append(EntityMatch(eid, label, text[start:end], start, end, canonical))
     return sorted(matches, key=lambda m: m.start)
+
+
+def link_mentions(text: str) -> LinkResult:
+    """`link_entities` plus id-shaped tokens that match no known entity."""
+    matches = tuple(link_entities(text))
+    unresolved = []
+    for label, pattern in ID_SHAPES:
+        for m in pattern.finditer(text):
+            if not any(m.start() < x.end and x.start < m.end() for x in matches):
+                unresolved.append(UnresolvedMention(m.group(), label, m.start(), m.end()))
+    return LinkResult(matches, tuple(sorted(unresolved, key=lambda u: u.start)))

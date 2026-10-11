@@ -34,16 +34,23 @@ _CHUNK_FIELDS = (
     "node.section AS section, node.text AS text, node.sensitivity AS sensitivity, "
     "node.subject_id AS subject_id, score ORDER BY score DESC LIMIT $k"
 )
+# Optional filters (PLAN 2.4): null means no filter.
+_CHUNK_FILTER = (
+    "WHERE ($include_restricted OR node.sensitivity = 'public') "
+    "AND ($doc_type IS NULL OR node.doc_type = $doc_type) "
+    "AND ($doc_ids IS NULL OR node.doc_id IN $doc_ids)"
+)
 _TRUSTED: dict[str, str] = {
     "chunk_vector": (
         f"CALL db.index.vector.queryNodes('{VECTOR_INDEX}', $n, $vector) YIELD node, score "
-        f"WHERE $include_restricted OR node.sensitivity = 'public' {_CHUNK_FIELDS}"
+        f"{_CHUNK_FILTER} {_CHUNK_FIELDS}"
     ),
     "chunk_fulltext": (
         f"CALL db.index.fulltext.queryNodes('{FULLTEXT_INDEX}', $query, {{limit: $n}}) YIELD node, score "
-        f"WHERE $include_restricted OR node.sensitivity = 'public' {_CHUNK_FIELDS}"
+        f"{_CHUNK_FILTER} {_CHUNK_FIELDS}"
     ),
     "restricted_chunk_count": "MATCH (c:Chunk {sensitivity: 'restricted'}) RETURN count(c) AS n",
+    "chunk_count": "MATCH (c:Chunk) RETURN count(c) AS n",
 }
 
 

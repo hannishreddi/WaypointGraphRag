@@ -279,3 +279,43 @@ def test_eval_entities_does_not_depend_on_linking() -> None:
 
     src = inspect.getsource(entities)
     assert "retrieval.linking" not in src and "retrieval.aliases" not in src
+
+
+# ---------------------------------------------------------------- unresolved code-like mentions (2.4)
+
+from waypoint.retrieval.linking import LinkResult, UnresolvedMention, link_mentions  # noqa: E402
+
+
+@pytest.mark.parametrize("text,surface,label", [
+    ("Who owns ZEN-POL-099?", "ZEN-POL-099", "Policy"),
+    ("What does zen-pol-099 say?", "zen-pol-099", "Policy"),
+    ("Summarise ZEN-DPL-XYZ-07.", "ZEN-DPL-XYZ-07", "Policy"),
+    ("Is ZEN-POL-0040 in force?", "ZEN-POL-0040", "Policy"),
+    ("Who is ZV-9999?", "ZV-9999", "Employee"),
+    ("How many people are in D99?", "D99", "Department"),
+    ("Who leads PJ99?", "PJ99", "Project"),
+    ("Who owns PR07?", "PR07", "Product"),
+])
+def test_unresolved_code_like_tokens(text: str, surface: str, label: str) -> None:
+    r = link_mentions(text)
+    assert isinstance(r, LinkResult)
+    assert [(u.surface, u.label) for u in r.unresolved] == [(surface, label)]
+    assert r.matches == tuple(link_entities(text))
+
+
+def test_known_ids_are_not_unresolved() -> None:
+    r = link_mentions("ZEN-POL-004, ZEN-DPL-HR-01, ZV-1042, D03, PJ01, PR01 and L01")
+    assert r.unresolved == ()
+    assert [m.id for m in r.matches] == ["ZEN-POL-004", "ZEN-DPL-HR-01", "ZV-1042", "D03", "PJ01", "PR01", "L01"]
+
+
+def test_mixed_known_and_unknown() -> None:
+    r = link_mentions("Does ZEN-POL-004 reference ZEN-POL-099, and who in D03 reports to ZV-9999?")
+    assert [m.id for m in r.matches] == ["ZEN-POL-004", "D03"]
+    assert r.unresolved == (UnresolvedMention("ZEN-POL-099", "Policy", 27, 38),
+                            UnresolvedMention("ZV-9999", "Employee", 66, 73))
+
+
+def test_plain_words_are_not_code_like() -> None:
+    for text in ("Who leads D&AI?", "Is the d99 printer broken?", "Room L1 or level 2", "COVID-19 rules", "H1 FY2026-27"):
+        assert link_mentions(text).unresolved == (), text

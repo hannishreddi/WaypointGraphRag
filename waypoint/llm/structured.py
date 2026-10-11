@@ -2,12 +2,14 @@
 retry once with the validation error, then fail loudly.
 
 The retry is a fresh single-turn prompt (original prompt + previous reply + error),
-so no assistant turn is ever replayed.
+so no assistant turn is ever replayed. `context` is passed to Pydantic validators
+(`model_validate_json(..., context=...)`), so checks that need run-time data, such as
+the router's plan against the linked entities, get the same single retry.
 """
 from __future__ import annotations
 
 import re
-from typing import TypeVar
+from typing import Any, TypeVar
 
 from pydantic import BaseModel, ValidationError
 
@@ -29,7 +31,7 @@ def _json_text(text: str) -> str:
 
 
 def complete_json(client: LLMClient, *, model: str, system: str, prompt: str, schema: type[T],
-                  max_tokens: int = 2048) -> tuple[T, Usage]:
+                  max_tokens: int = 2048, context: dict[str, Any] | None = None) -> tuple[T, Usage]:
     usage = Usage()
     attempt_prompt = prompt
     for attempt in range(2):
@@ -38,7 +40,7 @@ def complete_json(client: LLMClient, *, model: str, system: str, prompt: str, sc
         usage += Usage(input_tokens=c.input_tokens, output_tokens=c.output_tokens,
                        cached_input_tokens=c.cached_input_tokens)
         try:
-            return schema.model_validate_json(_json_text(c.text)), usage
+            return schema.model_validate_json(_json_text(c.text), context=context), usage
         except ValidationError as exc:
             if attempt:
                 raise StructuredOutputError(
