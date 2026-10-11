@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./data/zenvora_kb/eval/**)",
+      "Read(./eval/split.json)",
+      "Bash(*zenvora_kb/eval*)",
+      "Bash(*zenvora_kb\\eval*)",
+      "Bash(*eval/split.json*)",
+      "Bash(*eval\\split.json*)"
+    ]
+  }
+}

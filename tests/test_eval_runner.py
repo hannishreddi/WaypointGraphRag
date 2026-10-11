@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 from datetime import date
 from pathlib import Path
 
@@ -129,3 +130,23 @@ def test_dev_path_never_reads_test_ids(monkeypatch: pytest.MonkeyPatch, tmp_path
     (run_dir,) = [p for p in tmp_path.iterdir() if not p.name.startswith(".")]
     ids = {r["id"] for r in read_rows(run_dir / "results.csv")}
     assert ids == set(split["dev"]) and not ids & test_ids
+
+
+def test_show_dev_prints_only_dev(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
+    from waypoint.eval import show_dev
+
+    monkeypatch.delenv(TEST_ENV, raising=False)
+    requested: list[str] = []
+    real = qmod.load_split_ids
+
+    def spy(split: str, *a: object, **kw: object) -> list[str]:
+        requested.append(split)
+        return real(split, *a, **kw)
+
+    monkeypatch.setattr(qmod, "load_split_ids", spy)
+    show_dev.main([])
+    out = capsys.readouterr().out
+    printed = re.findall(r"^(Q\d+) \[", out, re.M)
+    assert requested == ["dev"]
+    assert printed == real("dev") and len(printed) == 60
+    assert "60 dev question(s)" in out
