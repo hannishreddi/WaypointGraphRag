@@ -141,6 +141,39 @@ def test_policy_codes_and_titles() -> None:
     assert ids("ZEN-POL-0040 is not a code") == []
 
 
+# ---------------------------------------------------------------- organisations and locations (2.2)
+
+@pytest.mark.parametrize("row", read_csv("organizations"), ids=lambda r: r["org_id"])
+def test_every_organization_by_full_name_and_id(row: dict[str, str]) -> None:
+    assert ids(f"Who worked at {row['name']}?") == [("Organization", row["org_id"])]
+    assert ids(f"Who worked at {row['name'].lower()}?") == [("Organization", row["org_id"])]
+    assert ids(f"Who worked at {row['org_id']}?") == [("Organization", row["org_id"])]
+
+
+def test_organization_short_names_are_restricted() -> None:
+    assert ids("Who worked at Tessera?") == [("Organization", "ORG016")]
+    assert ids("Who worked at Brightpath before?") == [("Organization", "ORG002")]
+    assert ids("a maple tree and the Maple of Canada") == []
+    assert ids("He saw the sunrise.") == []
+
+
+@pytest.mark.parametrize("row", read_csv("locations"), ids=lambda r: r["location_id"])
+def test_every_location_by_full_name_id_and_city(row: dict[str, str]) -> None:
+    lid = row["location_id"]
+    assert ids(f"Who sits in {row['name']}?") == [("Location", lid)]
+    assert ids(f"Who sits in {row['name'].lower()}?") == [("Location", lid)]
+    assert ids(f"Who works from {row['city']}?") == [("Location", lid)]
+    assert ids(f"Who works from {row['city'].lower()}?") == []
+
+
+def test_city_inside_another_proper_name_does_not_link() -> None:
+    assert ids("Which employees studied at JNTU Hyderabad?") == []
+    assert ids("Who on Project Beacon works from Bengaluru?") == [("Project", "PJ03"), ("Location", "L02")]
+    # the full organisation name wins over the city it contains
+    org = next(o for o in read_csv("organizations") if "Austin" in o["name"])
+    assert ids(f"People from {org['name']} joined.") == [("Organization", org["org_id"])]
+
+
 # ---------------------------------------------------------------- skills
 
 def test_parenthetical_skill_variants_normalise() -> None:
@@ -187,8 +220,9 @@ def test_common_words_do_not_link() -> None:
     assert ids("Testing happens before release.") == []
     assert ids("we sell support and care") == []
     assert ids("Go to the office.") == []
-    # part of a longer proper name (organisation names are not linked in 2.1)
-    assert ids("Which Zenvora employees previously worked at Finwise Analytics?") == []
+    # part of a longer proper name: the organisation links (2.2), the skill Analytics does not
+    assert ids("Which Zenvora employees previously worked at Finwise Analytics?") == [
+        ("Organization", "ORG003")]
     assert ids("He worked at Atlas Systems before.") == []
     assert ids("Which Atlas engineers report to Divya?") == [("Project", "PJ01"), ("Employee", "ZV-1004")]
 
@@ -224,7 +258,8 @@ def test_no_alias_points_to_two_entities() -> None:
 @pytest.mark.neo4j
 def test_every_alias_target_is_a_graph_node(driver) -> None:
     keys = {"Employee": "employee_id", "Department": "department_id", "Project": "project_id",
-            "Product": "product_id", "Policy": "policy_id", "Skill": "skill_id"}
+            "Product": "product_id", "Policy": "policy_id", "Skill": "skill_id",
+            "Organization": "org_id", "Location": "location_id"}
     wanted: dict[str, set[str]] = {}
     for a in alias_table().aliases:
         wanted.setdefault(a.label, set()).add(a.id)

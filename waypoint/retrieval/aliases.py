@@ -1,15 +1,18 @@
 """Alias table for entity linking, built from the CSVs only. PLAN 2.1.
 
-Sources: employees, departments, projects, products, policies, skills.
+Sources: employees, departments, projects, products, policies, skills; organizations and
+locations since 2.2.
 
 - Case-insensitive ("full names and ids"): employee full names, every id, policy codes,
   department / project / product full names, policy titles.
 - Case-sensitive: first names (only when unique among employees), unique titles and
   the acronyms derived from them (CEO from "Chief Executive Officer", CISO from
   "(CISO)"), department codes and short names, project and product short names
-  ("Atlas", "Pulse"), skill names.
+  ("Atlas", "Pulse"), skill names, organisation short names (first word, when unique
+  among organisations: "Tessera") and location cities ("Bengaluru").
 - Restricted (common English words; see `linking`): single-word project / product
-  short names ("codename": no link after an article unless a context word follows),
+  short names, organisation short names and cities ("codename": no link after an
+  article or inside a longer proper name such as "JNTU Hyderabad"),
   single-word department short names and common-word skills ("generic": also no
   link at the start of a sentence). A context word after the alias ("data team",
   "Horizon project") always links, in any case.
@@ -202,6 +205,20 @@ def _collect() -> tuple[list[Alias], AliasTable]:
     for r in read_csv("policies"):
         raw += [Alias(r["policy_id"], "Policy", r["policy_id"], "id", True),
                 Alias(r["title"], "Policy", r["policy_id"], "full", True)]
+
+    orgs = read_csv("organizations")
+    org_firsts = Counter(r["name"].split()[0] for r in orgs)
+    for r in orgs:
+        oid, name = r["org_id"], r["name"]
+        raw += [Alias(oid, "Organization", oid, "id", True), Alias(name, "Organization", oid, "full", True)]
+        first = name.split()[0].rstrip(",")
+        if org_firsts[name.split()[0]] == 1 and first != name:
+            raw.append(Alias(first, "Organization", oid, "short", restrict="codename"))
+
+    for r in read_csv("locations"):
+        lid = r["location_id"]
+        raw += [Alias(lid, "Location", lid, "id", True), Alias(r["name"], "Location", lid, "full", True),
+                Alias(r["city"], "Location", lid, "short", restrict="codename")]
 
     skills = read_csv("skills")
     names = {r["skill"] for r in skills}
