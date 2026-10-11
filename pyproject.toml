@@ -8,7 +8,6 @@ version = "0.1.0"
 description = "Identity-aware Graph RAG onboarding assistant for Zenvora"
 requires-python = ">=3.11"
 dependencies = [
-  "anthropic>=0.40",
   "fastapi>=0.115",
   "uvicorn[standard]>=0.30",
   "neo4j>=5.20,<6",
@@ -19,6 +18,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+anthropic = ["anthropic>=0.40"]  # only for LLM_PROVIDER=anthropic
 
 [tool.setuptools.packages.find]
 include = ["waypoint*"]

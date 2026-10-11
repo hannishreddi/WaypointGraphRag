@@ -44,12 +44,14 @@ class Subgraph(BaseModel):
 
 
 class Usage(BaseModel):
-    input_tokens: int = 0
-    output_tokens: int = 0
+    input_tokens: int = 0  # all prompt tokens, cached ones included
+    output_tokens: int = 0  # visible output plus thinking tokens
+    cached_input_tokens: int = 0  # part of input_tokens served from the provider's cache
 
     def __add__(self, other: Usage) -> Usage:
         return Usage(input_tokens=self.input_tokens + other.input_tokens,
-                     output_tokens=self.output_tokens + other.output_tokens)
+                     output_tokens=self.output_tokens + other.output_tokens,
+                     cached_input_tokens=self.cached_input_tokens + other.cached_input_tokens)
 
 
 class Response(BaseModel):

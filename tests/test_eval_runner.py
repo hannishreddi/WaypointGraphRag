@@ -126,6 +126,6 @@ def test_dev_path_never_reads_test_ids(monkeypatch: pytest.MonkeyPatch, tmp_path
     test_ids = set(split["test"])
     test_questions = {q.question for q in qmod.read_all_questions() if q.id in test_ids}
     assert len(system.calls) == 60 and not {c[0] for c in system.calls} & test_questions
-    (run_dir,) = tmp_path.iterdir()
+    (run_dir,) = [p for p in tmp_path.iterdir() if not p.name.startswith(".")]
     ids = {r["id"] for r in read_rows(run_dir / "results.csv")}
     assert ids == set(split["dev"]) and not ids & test_ids

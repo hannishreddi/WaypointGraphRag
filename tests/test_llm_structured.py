@@ -20,15 +20,16 @@ class ScriptedLLM:
         self.replies = list(replies)
         self.calls: list[dict] = []
 
-    def complete(self, *, model: str, system: str, prompt: str, max_tokens: int) -> Completion:
-        self.calls.append({"model": model, "system": system, "prompt": prompt})
+    def complete(self, *, model: str, system: str, prompt: str, max_tokens: int,
+                 json_mode: bool = False) -> Completion:
+        self.calls.append({"model": model, "system": system, "prompt": prompt, "json_mode": json_mode})
         return Completion(text=self.replies.pop(0), input_tokens=10, output_tokens=5)
 
 
 def test_valid_first_time_with_code_fence() -> None:
     llm = ScriptedLLM('```json\n{"verdict": "ok", "n": 3}\n```')
     out, usage = complete_json(llm, model="m", system="s", prompt="p", schema=Out)
-    assert out == Out(verdict="ok", n=3) and len(llm.calls) == 1
+    assert out == Out(verdict="ok", n=3) and len(llm.calls) == 1 and llm.calls[0]["json_mode"]
     assert (usage.input_tokens, usage.output_tokens) == (10, 5)
 
 

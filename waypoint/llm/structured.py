@@ -33,8 +33,10 @@ def complete_json(client: LLMClient, *, model: str, system: str, prompt: str, sc
     usage = Usage()
     attempt_prompt = prompt
     for attempt in range(2):
-        c = client.complete(model=model, system=system, prompt=attempt_prompt, max_tokens=max_tokens)
-        usage += Usage(input_tokens=c.input_tokens, output_tokens=c.output_tokens)
+        c = client.complete(model=model, system=system, prompt=attempt_prompt, max_tokens=max_tokens,
+                            json_mode=True)
+        usage += Usage(input_tokens=c.input_tokens, output_tokens=c.output_tokens,
+                       cached_input_tokens=c.cached_input_tokens)
         try:
             return schema.model_validate_json(_json_text(c.text)), usage
         except ValidationError as exc:

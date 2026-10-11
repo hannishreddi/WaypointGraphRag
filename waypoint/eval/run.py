@@ -5,17 +5,26 @@
 Writes eval_runs/<YYYYmmdd-HHMMSS>_<system>_<split>/ with results.csv, summary.md
 (by hops and by category), run_config.json and judge_review.csv (a seeded 10% sample
 of judged rows with an empty human_verdict column for hand checking).
+
+Checkpoint and resume: every finished question (answer + verdict) is appended to
+<out>/.checkpoints/<system>_<split>_<config hash>.jsonl. The hash covers the system and
+its config_id, split, as-of, models, judge and askers (not the git commit), so the same
+command resumes where it stopped and redoes nothing. Error rows are not checkpointed,
+so they are retried. A QuotaStop (daily quota, or one request larger than the
+per-minute quota) ends the run cleanly with the checkpoint kept; the output files are
+written once every question is done.
 """
 from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 import random
 import statistics
 import subprocess
 import time
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
@@ -28,14 +37,20 @@ from waypoint.eval.judge import PROMPT_VERSION, Judge
 from waypoint.eval.scorers import assign_scorer, score_answer
 from waypoint.eval.sources import gold_sources, source_metrics
 from waypoint.eval.systems import SYSTEMS
+from waypoint.llm.client import QuotaStop
 
 EVAL_RUNS_DIR = REPO_ROOT / "eval_runs"
 REVIEW_FRACTION = 0.1
 REVIEW_SEED = 42
 FIELDS = ["id", "category", "hops", "asker_id", "scorer", "status", "score", "verdict", "reason",
           "source_recall", "citation_precision", "n_citations", "input_tokens", "output_tokens",
-          "latency_ms", "route", "detail", "question", "expected_answer", "answer"]
+          "cached_input_tokens", "api_calls", "latency_ms", "route", "detail", "question",
+          "expected_answer", "answer"]
 REVIEW_FIELDS = ["id", "question", "expected_answer", "answer", "verdict", "reason", "human_verdict"]
+
+
+class RunStopped(RuntimeError):
+    """The run stopped early on a QuotaStop; finished questions are in the checkpoint."""
 
 
 def _git(*args: str) -> str:
@@ -62,6 +77,8 @@ def _evaluate(q: qmod.Question, system: System, judge: Judge | None, as_of: date
     t0 = time.perf_counter()
     try:
         resp = system.answer(q.question, asker, as_of)
+    except QuotaStop:
+        raise
     except Exception as exc:  # noqa: BLE001 - one failing question must not lose the run
         return row | {"scorer": assign_scorer(q).kind, "status": "error", "score": 0.0,
                       "detail": f"{type(exc).__name__}: {exc}", "answer": "", "source_recall": 0.0,
@@ -72,7 +89,8 @@ def _evaluate(q: qmod.Question, system: System, judge: Judge | None, as_of: date
     row |= {"scorer": result.kind, "score": result.score, "detail": result.detail, "answer": resp.answer,
             "route": resp.route, "source_recall": recall, "citation_precision": precision,
             "n_citations": len(resp.citations), "input_tokens": resp.usage.input_tokens,
-            "output_tokens": resp.usage.output_tokens, "latency_ms": round(latency, 1),
+            "output_tokens": resp.usage.output_tokens,
+            "cached_input_tokens": resp.usage.cached_input_tokens, "latency_ms": round(latency, 1),
             "status": "scored"}
     if result.kind == "judge":
         if judge is None:
@@ -94,8 +112,9 @@ def _fmt(v: float | None, digits: int = 2) -> str:
 
 def _table(title: str, groups: dict[str, list[dict[str, Any]]]) -> list[str]:
     lines = [f"## {title}", "",
-             "| group | n | scored | skipped | score | source recall | citation precision | tokens/q | p50 latency ms |",
-             "|---|---:|---:|---:|---:|---:|---:|---:|---:|"]
+             "| group | n | scored | skipped | score | source recall | citation precision | tokens/q "
+             "| cached in/q | p50 latency ms |",
+             "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|"]
     for name, rows in groups.items():
         counted = [r for r in rows if r["status"] in ("scored", "error")]
         tokens = _mean((r.get("input_tokens") or 0) + (r.get("output_tokens") or 0) for r in rows)
@@ -103,7 +122,8 @@ def _table(title: str, groups: dict[str, list[dict[str, Any]]]) -> list[str]:
         lines.append(
             f"| {name} | {len(rows)} | {len(counted)} | {sum(r['status'] == 'skipped' for r in rows)} "
             f"| {_fmt(_mean(r['score'] for r in counted))} | {_fmt(_mean(r['source_recall'] for r in rows))} "
-            f"| {_fmt(_mean(r.get('citation_precision') for r in rows))} | {_fmt(tokens, 0)} | {_fmt(latency, 1)} |")
+            f"| {_fmt(_mean(r.get('citation_precision') for r in rows))} | {_fmt(tokens, 0)} "
+            f"| {_fmt(_mean(r.get('cached_input_tokens') or 0 for r in rows), 0)} | {_fmt(latency, 1)} |")
     return lines + [""]
 
 
@@ -125,6 +145,11 @@ def _summary(rows: list[dict[str, Any]], config: dict[str, Any], judge: Judge | 
              f"- errors: {sum(r['status'] == 'error' for r in rows)}"]
     if config["split"] == "dev":
         lines.append("- dev has 60 questions: per-category numbers are noisy; use the test split for claims")
+    calls = [r["api_calls"] for r in rows if r.get("api_calls") not in (None, "")]
+    if calls:
+        lines.append(f"- LLM API calls (answer + judge HTTP requests incl. retries, all sessions): {sum(calls)}")
+    if config.get("resumed_rows"):
+        lines.append(f"- resumed {config['resumed_rows']} finished rows from the checkpoint")
     lines += ["", *_table("Overall", {"all": rows}), *_table("By hops", group("hops")),
               *_table("By category", group("category"))]
     return "\n".join(lines)
@@ -138,20 +163,64 @@ def _write_csv(path: Path, fields: list[str], rows: Iterable[dict[str, Any]]) ->
             w.writerow({k: "" if r.get(k) is None else r.get(k) for k in fields})
 
 
+def config_hash(config: dict[str, Any]) -> str:
+    keys = ("system", "system_config", "split", "as_of", "models", "judge", "default_asker", "asker_overrides")
+    blob = json.dumps({k: config.get(k) for k in keys}, sort_keys=True)
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:12]
+
+
+def _load_checkpoint(path: Path) -> dict[str, dict[str, Any]]:
+    done: dict[str, dict[str, Any]] = {}
+    if path.is_file():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                row = json.loads(line)
+                done[row["id"]] = row
+    return done
+
+
 def run_eval(*, split: str, system: System, judge: Judge | None, out_root: Path = EVAL_RUNS_DIR,
              limit: int | None = None, as_of: date = DEFAULT_AS_OF,
-             models: dict[str, str | None] | None = None) -> Path:
+             models: dict[str, str | None] | None = None,
+             api_calls: Callable[[], int] | None = None, checkpoint_dir: Path | None = None) -> Path:
+    """Evaluate `system` on `split`, resuming from its checkpoint. Raises RunStopped on a QuotaStop."""
+    if getattr(system, "dev_only", False) and split != "dev":
+        raise ValueError(f"{system.name} runs on the dev split only")
     questions = qmod.load_questions(split)[:limit]
-    config = {
-        "system": system.name, "split": split, "as_of": as_of.isoformat(), "limit": limit,
-        "n_questions": len(questions), "models": models or {},
+    config: dict[str, Any] = {
+        "system": system.name, "system_config": getattr(system, "config_id", ""), "split": split,
+        "as_of": as_of.isoformat(), "limit": limit, "n_questions": len(questions), "models": models or {},
         "judge": None if judge is None else {"model": judge.model, "prompt_version": PROMPT_VERSION},
         "default_asker": qmod.DEFAULT_ASKER, "asker_overrides": qmod.ASKER_OVERRIDES,
         "git_commit": _git("rev-parse", "HEAD"), "git_dirty": bool(_git("status", "--porcelain")),
         "started_at": datetime.now().isoformat(timespec="seconds"),
     }
+    ckpt_dir = checkpoint_dir or out_root / ".checkpoints"
+    ckpt_dir.mkdir(parents=True, exist_ok=True)
+    ckpt = ckpt_dir / f"{system.name}_{split}_{config_hash(config)}.jsonl"
+    done = _load_checkpoint(ckpt)
+    config["checkpoint"] = str(ckpt)
+    config["resumed_rows"] = sum(q.id in done for q in questions)
+    rows: list[dict[str, Any]] = []
+    for i, q in enumerate(questions):
+        if q.id in done:
+            rows.append(done[q.id])
+            continue
+        before = api_calls() if api_calls is not None else 0
+        try:
+            row = _evaluate(q, system, judge, as_of)
+        except QuotaStop as exc:
+            raise RunStopped(f"stopped at question {i + 1}/{len(questions)} ({q.id}): {exc}\n"
+                             f"{len(rows)} finished questions are checkpointed in {ckpt}; "
+                             "re-run the same command to resume.") from exc
+        if api_calls is not None:
+            row["api_calls"] = api_calls() - before
+        rows.append(row)
+        if row["status"] != "error":
+            with open(ckpt, "a", encoding="utf-8") as f:
+                f.write(json.dumps(row, ensure_ascii=False) + "\n")
+
     out = _run_dir(out_root, system.name, split)
-    rows = [_evaluate(q, system, judge, as_of) for q in questions]
 
     _write_csv(out / "results.csv", FIELDS, rows)
     judged = sorted((r for r in rows if r.get("verdict")), key=lambda r: r["id"])
@@ -168,8 +237,9 @@ def _models() -> dict[str, str | None]:
     try:
         s = get_settings()
     except Exception:  # noqa: BLE001 - settings are only recorded here; --no-judge needs none
-        return {"model_fast": None, "model_answer": None, "embed_model": None}
-    return {"model_fast": s.model_fast, "model_answer": s.model_answer, "embed_model": s.cohere_embed_model}
+        return {"llm_provider": None, "model_fast": None, "model_answer": None, "embed_model": None}
+    return {"llm_provider": s.llm_provider, "model_fast": s.model_fast, "model_answer": s.model_answer,
+            "embed_model": s.cohere_embed_model}
 
 
 def main(argv: list[str] | None = None) -> Path:
@@ -187,12 +257,23 @@ def main(argv: list[str] | None = None) -> Path:
             raise SystemExit("the test split runs only through `make eval-test` (rule 2)") from None
 
     models = _models()
+    system = SYSTEMS[args.system]()
+    if getattr(system, "dev_only", False) and args.split != "dev":
+        raise SystemExit(f"{args.system} runs on the dev split only")
+    client = None
+    if not args.no_judge or args.system != "echo":
+        from waypoint.llm.client import get_llm_client
+        client = get_llm_client()
     judge = None
     if not args.no_judge:
-        from waypoint.llm.client import AnthropicClient
-        judge = Judge(AnthropicClient.from_settings(), model=str(models["model_fast"]))
-    out = run_eval(split=args.split, system=SYSTEMS[args.system](), judge=judge, out_root=args.out,
-                   limit=args.limit, models=models)
+        if models["model_fast"] == models["model_answer"]:
+            print(f"warning: the judge uses the answer model ({models['model_fast']})")
+        judge = Judge(client, model=str(models["model_fast"]))
+    try:
+        out = run_eval(split=args.split, system=system, judge=judge, out_root=args.out, limit=args.limit,
+                       models=models, api_calls=client.total_requests if client is not None else None)
+    except RunStopped as exc:
+        raise SystemExit(f"run stopped cleanly: {exc}") from None
     print(f"wrote {out}\n")
     print((out / "summary.md").read_text(encoding="utf-8"))
     return out
