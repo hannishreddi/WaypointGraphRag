@@ -32,7 +32,7 @@ from waypoint.retrieval.plan import Evidence, StepResult, merge
 from waypoint.retrieval.router import Route
 from waypoint.rules.engine import RuleResult
 
-VERSION = "pack-v2"  # part of S5's config_id: a change re-answers checkpointed questions
+VERSION = "pack-v3"  # part of S5's config_id: a change re-answers checkpointed questions
 Kind = Literal["identity", "graph", "rule", "passage", "unresolved", "note"]
 _SECTION = re.compile(r"^s(\d+)$")
 
@@ -83,13 +83,29 @@ def _person(d: dict[str, Any]) -> str:
     return f"{d.get('name')} ({d['employee_id']}{', ' + extra if extra else ''})"
 
 
-def _value(v: Any) -> str:
+def inr(amount: float) -> str:
+    """INR with Indian digit grouping: 11000 -> INR 11,000, 100000 -> INR 1,00,000."""
+    whole, frac = f"{abs(amount):.2f}".split(".")
+    head, tail = whole[:-3], whole[-3:]
+    groups = [head[max(0, i - 2):i] for i in range(len(head), 0, -2)][::-1]
+    out = ",".join([*groups, tail]) if head else tail
+    return f"INR {'-' if amount < 0 else ''}{out}{'' if frac == '00' else '.' + frac}"
+
+
+def _is_money(key: str, v: Any) -> bool:
+    """Money fields of rule values, inputs and params: `*_inr` and `amount` (always INR)."""
+    return (key.endswith("_inr") or key == "amount") and isinstance(v, int | float) and not isinstance(v, bool)
+
+
+def _value(v: Any, key: str = "") -> str:
+    if _is_money(key, v):
+        return inr(v)
     if isinstance(v, dict):
         if "employee_id" in v and "name" in v:
             return _person(v)
-        return "; ".join(f"{k}: {_value(x)}" for k, x in v.items())
+        return "; ".join(f"{k}: {_value(x, k)}" for k, x in v.items())
     if isinstance(v, list):
-        return f"[{len(v)} items] " + " | ".join(_value(x) for x in v) if v else "[0 items]"
+        return f"[{len(v)} items] " + " | ".join(_value(x, key) for x in v) if v else "[0 items]"
     if v is None:
         return "none"
     if isinstance(v, bool):
@@ -98,7 +114,7 @@ def _value(v: Any) -> str:
 
 
 def _row(row: dict[str, Any]) -> str:
-    return "- " + "; ".join(f"{k}: {_value(v)}" for k, v in row.items()
+    return "- " + "; ".join(f"{k}: {_value(v, k)}" for k, v in row.items()
                             if not k.startswith("_") and v is not None)
 
 
@@ -110,7 +126,7 @@ def named(value: Any) -> str:
 
 
 def _args(args: dict[str, Any]) -> str:
-    return ", ".join(f"{k}={named(v)}" for k, v in args.items())
+    return ", ".join(f"{k}={inr(v) if _is_money(k, v) else named(v)}" for k, v in args.items())
 
 
 def _template_text(s: StepResult, out: T.TemplateResult) -> str:
@@ -133,7 +149,7 @@ def _rule_text(s: StepResult, r: RuleResult) -> str:
     if r.fired_case:
         lines.append(f"case: {r.fired_case}")
     if r.value:
-        lines += [f"{k}: {_value(v)}" for k, v in r.value.items() if k != "roles"]
+        lines += [f"{k}: {_value(v, k)}" for k, v in r.value.items() if k != "roles"]
     if r.inputs:
         lines.append(f"inputs: {_value(r.inputs)}")
     if r.assumptions:
