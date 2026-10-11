@@ -267,6 +267,22 @@ def alias_table() -> AliasTable:
     return table
 
 
+@cache
+def entity_names() -> dict[str, str]:
+    """Entity id -> its name, taken from the alias table only: the `full` alias (employees,
+    departments, projects, products, policies, organisations, locations) or, for a skill,
+    its first `skill` alias (the skill's own name). Used to name ids in the context pack."""
+    out: dict[str, str] = {}
+    for a in alias_table().aliases:
+        if a.kind == "full" or (a.kind == "skill" and a.label == "Skill"):
+            out.setdefault(a.id, a.text)
+    return out
+
+
+def entity_name(entity_id: str) -> str | None:
+    return entity_names().get(entity_id)
+
+
 def canonical_skill(skill_id: str) -> str:
     return alias_table().skill_canonical[skill_id]
 

@@ -4,9 +4,11 @@ Built from the router's `Evidence`. Every item has an id the generator cites and
 contract citations behind it:
 
   asker        identity: the asker's public employee card (graph paths of the card)
-  step<N>      primary-path step N: template rows (with an explicit row count, and an
-               item count for every list field) or a rule result (status, case, value,
-               inputs, assumptions, policy sections)
+  step<N>      primary-path step N, headed by its op and arguments with every id argument
+               and rule subject named from the alias table ("Divya Krishnamurthy ZV-1004"):
+               template rows (with an explicit row count, and an item count for every list
+               field) or a rule result (status, case, value, inputs, assumptions, policy
+               sections)
   alt<N>       the same for the alternative path (low router confidence)
   <chunk id>   a passage from text_search (chunk citation, plus the policy section)
   unresolved   id-shaped mentions in the question that match nothing
@@ -25,11 +27,12 @@ from neo4j import Driver
 
 from waypoint.contract import ChunkCitation, Citation, PolicyCitation, Subgraph
 from waypoint.graph import templates as T
+from waypoint.retrieval.aliases import entity_name
 from waypoint.retrieval.plan import Evidence, StepResult, merge
 from waypoint.retrieval.router import Route
 from waypoint.rules.engine import RuleResult
 
-VERSION = "pack-v1"  # part of S5's config_id: a change re-answers checkpointed questions
+VERSION = "pack-v2"  # part of S5's config_id: a change re-answers checkpointed questions
 Kind = Literal["identity", "graph", "rule", "passage", "unresolved", "note"]
 _SECTION = re.compile(r"^s(\d+)$")
 
@@ -99,8 +102,15 @@ def _row(row: dict[str, Any]) -> str:
                             if not k.startswith("_") and v is not None)
 
 
+def named(value: Any) -> str:
+    """An entity id with its name from the alias table ("Divya Krishnamurthy ZV-1004"), so the
+    generator can connect the id to the name in the question; anything else unchanged."""
+    name = entity_name(value) if isinstance(value, str) else None
+    return f"{name} {value}" if name else str(value)
+
+
 def _args(args: dict[str, Any]) -> str:
-    return ", ".join(f"{k}={v}" for k, v in args.items())
+    return ", ".join(f"{k}={named(v)}" for k, v in args.items())
 
 
 def _template_text(s: StepResult, out: T.TemplateResult) -> str:
@@ -115,7 +125,7 @@ RESTRICTED_TEXT = ("status: restricted. The asker is not permitted to see this p
 
 
 def _rule_text(s: StepResult, r: RuleResult) -> str:
-    who = f"subject {r.subject_id}" if r.subject_id else f"a hypothetical person ({_args(r.params)})"
+    who = f"subject {named(r.subject_id)}" if r.subject_id else f"a hypothetical person ({_args(r.params)})"
     head = f"rule {r.rule_id} for {who} as of {r.as_of.isoformat()}"
     if r.status == "restricted":
         return f"{head}\n{RESTRICTED_TEXT}"
