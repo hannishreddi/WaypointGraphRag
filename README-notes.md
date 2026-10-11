@@ -10,4 +10,4 @@
 ## Demo (3.2)
 - Script, observed answers and screenshot placeholders: `docs/demo.md`. Automated: `python -m waypoint.api.demo` against a running server (cached re-runs make no LLM calls).
 - Rule answers draw their evidence: the cited policy section and a dashed **derived (rule case)** edge. Derived edges and node details are Waypoint's reasoning, not data stored in the graph, and node details never contain status, leave or notice, whoever asks.
-- Known issue: HR asking about restricted profile text can get an unnecessary refusal (generator over-refusal; retrieval is correct). See docs/demo.md.
+- Fixed in 3.3a: HR asking about restricted profile text got an unnecessary refusal, because the chunk id's `::restricted` label was visible to the generator. Passages now have neutral ids (pack-v4). See docs/s5_dev_3.3a.md.

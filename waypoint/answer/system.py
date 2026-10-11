@@ -79,6 +79,7 @@ class S5Waypoint:
         evidence = execute(route, driver=self.driver, as_of=as_of, embedder=self.embedder)
         pack = build_pack(route, evidence, driver=self.driver, as_of=as_of)
         trace["pack_items"] = pack.ids()
+        trace["passages"] = pack.passage_sources()
         gen, u = generate(self.client, self.model, pack)
         usage += u
         verdict = verify(gen.answer, gen.cited_ids, pack, not_found=NOT_FOUND)

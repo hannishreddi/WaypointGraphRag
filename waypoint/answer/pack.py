@@ -10,7 +10,11 @@ contract citations behind it:
                field) or a rule result (status, case, value, inputs, assumptions, policy
                sections)
   alt<N>       the same for the alternative path (low router confidence)
-  <chunk id>   a passage from text_search (chunk citation, plus the policy section)
+  passage<N>   a passage from text_search, numbered in pack order (chunk citation, plus the
+               policy section). The model never sees the chunk id: it carries the
+               sensitivity label ("...::restricted"), which made the generator refuse
+               restricted passages an authorised asker may see (3.2 demo, fixed in 3.3a).
+               `PackItem.source` keeps the chunk id for citations and the eval trace.
   unresolved   id-shaped mentions in the question that match nothing
 
 Passages arrive already filtered by `waypoint.retrieval.access` (rule 6); a restricted
@@ -32,7 +36,9 @@ from waypoint.retrieval.plan import Evidence, StepResult, merge
 from waypoint.retrieval.router import Route
 from waypoint.rules.engine import RuleResult
 
-VERSION = "pack-v3"  # part of S5's config_id: a change re-answers checkpointed questions
+# Part of S5's config_id: a change re-answers checkpointed questions.
+# v4 (3.3a): passages get neutral ids passage<N> instead of chunk ids.
+VERSION = "pack-v4"
 Kind = Literal["identity", "graph", "rule", "passage", "unresolved", "note"]
 _SECTION = re.compile(r"^s(\d+)$")
 
@@ -44,6 +50,7 @@ class PackItem:
     text: str
     path: str = ""  # primary | alternative | "" (identity, unresolved)
     citations: list[Citation] = field(default_factory=list)
+    source: str = ""  # chunk id of a passage; never rendered to the model
 
     def render(self) -> str:
         path = f' path="{self.path}"' if self.path else ""
@@ -66,6 +73,10 @@ class ContextPack:
 
     def render(self) -> str:
         return "\n\n".join(i.render() for i in self.items)
+
+    def passage_sources(self) -> dict[str, str]:
+        """passage<N> -> chunk id, for the eval trace."""
+        return {i.id: i.source for i in self.items if i.kind == "passage"}
 
     def citations_for(self, item_ids: list[str]) -> list[Citation]:
         out: dict[str, Citation] = {}
@@ -186,6 +197,7 @@ def build_pack(route: Route, evidence: Evidence, *, driver: Driver, as_of: date)
     ident, ident_sub = identity_item(driver, route.asker_id)
     pack.items.append(ident)
     seen_chunks: set[str] = set()
+    passages = 0
     counters = {"primary": 0, "alternative": 0}
     for ev_item in evidence.items:
         s, path = ev_item.step, ev_item.path
@@ -205,7 +217,9 @@ def build_pack(route: Route, evidence: Evidence, *, driver: Driver, as_of: date)
                 pack.items.append(PackItem(sid, "note", f"text_search({_args(s.args)}) found no passages", path))
             for h in fresh:
                 seen_chunks.add(h["chunk_id"])
-                pack.items.append(PackItem(h["chunk_id"], "passage", h["text"].strip(), path, _passage_citations(h)))
+                passages += 1
+                pack.items.append(PackItem(f"passage{passages}", "passage", h["text"].strip(), path,
+                                           _passage_citations(h), source=h["chunk_id"]))
     if route.unresolved:
         pack.items.append(PackItem(
             "unresolved", "unresolved",

@@ -76,6 +76,12 @@ def refused(r: Resp) -> tuple[bool, str]:
     return any(s in a for s in ("cannot share", "can't share", "can't find")), "answer refuses or finds nothing"
 
 
+def states_no_leave(r: Resp) -> tuple[bool, str]:
+    a = r["answer"].lower()
+    said = [w for w in ("on leave", "maternity", "on_leave", "returns on", "is away") if w in a]
+    return not said, "answer states no leave status" + (f" (found {said})" if said else "")
+
+
 def starts_with(word: str) -> Check:
     def check(r: Resp) -> tuple[bool, str]:
         return r["answer"].startswith(word), f"answer starts with {word!r}"
@@ -119,7 +125,9 @@ def moments() -> list[Ask]:
         Ask("1 Arjun, hybrid", q1, ARJUN, "2026-10-19",
             [starts_with("No"), cites_section("ZEN-POL-002", 3), rule_edge(ARJUN, "ZEN-POL-002#3")]),
         Ask("2 peer asks about Pooja (rule)", q2, PEER, checks=[no_restricted(POOJA), refused]),
-        Ask("2 peer asks about Pooja (text)", q2t, PEER, checks=[no_restricted(POOJA), refused]),
+        # Text path: public profile text may answer (e.g. "the Leave Policy applies"); rule 6 only
+        # forbids the leave itself, so the check is "states no leave status", not "refuses" (3.3a).
+        Ask("2 peer asks about Pooja (text)", q2t, PEER, checks=[no_restricted(POOJA), states_no_leave]),
         Ask("2 HR asks about Pooja (rule)", q2, HR, checks=[answers_leave]),
         Ask("2 HR asks about Pooja (text)", q2t, HR, checks=[answers_leave]),
         Ask("3 Meera's reports", "Who reports to Meera?", ARJUN,

@@ -55,6 +55,12 @@ Clicks:
 
 **Failure and root cause (HR, text path).** Retrieval and the access filter were right: HR's context pack holds both restricted chunks with the leave facts (rebuilt offline from the cached route, no LLM call). The generator (answer-v2) refused anyway. Its system prompt says a rule item with "status: restricted" must be refused. The passage ids end in `::restricted` (the sensitivity label in the chunk id), and the model applied that refusal rule to passages an authorised asker may see. This is over-refusal, not a leak. It is not fixed in 3.2, because a fix changes answering (rule 1 needs an eval number). It also matters for 3.3, because the main eval asks as HR. Candidate fixes, to be measured on dev only: show passages to the generator under a neutral id alias, or state in the prompt that passages are already access-checked. Logged under "Later" in PLAN.md.
 
+**Update (3.3a, 2026-10-12): fixed.** pack-v4 shows passages to the generator as `passage1`, `passage2`, … (the chunk ids stay in the citations). Live re-run:
+- HR now gets "Pooja Agarwal is on maternity leave from 1 Sep 2026 to 28 Feb 2027. This leave is governed by ZEN-POL-003, and her current work mode is listed as on leave."
+- The peer's text-path answer became "Pooja Agarwal is subject to the Leave Policy (ZEN-POL-003).", citing only her public "policies that apply to this role" chunk. That is not a leak.
+- The demo check for that row is now "states no leave status" instead of "refuses", because rule 6 forbids the leave, not public profile text.
+- Dev unchanged at 0.96. See [s5_dev_3.3a.md](s5_dev_3.3a.md).
+
 In the subgraph: for the peer nothing is drawn, and no restricted value appears in the response, citations or node details (tested). For HR the rule path draws Pooja, ZEN-POL-003 §3 and the derived edge. Node details never carry status or leave, even for HR: the subject detail says "a restricted fact (shown only in the answer, to an authorised asker)", and the case name (ON_LEAVE) is hidden.
 
 What it proves: access control lives in retrieval and the rule engine, not the prompt. The peer's prompt never contained the fact. A naive baseline (S1, S3) given the same corpus would leak it (3.3 measures this).
@@ -86,6 +92,6 @@ What it proves: a 3-hop rule chain (band -> policy case -> role holders through 
 
 ## Summary of the live run (2026-10-11)
 
-21 of 22 checks pass. The one failure is HR over-refusal on the text path (moment 2). Its root cause is above; it is not fixed here. Re-running `python -m waypoint.api.demo` is served entirely from the answer cache.
+21 of 22 checks pass. The one failure is HR over-refusal on the text path (moment 2). Its root cause is above; it is not fixed here. **After 3.3a: 22 of 22 checks pass** (see the update in moment 2). Re-running `python -m waypoint.api.demo` is served entirely from the answer cache.
 
 The same four moments are pytest tests with a scripted LLM (`tests/test_demo.py`) and need Neo4j. There, the router plan and the answer text are fixed, so the tests prove the plumbing (linking, plan validation, templates, rule engine at each date, access filter, pack, verifier, contract) and not the model's wording.

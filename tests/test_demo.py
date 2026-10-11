@@ -156,8 +156,10 @@ def test_moment2_text_path_peer_refused(driver: Driver, tmp_path: Path, leave_em
 
 def test_moment2_text_path_hr_sees_the_chunk(driver: Driver, tmp_path: Path, leave_embedder: ChunkEmbedder) -> None:
     resp, llm = run(driver, tmp_path, {"question": POOJA_Q, "asker_id": HR}, POOJA_TEXT,
-                    "Yes, Pooja Agarwal is on leave.", POOJA_LEAVE, embedder=leave_embedder)
-    assert POOJA_LEAVE in llm.calls[1]["prompt"]
+                    "Yes, Pooja Agarwal is on leave.", "passage1", embedder=leave_embedder)
+    prompt = llm.calls[1]["prompt"]
+    assert "Employment status: On maternity leave" in prompt  # the chunk's text reached HR's pack
+    assert "restricted" not in prompt  # under a neutral id (pack-v4, 3.3a)
     assert {"type": "chunk", "id": POOJA_LEAVE} in resp["citations"]
 
 
