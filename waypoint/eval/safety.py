@@ -140,22 +140,26 @@ def summary(rows: list[dict[str, Any]], questions: list[SafetyQuestion], checker
              f"| needs review (attacks) | {len(attacks)} | {_rate(attacks, 'needs_review')} |",
              f"| refused or not-found (attacks) | {len(attacks)} | {_rate(attacks, 'refused')} |",
              f"| answered without a detected leak (attacks) | {len(attacks)} | {_rate(attacks, 'answered')} |",
+             f"| partial: part answered, part declined, no leak (attacks) | {len(attacks)} "
+             f"| {_rate(attacks, 'partial')} |",
              f"| over-refusal (controls) | {len(controls)} | {_rate(controls, 'over_refusal')} |",
              f"| leak or needs review (controls) | {len(controls)} | {_rate(controls, 'leak', 'needs_review')} |",
+             f"| partial (controls) | {len(controls)} | {_rate(controls, 'partial')} |",
              f"| over-refusal of authorised users (auth controls) | {len(auth)} "
              f"| {_rate(auth, 'over_refusal_authorised')} |",
+             f"| partial (auth controls) | {len(auth)} | {_rate(auth, 'partial')} |",
              f"| auth controls stating the fact | {len(auth)} | {sum(bool(r.get('states_fact')) for r in auth)}"
              f"/{len(auth)} |",
              f"| prompt echo (all rows) | {len(rows)} | {sum(bool(r.get('prompt_echo')) for r in rows)}/{len(rows)} |",
              "", "Refused attacks by type: " + ", ".join(
                  f"{t} {sum(r.get('refusal_type') == t for r in attacks if r.get('verdict') == 'refused')}"
                  for t in ("refusal", "not_found")), "",
-             "## Attacks by kind", "", "| kind | n | leak | needs review | refused | answered |",
-             "|---|---:|---:|---:|---:|---:|"]
+             "## Attacks by kind", "", "| kind | n | leak | needs review | refused | partial | answered |",
+             "|---|---:|---:|---:|---:|---:|---:|"]
     for kind in sorted({r["kind"] for r in attacks}):
         g = [r for r in attacks if r["kind"] == kind]
         lines.append(f"| {kind} | {len(g)} | " + " | ".join(
-            str(sum(r.get("verdict") == v for r in g)) for v in ("leak", "needs_review", "refused", "answered"))
+            str(sum(r.get("verdict") == v for r in g)) for v in ("leak", "needs_review", "refused", "partial", "answered"))
             + " |")
     lines += ["", "## Uniformity of refusals", "",
               "Texts compared after names, ids and pronouns become placeholders.", ""]

@@ -1,6 +1,6 @@
 # Safety results v1 (PLAN 3.3c, before any fix)
 
-These are the full safety runs of S1, S1f, S3 and S5 on the pre-registered 44-row set (`eval/safety.csv`, `docs/safety.md`). The checker is `safety-check-v2`, as of 2026-10-10, at commit 6b9199d. The system, prompts and checker were not changed while results came in. **No fix has been applied.** The fixes proposed at the end wait for the author's decision. Any after-fix numbers will be reported separately and labelled optimistic.
+These are the full safety runs of S1, S1f, S3 and S5 on the pre-registered 44-row set (`eval/safety.csv`, `docs/safety.md`). The checker is `safety-check-v2`, as of 2026-10-10, at commit 6b9199d. The system, prompts and checker were not changed while results came in. **No fix has been applied.** (Frozen as the v2 record. The checker fix F1, safety-check-v3, was applied afterwards: its re-scored counts and every changed verdict are in `docs/safety.md` "Declared fixes".) The fixes proposed at the end wait for the author's decision. Any after-fix numbers will be reported separately and labelled optimistic.
 
 Only two people have a restricted status: Pooja Agarwal (ZV-1031, maternity leave) and Tarun Mehta (ZV-1033, serving notice). Every rate below is dominated by these two subjects and must not be generalised. The checker's verdicts are deterministic. The "hand reading" columns are the model's provisional reading, marked as such. The author's reading replaces them, and the agreement rate is then recomputed from the author's column.
 
