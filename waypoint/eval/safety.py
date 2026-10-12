@@ -1,6 +1,6 @@
 """Safety-set runner (PLAN 3.3b/3.3d, protocol c and e).
 
-    python -m waypoint.eval.safety --system s1|s1f|s3|s5 [--ids S01 S09 A02 ...] [--set safety|heldout]
+    python -m waypoint.eval.safety --system s1|s1f|s3|s5 [--ids S01 S09 A02 ...] [--set safety|heldout|twins]
 
 Asks every question of eval/safety.csv as its own (non-authorised) asker, as of
 2026-10-10, and scores each answer with the deterministic checker
@@ -18,7 +18,8 @@ the test split, so S3 may run on it (it still refuses the test split).
 
 `--set heldout` runs eval/safety_heldout.csv (`waypoint.eval.heldout`): own set version,
 checkpoint and `<ts>_<system>_heldout` folder, plus an expected-fact column for its
-authorised rows.
+authorised rows. `--set twins` (S5 only) runs eval/safety_twins.csv (`waypoint.eval.twins`)
+with a `twin_check` column: identical to the counterpart's answer and the uniform refusal.
 """
 from __future__ import annotations
 
@@ -43,7 +44,7 @@ from waypoint.llm.client import QuotaStop
 SAFETY_CSV = REPO_ROOT / "eval" / "safety.csv"
 SET_VERSION = "safety-v1"
 FIELDS = ["id", "kind", "group", "expected", "asker_id", "subject_id", "status", "verdict", "refusal_type",
-          "states_fact", "expected_found", "prompt_echo", "reasons", "route", "input_tokens", "output_tokens", "api_calls",
+          "states_fact", "expected_found", "twin_check", "prompt_echo", "reasons", "route", "input_tokens", "output_tokens", "api_calls",
           "latency_ms", "question", "answer", "trace"]
 
 # How each system treats access, printed in summary.md so the table is not read as
@@ -104,7 +105,7 @@ Expect = Callable[[SafetyQuestion, str], "str | None"]
 
 
 def score(rows: list[dict[str, Any]], questions: list[SafetyQuestion], checker: SafetyChecker,
-          expect: Expect | None = None) -> None:
+          checks: dict[str, Expect] | None = None) -> None:
     by_id = {q.id: q for q in questions}
     for r in rows:
         q = by_id[r["id"]]
@@ -115,8 +116,8 @@ def score(rows: list[dict[str, Any]], questions: list[SafetyQuestion], checker: 
         c = checker.check(q, r["answer"])
         r |= {"verdict": c.verdict, "refusal_type": c.refusal_type, "states_fact": c.states_fact,
               "prompt_echo": " ".join(c.prompt_echo), "reasons": c.reasons}
-        if expect is not None:
-            r["expected_found"] = expect(q, r["answer"])
+        for column, check in (checks or {}).items():
+            r[column] = check(q, r["answer"])
 
 
 def _rate(rows: list[dict[str, Any]], *verdicts: str) -> str:
@@ -164,6 +165,9 @@ def summary(rows: list[dict[str, Any]], questions: list[SafetyQuestion], checker
              *([f"| expected facts found (authorised rows) | {len(ex)} "
                 f"| {sum(r['expected_found'] == 'yes' for r in ex)}/{len(ex)} |"]
                if (ex := [r for r in rows if r.get("expected_found")]) else []),
+             *([f"| twin answer identical to the counterpart and the uniform refusal | {len(tw)} "
+                f"| {sum(str(r['twin_check']).startswith('identical') for r in tw)}/{len(tw)} |"]
+               if (tw := [r for r in rows if r.get("twin_check")]) else []),
              "", "Refused attacks by type: " + ", ".join(
                  f"{t} {sum(r.get('refusal_type') == t for r in attacks if r.get('verdict') == 'refused')}"
                  for t in ("refusal", "not_found")), "",
@@ -208,7 +212,7 @@ def run_safety(*, system: System, checker: SafetyChecker, questions: list[Safety
                out_root: Path = EVAL_RUNS_DIR, ids: list[str] | None = None, as_of: date = DEFAULT_AS_OF,
                models: dict[str, str | None] | None = None, api_calls: Callable[[], int] | None = None,
                checkpoint_dir: Path | None = None, set_name: str = "safety", set_version: str = SET_VERSION,
-               expect: Expect | None = None) -> Path:
+               expect: Expect | None = None, checks: dict[str, Expect] | None = None) -> Path:
     """Ask, checkpoint, score and write the outputs. Raises RunStopped on a QuotaStop."""
     if ids:
         known = {q.id for q in questions}
@@ -253,7 +257,7 @@ def run_safety(*, system: System, checker: SafetyChecker, questions: list[Safety
             with open(ckpt, "a", encoding="utf-8") as f:
                 f.write(json.dumps(row, ensure_ascii=False) + "\n")
     config["resumed_rows"] = resumed
-    score(rows, questions, checker, expect)
+    score(rows, questions, checker, {**({"expected_found": expect} if expect else {}), **(checks or {})})
     out = _run_dir(out_root, system.name, set_name)
     _write_csv(out / "results.csv", FIELDS, rows)
     config["finished_at"] = datetime.now().isoformat(timespec="seconds")
@@ -266,10 +270,12 @@ def main(argv: list[str] | None = None) -> Path:
     p = argparse.ArgumentParser(description="Run the safety set on one system.")
     p.add_argument("--system", choices=sorted(SYSTEMS), required=True)
     p.add_argument("--ids", nargs="+", default=None, help="only these safety ids")
-    p.add_argument("--set", dest="set_name", choices=("safety", "heldout"), default="safety",
-                   help="eval/safety.csv (default) or the held-out eval/safety_heldout.csv")
+    p.add_argument("--set", dest="set_name", choices=("safety", "heldout", "twins"), default="safety",
+                   help="eval/safety.csv (default), eval/safety_heldout.csv or eval/safety_twins.csv (S5 only)")
     p.add_argument("--out", type=Path, default=EVAL_RUNS_DIR, help=argparse.SUPPRESS)
     args = p.parse_args(argv)
+    if args.set_name == "twins" and args.system != "s5":
+        raise SystemExit("--set twins runs S5 only (its answers are compared with S5's held-out answers)")
     from waypoint.llm.client import get_llm_client
     from waypoint.rules.facts import facts_from_csv
 
@@ -283,6 +289,11 @@ def main(argv: list[str] | None = None) -> Path:
         questions, expect = heldout.load_heldout()
         kw = {"questions": questions, "set_name": "heldout", "set_version": heldout.SET_VERSION,
               "expect": heldout.expect_hook(expect, facts_from_csv(), DEFAULT_AS_OF)}
+    elif args.set_name == "twins":
+        from waypoint.eval import twins
+
+        kw = {"questions": twins.load_twins()[0], "set_name": "twins", "set_version": twins.SET_VERSION,
+              "checks": {"twin_check": twins.twin_hook(twins.reference_answers())}}
     try:
         out = run_safety(system=system, checker=checker, out_root=args.out, ids=args.ids, models=_models(),
                          api_calls=client.total_requests if client is not None else None, **kw)
