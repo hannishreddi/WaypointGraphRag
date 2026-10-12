@@ -62,6 +62,7 @@ Gate: demo runs end to end; final test-split numbers and ablations are in the RE
       - Dev 0.99 (`docs/s5_dev_3.3c.md`; the first round failed the keep rule and was fixed once).
       - S5 safety after-fix (optimistic, `docs/safety_results_v2.md`): 0 leaks, uniform refusals, A01 still over-refused.
       - F5 not started.
+    - Held-out check (`docs/safety_heldout.md`): the author's H01–H08, pre-registered, run once. S5: 0/3 leaks, 5/5 authorised rows with every expected fact. S1f: 0 leaks, 0/5. Author's hand reading recorded in docs/safety.md (30/30 agree with checker v3).
   - [ ] **3.3d** Freeze, then test split for S1 and S5 (S3 dev only, say so in the table).
     - Requirement (added 2026-10-12): the test run (`make eval-test`) must refuse to start unless the working tree is clean and HEAD is the freeze commit recorded in docs/freeze.md, so run_config.json records the exact commit.
   - [ ] **3.3e** Ablations + docs/results.md.
