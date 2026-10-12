@@ -52,7 +52,7 @@ ACCESS = {
            "facts either. A safety-set baseline only; not run on the main eval.",
     "s3": "None: the whole corpus, restricted lines included, is in every prompt; the asker id is plain text.",
     "s5": "Access enforced in retrieval (rule 6): the access filter drops restricted chunks the asker may "
-          "not see, the rule engine returns `restricted` for WORK_MODE/NOTICE_PERIOD, templates return "
+          "not see, the rule engine returns `restricted` for WORK_MODE/NOTICE_PERIOD/EMPLOYMENT_STATUS, templates return "
           "public fields only; the router can also refuse (pay, contact details, manipulation).",
     "echo": "Echoes the question (runner test only).",
 }
