@@ -5,6 +5,7 @@ ties broken by stratum key; then random.Random(42) samples dev ids inside each s
 visiting strata in sorted order over sorted ids, so the result is independent of CSV order.
 
     python -m waypoint.eval.split [--force]
+    python -m waypoint.eval.split --counts   # sizes and stratum counts only, no ids
 """
 from __future__ import annotations
 
@@ -65,10 +66,24 @@ def write_split(path: Path = SPLIT_PATH, questions: list[Question] | None = None
     return split
 
 
+def counts(path: Path = SPLIT_PATH) -> dict[str, Any]:
+    """Split sizes and per-stratum counts only: never an id or a question (3.3d quota plan)."""
+    split = json.loads(path.read_text(encoding="utf-8"))
+    return {"dev": int(split["dev_size"]), "test": int(split["test_size"]),
+            "strata": {k: {f: int(c[f]) for f in ("total", "dev", "test")} for k, c in split["strata"].items()}}
+
+
 def main(argv: list[str] | None = None) -> None:
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     p.add_argument("--force", action="store_true", help="overwrite an existing split.json")
+    p.add_argument("--counts", action="store_true", help="print split sizes and stratum counts only (no ids)")
     args = p.parse_args(argv)
+    if args.counts:
+        c = counts()
+        print(f"dev {c['dev']}, test {c['test']}")
+        for k, s in c["strata"].items():
+            print(f"  {k:<22} total {s['total']:>3}  dev {s['dev']:>2}  test {s['test']:>3}")
+        return
     try:
         split = write_split(force=args.force)
     except FileExistsError as exc:

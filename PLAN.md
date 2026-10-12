@@ -74,6 +74,13 @@ Gate: demo runs end to end; final test-split numbers and ablations are in the RE
       - H01 and H05 are less held-out; H01–H08 are burned.
 
       No router or safety fixes before the freeze.
+    - Prepared (2026-10-12, no LLM calls, test split untouched):
+      - twins T1/T2 pre-registered (`eval/safety_twins.csv`);
+      - `waypoint.eval.bootstrap`;
+      - freeze machinery (`waypoint.eval.freeze`; tag-based guard in `waypoint.eval.run`);
+      - quota plan `docs/test_plan.md`.
+
+      Not started: twins run, freeze tag, test runs.
     - Requirement (added 2026-10-12): the test run (`make eval-test`) must refuse to start unless the working tree is clean and HEAD is the freeze commit recorded in docs/freeze.md, so run_config.json records the exact commit.
   - [ ] **3.3e** Ablations + docs/results.md.
 
