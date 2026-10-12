@@ -1,6 +1,6 @@
 """Safety-set runner (PLAN 3.3b/3.3d, protocol c and e).
 
-    python -m waypoint.eval.safety --system s1|s1f|s3|s5 [--ids S01 S09 A02 ...]
+    python -m waypoint.eval.safety --system s1|s1f|s3|s5 [--ids S01 S09 A02 ...] [--set safety|heldout]
 
 Asks every question of eval/safety.csv as its own (non-authorised) asker, as of
 2026-10-10, and scores each answer with the deterministic checker
@@ -15,6 +15,10 @@ and asker are unchanged, so an edited row is re-asked. Verdicts are recomputed f
 stored answers on every run, so a declared checker fix re-scores without new calls. A
 QuotaStop ends the run cleanly; re-run the same command to resume. The safety set is not
 the test split, so S3 may run on it (it still refuses the test split).
+
+`--set heldout` runs eval/safety_heldout.csv (`waypoint.eval.heldout`): own set version,
+checkpoint and `<ts>_<system>_heldout` folder, plus an expected-fact column for its
+authorised rows.
 """
 from __future__ import annotations
 
@@ -39,7 +43,7 @@ from waypoint.llm.client import QuotaStop
 SAFETY_CSV = REPO_ROOT / "eval" / "safety.csv"
 SET_VERSION = "safety-v1"
 FIELDS = ["id", "kind", "group", "expected", "asker_id", "subject_id", "status", "verdict", "refusal_type",
-          "states_fact", "prompt_echo", "reasons", "route", "input_tokens", "output_tokens", "api_calls",
+          "states_fact", "expected_found", "prompt_echo", "reasons", "route", "input_tokens", "output_tokens", "api_calls",
           "latency_ms", "question", "answer", "trace"]
 
 # How each system treats access, printed in summary.md so the table is not read as
@@ -96,7 +100,11 @@ def _ask(q: SafetyQuestion, system: System, as_of: date) -> dict[str, Any]:
                   "trace": json.dumps(resp.trace, ensure_ascii=False) if resp.trace else None}
 
 
-def score(rows: list[dict[str, Any]], questions: list[SafetyQuestion], checker: SafetyChecker) -> None:
+Expect = Callable[[SafetyQuestion, str], "str | None"]
+
+
+def score(rows: list[dict[str, Any]], questions: list[SafetyQuestion], checker: SafetyChecker,
+          expect: Expect | None = None) -> None:
     by_id = {q.id: q for q in questions}
     for r in rows:
         q = by_id[r["id"]]
@@ -107,6 +115,8 @@ def score(rows: list[dict[str, Any]], questions: list[SafetyQuestion], checker: 
         c = checker.check(q, r["answer"])
         r |= {"verdict": c.verdict, "refusal_type": c.refusal_type, "states_fact": c.states_fact,
               "prompt_echo": " ".join(c.prompt_echo), "reasons": c.reasons}
+        if expect is not None:
+            r["expected_found"] = expect(q, r["answer"])
 
 
 def _rate(rows: list[dict[str, Any]], *verdicts: str) -> str:
@@ -151,6 +161,9 @@ def summary(rows: list[dict[str, Any]], questions: list[SafetyQuestion], checker
              f"| auth controls stating the fact | {len(auth)} | {sum(bool(r.get('states_fact')) for r in auth)}"
              f"/{len(auth)} |",
              f"| prompt echo (all rows) | {len(rows)} | {sum(bool(r.get('prompt_echo')) for r in rows)}/{len(rows)} |",
+             *([f"| expected facts found (authorised rows) | {len(ex)} "
+                f"| {sum(r['expected_found'] == 'yes' for r in ex)}/{len(ex)} |"]
+               if (ex := [r for r in rows if r.get("expected_found")]) else []),
              "", "Refused attacks by type: " + ", ".join(
                  f"{t} {sum(r.get('refusal_type') == t for r in attacks if r.get('verdict') == 'refused')}"
                  for t in ("refusal", "not_found")), "",
@@ -182,8 +195,8 @@ def summary(rows: list[dict[str, Any]], questions: list[SafetyQuestion], checker
     return "\n".join(lines) + "\n"
 
 
-def _run_dir(out_root: Path, system: str) -> Path:
-    stem = f"{datetime.now():%Y%m%d-%H%M%S}_{system}_safety"
+def _run_dir(out_root: Path, system: str, set_name: str = "safety") -> Path:
+    stem = f"{datetime.now():%Y%m%d-%H%M%S}_{system}_{set_name}"
     path, n = out_root / stem, 2
     while path.exists():
         path, n = out_root / f"{stem}-{n}", n + 1
@@ -194,7 +207,8 @@ def _run_dir(out_root: Path, system: str) -> Path:
 def run_safety(*, system: System, checker: SafetyChecker, questions: list[SafetyQuestion],
                out_root: Path = EVAL_RUNS_DIR, ids: list[str] | None = None, as_of: date = DEFAULT_AS_OF,
                models: dict[str, str | None] | None = None, api_calls: Callable[[], int] | None = None,
-               checkpoint_dir: Path | None = None) -> Path:
+               checkpoint_dir: Path | None = None, set_name: str = "safety", set_version: str = SET_VERSION,
+               expect: Expect | None = None) -> Path:
     """Ask, checkpoint, score and write the outputs. Raises RunStopped on a QuotaStop."""
     if ids:
         known = {q.id for q in questions}
@@ -202,14 +216,14 @@ def run_safety(*, system: System, checker: SafetyChecker, questions: list[Safety
             raise ValueError(f"not in the safety set: {', '.join(unknown)}")
         questions = [q for q in questions if q.id in set(ids)]
     config: dict[str, Any] = {
-        "system": system.name, "system_config": getattr(system, "config_id", ""), "set_version": SET_VERSION,
+        "system": system.name, "system_config": getattr(system, "config_id", ""), "set_version": set_version,
         "checker": VERSION, "as_of": as_of.isoformat(), "ids": ids, "n_questions": len(questions),
         "models": models or {}, "git_commit": _git("rev-parse", "HEAD"),
         "git_dirty": bool(_git("status", "--porcelain")), "started_at": datetime.now().isoformat(timespec="seconds"),
     }
     ckpt_dir = checkpoint_dir or out_root / ".checkpoints"
     ckpt_dir.mkdir(parents=True, exist_ok=True)
-    ckpt = ckpt_dir / f"{system.name}_safety_{config_hash(config)}.jsonl"
+    ckpt = ckpt_dir / f"{system.name}_{set_name}_{config_hash(config)}.jsonl"
     done: dict[str, dict[str, Any]] = {}
     if ckpt.is_file():
         for line in ckpt.read_text(encoding="utf-8").splitlines():
@@ -239,8 +253,8 @@ def run_safety(*, system: System, checker: SafetyChecker, questions: list[Safety
             with open(ckpt, "a", encoding="utf-8") as f:
                 f.write(json.dumps(row, ensure_ascii=False) + "\n")
     config["resumed_rows"] = resumed
-    score(rows, questions, checker)
-    out = _run_dir(out_root, system.name)
+    score(rows, questions, checker, expect)
+    out = _run_dir(out_root, system.name, set_name)
     _write_csv(out / "results.csv", FIELDS, rows)
     config["finished_at"] = datetime.now().isoformat(timespec="seconds")
     (out / "run_config.json").write_text(json.dumps(config, indent=2) + "\n", encoding="utf-8")
@@ -252,6 +266,8 @@ def main(argv: list[str] | None = None) -> Path:
     p = argparse.ArgumentParser(description="Run the safety set on one system.")
     p.add_argument("--system", choices=sorted(SYSTEMS), required=True)
     p.add_argument("--ids", nargs="+", default=None, help="only these safety ids")
+    p.add_argument("--set", dest="set_name", choices=("safety", "heldout"), default="safety",
+                   help="eval/safety.csv (default) or the held-out eval/safety_heldout.csv")
     p.add_argument("--out", type=Path, default=EVAL_RUNS_DIR, help=argparse.SUPPRESS)
     args = p.parse_args(argv)
     from waypoint.llm.client import get_llm_client
@@ -260,9 +276,16 @@ def main(argv: list[str] | None = None) -> Path:
     system = SYSTEMS[args.system]()
     client = get_llm_client() if args.system != "echo" else None
     checker = SafetyChecker.from_sources(facts_from_csv(), DEFAULT_AS_OF)
+    kw: dict[str, Any] = {"questions": load_safety()}
+    if args.set_name == "heldout":
+        from waypoint.eval import heldout
+
+        questions, expect = heldout.load_heldout()
+        kw = {"questions": questions, "set_name": "heldout", "set_version": heldout.SET_VERSION,
+              "expect": heldout.expect_hook(expect, facts_from_csv(), DEFAULT_AS_OF)}
     try:
-        out = run_safety(system=system, checker=checker, questions=load_safety(), out_root=args.out, ids=args.ids,
-                         models=_models(), api_calls=client.total_requests if client is not None else None)
+        out = run_safety(system=system, checker=checker, out_root=args.out, ids=args.ids, models=_models(),
+                         api_calls=client.total_requests if client is not None else None, **kw)
     except RunStopped as exc:
         raise SystemExit(f"run stopped cleanly: {exc}") from None
     except ValueError as exc:
