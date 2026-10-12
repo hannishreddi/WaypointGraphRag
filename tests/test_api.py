@@ -296,18 +296,17 @@ def test_contract_with_s5(driver: Driver, tmp_path: Path) -> None:
 @pytest.mark.neo4j
 def test_peer_asking_about_poojas_leave_is_refused(driver: Driver, tmp_path: Path) -> None:
     plan = [{"op": "WORK_MODE", "args": {"subject": "ZV-1031"}}]
-    c, llm = s5_client(driver, tmp_path, route_json("personal_rule", plan, entities=["ZV-1031"]),
-                       json.dumps({"answer": "I can't share Pooja Agarwal's leave details.", "cited_ids": ["step1"]}))
+    # 3.3c F4: an all-restricted plan gets the fixed refusal, with no generator call
+    c, llm = s5_client(driver, tmp_path, route_json("personal_rule", plan, entities=["ZV-1031"]))
     body = c.post("/ask", json={"question": "Is Pooja Agarwal on leave?", "asker_id": "ZV-1042"}).json()
-    prompt = llm.calls[1]["prompt"]
-    assert "status: restricted" in prompt
-    assert not any(s in prompt.lower() for s in ("maternity", "on_leave", "on leave until"))
-    assert body["citations"] == [] and "can't share" in body["answer"]
+    assert len(llm.calls) == 1
+    assert not any(s in json.dumps(body).lower() for s in ("maternity", "on_leave", "on leave until", "feb 2027"))
+    assert body["citations"] == [] and body["answer"] == REFUSAL and body["subgraph"]["nodes"] == []
 
 
 @pytest.mark.neo4j
 def test_refuse_route_makes_no_generator_call(driver: Driver, tmp_path: Path) -> None:
-    c, llm = s5_client(driver, tmp_path, route_json("refuse"))
+    c, llm = s5_client(driver, tmp_path, route_json("refuse", restricted_fact=True))  # 3.3c F4
     body = c.post("/ask", json={"question": "What is Tarun Mehta's salary?", "asker_id": "ZV-1042"}).json()
     assert body["answer"] == REFUSAL and body["route"] == "refuse" and body["subgraph"]["nodes"] == []
     assert len(llm.calls) == 1 and llm.calls[0]["model"] == "fast"

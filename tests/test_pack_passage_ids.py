@@ -23,6 +23,7 @@ from waypoint.answer.system import S5Waypoint
 from waypoint.contract import ChunkCitation, PolicyCitation, Subgraph
 from waypoint.retrieval.plan import Evidence, EvidenceItem, StepResult
 from waypoint.retrieval.router import Router
+from waypoint.answer.refusal import RESTRICTED_REFUSAL
 
 AS_OF = date(2026, 10, 10)
 POOJA, HR, PEER = "ZV-1031", "ZV-1006", "ZV-1020"
@@ -125,4 +126,5 @@ def test_peer_rule_path_still_gets_the_restricted_refusal(driver: Driver, tmp_pa
     plan = [{"op": "WORK_MODE", "args": {"subject": POOJA}}]
     sys, llm = s5(driver, tmp_path, leave_embedder, plan, "I can't share Pooja Agarwal's leave details.", "step1")
     r = sys.answer("Is Pooja Agarwal on leave?", PEER, AS_OF)
-    assert "status: restricted" in llm.calls[1]["prompt"] and r.citations == []
+    # 3.3c F4: an all-restricted plan is refused with the fixed text, before the generator
+    assert len(llm.calls) == 1 and r.answer == RESTRICTED_REFUSAL and r.citations == []

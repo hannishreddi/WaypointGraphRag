@@ -197,6 +197,10 @@ class RouterOutput(BaseModel):
     confidence: float = Field(ge=0.0, le=1.0)
     plan: list[Step] = Field(default_factory=list, max_length=MAX_STEPS)
     alternative: AltPath | None = None  # second path, used when confidence is low
+    # 3.3c: the question asks about anyone's employment status, leave, notice, last day,
+    # availability, pay or contact details (the asker's own included), or for records or
+    # instructions. Selects the uniform restricted refusal; access is never decided by it.
+    restricted_fact: bool = False
 
     @model_validator(mode="after")
     def _check(self, info: ValidationInfo) -> RouterOutput:

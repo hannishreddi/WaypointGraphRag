@@ -29,6 +29,7 @@ from typing import Any, Literal
 
 from neo4j import Driver
 
+from waypoint.answer.refusal import RESTRICTED_REFUSAL
 from waypoint.contract import ChunkCitation, Citation, PolicyCitation, Subgraph
 from waypoint.graph import templates as T
 from waypoint.retrieval.aliases import entity_name
@@ -38,7 +39,8 @@ from waypoint.rules.engine import RuleResult
 
 # Part of S5's config_id: a change re-answers checkpointed questions.
 # v4 (3.3a): passages get neutral ids passage<N> instead of chunk ids.
-VERSION = "pack-v4"
+# v5 (3.3c F4): a restricted rule item carries the one restricted-facts refusal text.
+VERSION = "pack-v5"
 Kind = Literal["identity", "graph", "rule", "passage", "unresolved", "note"]
 _SECTION = re.compile(r"^s(\d+)$")
 
@@ -148,7 +150,8 @@ def _template_text(s: StepResult, out: T.TemplateResult) -> str:
 
 
 RESTRICTED_TEXT = ("status: restricted. The asker is not permitted to see this person's employment status, "
-                   "leave or notice period. Do not reveal, hint at or guess it.")
+                   "leave or notice period. Do not reveal, hint at or guess it. For this part answer with "
+                   f"exactly: {RESTRICTED_REFUSAL}")
 
 
 def _rule_text(s: StepResult, r: RuleResult) -> str:

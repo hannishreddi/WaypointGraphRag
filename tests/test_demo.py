@@ -19,6 +19,7 @@ from waypoint.api.app import create_app
 from waypoint.api.cache import AnswerCache
 from waypoint.retrieval.router import Router
 from waypoint.rules.facts import facts_from_csv
+from waypoint.answer.refusal import RESTRICTED_REFUSAL
 
 pytestmark = pytest.mark.neo4j
 
@@ -125,12 +126,12 @@ def test_peer_is_not_authorised() -> None:
 
 
 def test_moment2_rule_path_peer_refused(driver: Driver, tmp_path: Path) -> None:
+    # 3.3c F4: the all-restricted rule plan is refused with the fixed text, no generator call
     resp, llm = run(driver, tmp_path, {"question": POOJA_Q, "asker_id": PEER}, POOJA_RULE,
-                    "I can't share Pooja Agarwal's leave or employment status.", "step1")
-    prompt = llm.calls[1]["prompt"]
-    assert "status: restricted" in prompt
+                    RESTRICTED_REFUSAL, "step1")  # never sent to a generator
+    assert len(llm.calls) == 1 and resp["answer"] == RESTRICTED_REFUSAL
     assert resp["citations"] == [] and resp["subgraph"] == {"nodes": [], "edges": []}
-    blob = json.dumps(resp) + prompt
+    blob = json.dumps(resp)
     for v in restricted_values(POOJA) + ["ON_LEAVE", "ZEN-POL-003#3"]:
         assert v not in blob, v
 

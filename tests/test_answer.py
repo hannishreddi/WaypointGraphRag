@@ -88,7 +88,7 @@ def test_regenerate_then_fail(driver: Driver, tmp_path: Path) -> None:
 
 @pytest.mark.neo4j
 def test_refuse_runs_nothing(driver: Driver, tmp_path: Path) -> None:
-    sys, llm = s5(driver, tmp_path, route_json("refuse"))
+    sys, llm = s5(driver, tmp_path, route_json("refuse", restricted_fact=True))  # 3.3c F4: restricted refusal
     r = sys.answer("What is Tarun Mehta's salary?", HR, AS_OF)
     assert r.answer == REFUSAL and r.route == "refuse" and r.citations == [] and r.subgraph.nodes == []
     assert len(llm.calls) == 1
@@ -105,7 +105,10 @@ def test_unresolved_reaches_the_pack(driver: Driver, tmp_path: Path) -> None:
 
 @pytest.mark.neo4j
 def test_restricted_rule_reaches_the_pack_as_a_refusal(driver: Driver, tmp_path: Path) -> None:
-    plan = [{"op": "NOTICE_PERIOD", "args": {"subject": "ZV-1033"}}]
+    # 3.3c F4: an all-restricted plan is refused without a generator call, so this pack
+    # check uses a mixed plan (restricted rule + public card)
+    plan = [{"op": "NOTICE_PERIOD", "args": {"subject": "ZV-1033"}},
+            {"op": "employee_card", "args": {"employee_id": "ZV-1033"}}]
     sys, llm = s5(driver, tmp_path, route_json("personal_rule", plan, entities=["ZV-1033"]),
                   gen("I can't share Tarun Mehta's notice details.", "step1"))
     r = sys.answer("What is Tarun Mehta's notice period?", "ZV-1042", AS_OF)

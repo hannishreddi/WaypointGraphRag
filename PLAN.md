@@ -57,7 +57,13 @@ Gate: demo runs end to end; final test-split numbers and ablations are in the RE
   - [x] **3.3c** Full safety runs (S1, S1f, S3, S5) + the author's hand reading + fixes only if the author approves (before/after reported, after-fix labelled optimistic). **Runs done, fixes pending the author's decision.**
     - Done: full runs on all 44 rows, 0 errors, checker safety-check-v2, nothing changed during the runs. Checker leaks on 30 attacks: S5 1, S1 10, S1f 2, S3 18. The provisional hand reading gives S5 0, S1 17, S1f 0, S3 23. S5 fully answers 1/4 authorised askers (routing). 226 LLM calls; S3 spanned two quota days. Results, a per-row S5 table for the author's hand reading, dodges, root causes and the proposed fixes F1–F5 (none applied) are in `docs/safety_results_v1.md`.
     - F1 applied (the author's decision): checker safety-check-v3, re-scored with 0 calls. Attack leaks: S5 0, S1 17, S1f 2, S3 23. See `docs/safety.md` "Declared fixes". F2–F5 not started.
+    - F2–F4 applied (the author's decision):
+      - `EMPLOYMENT_STATUS` rule, router-v4 with `restricted_fact`, one refusal text.
+      - Dev 0.99 (`docs/s5_dev_3.3c.md`; the first round failed the keep rule and was fixed once).
+      - S5 safety after-fix (optimistic, `docs/safety_results_v2.md`): 0 leaks, uniform refusals, A01 still over-refused.
+      - F5 not started.
   - [ ] **3.3d** Freeze, then test split for S1 and S5 (S3 dev only, say so in the table).
+    - Requirement (added 2026-10-12): the test run (`make eval-test`) must refuse to start unless the working tree is clean and HEAD is the freeze commit recorded in docs/freeze.md, so run_config.json records the exact commit.
   - [ ] **3.3e** Ablations + docs/results.md.
 
   Protocol for the final evaluation (3.3):

@@ -169,5 +169,22 @@
        "result": {"probation_end": "{probation_end}", "in_probation": false},
        "sources": [{"policy": "ZEN-POL-003", "section": 5, "rule_id": "R018"}]}
     ]
+  },
+  "EMPLOYMENT_STATUS": {
+    "description": "Employment status at as_of: active, on leave (with the leave dates) or serving notice (with the resignation date and the last working day). Restricted: only the person, their direct manager and HR see it.",
+    "restricted": true,
+    "record": true,
+    "cases": [
+      {"id": "ON_LEAVE", "when": {"attr": "status_category", "op": "==", "value": "on_leave"},
+       "result": {"employment_status": "{status}", "leave_start": "{leave_start|date}", "leave_end": "{leave_end|date}"},
+       "sources": [{"policy": "ZEN-POL-003", "section": 3}]},
+      {"id": "SERVING_NOTICE", "when": {"attr": "status_category", "op": "==", "value": "serving_notice"},
+       "result": {"employment_status": "{status}", "resignation_date": "{resignation_date|date}",
+                  "last_working_day": "{last_working_day|date}"},
+       "sources": [{"policy": "ZEN-POL-003", "section": 5}]},
+      {"id": "ACTIVE", "when": {"attr": "status_category", "op": "==", "value": "active"},
+       "result": {"employment_status": "{status}"},
+       "sources": []}
+    ]
   }
 }

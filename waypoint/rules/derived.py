@@ -13,7 +13,8 @@ Months and anniversaries clamp to the last day of a shorter month (29 Feb -> 28 
 from __future__ import annotations
 
 import calendar
-from datetime import date, timedelta
+import re
+from datetime import date, datetime, timedelta
 
 INDUCTION_DAYS = 90  # ZEN-POL-002 §4
 PROBATION_MONTHS = 6  # ZEN-POL-003 §5
@@ -66,6 +67,28 @@ def status_category(status: str) -> str:
     if s.startswith("on ") and " leave" in s:
         return "on_leave"
     raise ValueError(f"unknown employment status: {status!r}")
+
+
+_STATUS_DATE = r"(\d{1,2} [A-Z][a-z]{2} \d{4})"
+_LEAVE = re.compile(rf"\({_STATUS_DATE} to {_STATUS_DATE}\)")
+_NOTICE = re.compile(rf"resigned {_STATUS_DATE}, last working day {_STATUS_DATE}")
+
+
+def status_dates(status: str) -> dict[str, date]:
+    """Dates written in a status ("On maternity leave (1 Sep 2026 to 28 Feb 2027)",
+    "Serving notice (resigned 15 Sep 2026, last working day 14 Nov 2026)"); {} for Active.
+    Restricted (rule 6), like the status itself."""
+    def d(s: str) -> date:
+        return datetime.strptime(s, "%d %b %Y").date()
+
+    cat = status_category(status)
+    if cat == "on_leave" and (m := _LEAVE.search(status)):
+        return {"leave_start": d(m[1]), "leave_end": d(m[2])}
+    if cat == "serving_notice" and (m := _NOTICE.search(status)):
+        return {"resignation_date": d(m[1]), "last_working_day": d(m[2])}
+    if cat != "active":
+        raise ValueError(f"status dates not recognised: {status!r}")
+    return {}
 
 
 def canonical_city(city: str) -> str:

@@ -29,7 +29,8 @@ from typing import Any, Literal
 from neo4j import Driver
 from pydantic import BaseModel, Field
 
-from waypoint.contract import Citation, GraphCitation, PolicyCitation, Subgraph, SubgraphEdge, SubgraphNode
+from waypoint.contract import (ChunkCitation, Citation, GraphCitation, PolicyCitation, Subgraph, SubgraphEdge,
+                               SubgraphNode)
 from waypoint.graph import templates as T
 from waypoint.retrieval.linking import link_entities
 from waypoint.rules import derived as Dv
@@ -59,6 +60,7 @@ class Rule(BaseModel):
     id: str
     description: str
     restricted: bool = False
+    record: bool = False  # the value is the subject's stored record (status); cites the record chunk
     people: bool = False
     params: list[str] = []
     param_defaults: dict[str, Any] = {}
@@ -133,6 +135,8 @@ class Attrs:
                 return Dv.band_number(s.band)
             case "status_category":
                 return Dv.status_category(s.status)
+            case "leave_start" | "leave_end" | "resignation_date" | "last_working_day":
+                return Dv.status_dates(s.status).get(name, _UNKNOWN)
             case "is_top":
                 return s.manager_id is None
             case "days_since_join":
@@ -221,7 +225,14 @@ _EDGES = {  # attribute -> (relationship, target id field, target label, target 
 
 
 # Rule 6 facts: never written into a subgraph detail, for any asker.
-RESTRICTED_ATTRS = frozenset({"status", "status_category"})
+RESTRICTED_ATTRS = frozenset({"status", "status_category", "leave_start", "leave_end", "resignation_date",
+                              "last_working_day"})
+
+
+def record_chunk_id(employee_id: str) -> str:
+    """The restricted chunk of the employee's profile record (Employment status, work mode,
+    notice rows), where a record rule's value is written (1.3 chunk id format)."""
+    return f"profile:{employee_id}::employee-record::restricted"
 _DATE_DERIVED = frozenset({"days_since_join", "tenure_years", "completed_service_years", "in_probation",
                            "induction_end", "probation_end"})
 
@@ -408,6 +419,8 @@ def evaluate(rule_id: str, subject_id: str | None, asker_id: str, as_of: date,
         subgraph = _merge(subgraph, psub)
         assumptions += notes
     citations += [GraphCitation(path=p) for p in paths]
+    if rule.record and subject is not None:
+        citations.append(ChunkCitation(id=record_chunk_id(subject.employee_id)))
     return base.model_copy(update={
         "fired_case": fired.id, "value": value, "inputs": attrs.used, "policy_rules": policy_rules,
         "citations": citations, "subgraph": subgraph, "assumptions": assumptions})

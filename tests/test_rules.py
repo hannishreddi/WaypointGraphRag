@@ -119,7 +119,9 @@ def test_every_case_cites_an_existing_section_and_policy_rule() -> None:
     for rule_id, rule in load_rules().items():
         assert rule.cases, rule_id
         for case in rule.cases:
-            assert case.sources, (rule_id, case.id)
+            # a record rule (EMPLOYMENT_STATUS) cites the subject's record chunk; a case no
+            # policy governs (ACTIVE) has no policy section
+            assert case.sources or rule.record, (rule_id, case.id)
             for s in case.sources:
                 assert s.section in _policy_sections(s.policy), (rule_id, case.id, s)
                 if s.rule_id:

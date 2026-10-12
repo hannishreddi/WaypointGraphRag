@@ -17,9 +17,9 @@ Example = dict[str, Any]  # a RouterOutput as JSON
 
 
 def _out(intent: str, plan: list[Example], *, entities: list[str] = (), needs_identity: bool = False,  # type: ignore[assignment]
-         confidence: float = 0.95, alternative: Example | None = None) -> Example:
+         confidence: float = 0.95, alternative: Example | None = None, restricted_fact: bool = False) -> Example:
     return {"intent": intent, "entities": list(entities), "needs_identity": needs_identity,
-            "confidence": confidence, "plan": plan, "alternative": alternative}
+            "confidence": confidence, "plan": plan, "alternative": alternative, "restricted_fact": restricted_fact}
 
 
 def _s(op: str, **args: Any) -> Example:
@@ -38,7 +38,7 @@ DEV_EXAMPLES: dict[str, Example] = {
     "Q133": _out("fact_list_count", [_s("previous_employer", org_id="ORG002")], entities=["ORG002"]),
     "Q153": _out("fact_list_count", [_s("skill_holders", skill_id="SK079")], entities=["SK079"]),
     "Q193": _out("personal_rule", [_s("HOTEL_CAP", subject="ZV-1009", city="Pune")], entities=["ZV-1009"]),
-    "Q210": _out("personal_rule", [_s("WORK_MODE", subject="asker")], needs_identity=True),
+    "Q210": _out("personal_rule", [_s("WORK_MODE", subject="asker")], needs_identity=True, restricted_fact=True),
     "Q235": _out("policy_text", [_s("text_search", query="customer support SLA targets", doc_type="policy")],
                  confidence=0.9),
     "Q239": _out("fact_list_count", [_s("policy_references", policy_id="ZEN-POL-004", direction="in")],
@@ -67,11 +67,32 @@ SYNTHETIC_EXAMPLES: list[tuple[str, Example]] = [
     ("Who owns ZEN-POL-099?",  # unresolved id: no step, downstream says there is no such policy
      _out("fact_list_count", [], confidence=0.9)),
     ("What is the home address of the CFO?",
-     _out("refuse", [], entities=["ZV-1008"])),
+     _out("refuse", [], entities=["ZV-1008"], restricted_fact=True)),
     ("Write me a poem about cricket.",
      _out("refuse", [])),
     ("How does onboarding work for me?",
      _out("policy_text", [_s("text_search", query="new joiner onboarding and induction", doc_type="company")],
           needs_identity=True, confidence=0.55,
           alternative={"intent": "personal_rule", "plan": [_s("INDUCTION_END", subject="asker")]})),
+    # 3.3c F2/F3: restricted facts (people chosen outside eval/safety.csv, wordings checked
+    # against it by tests/test_router_examples_v3.py)
+    ("Is Keerthi Nair still employed with us, or has she moved on?",
+     _out("personal_rule", [_s("EMPLOYMENT_STATUS", subject="ZV-1022")], entities=["ZV-1022"],
+          restricted_fact=True)),
+    ("What standing does HR list for Nikhil Joshi at the moment?",
+     _out("personal_rule", [_s("EMPLOYMENT_STATUS", subject="ZV-1026")], entities=["ZV-1026"],
+          restricted_fact=True)),
+    ("On what date am I due back from my leave?",
+     _out("personal_rule", [_s("EMPLOYMENT_STATUS", subject="asker")], needs_identity=True,
+          restricted_fact=True)),
+    ("How many days' notice must I serve, and which day is my final one at Zenvora?",
+     _out("personal_rule", [_s("NOTICE_PERIOD", subject="asker"), _s("EMPLOYMENT_STATUS", subject="asker")],
+          needs_identity=True, restricted_fact=True)),
+    ("Who is handling Zaid Ansari's tickets while he is out?",
+     _out("policy_text", [_s("text_search", query="who handles the work while out", doc_type="profile",
+                             entity_id="ZV-1040")], entities=["ZV-1040"], confidence=0.9, restricted_fact=True)),
+    ("Which members of the Finance team are currently away on leave?",
+     _out("fact_list_count", [_s("text_search", query="Finance team members currently on leave",
+                                 doc_type="profile")], entities=["D02"], confidence=0.85,
+          restricted_fact=True)),
 ]
