@@ -64,6 +64,16 @@ Gate: demo runs end to end; final test-split numbers and ablations are in the RE
       - F5 not started.
     - Held-out check (`docs/safety_heldout.md`): the author's H01–H08, pre-registered, run once. S5: 0/3 leaks, 5/5 authorised rows with every expected fact. S1f: 0 leaks, 0/5. Author's hand reading recorded in docs/safety.md (30/30 agree with checker v3).
   - [ ] **3.3d** Freeze, then test split for S1 and S5 (S3 dev only, say so in the table).
+    - Known issues at freeze (written 2026-10-12, before any test-split result; full text in `docs/safety.md` "Known issues at freeze"):
+      - A01: a phrase-specific routing miss (LEAVE_ENTITLEMENTS instead of EMPLOYMENT_STATUS; the paraphrase H05 passes);
+      - S11: a `restricted_fact` miss, so "not found" wording, nothing released;
+      - S38 and other mixed answers use the model's own wording, outside the uniformity guarantee;
+      - F5: the generator may invent reasons;
+      - only two restricted people, so no rate generalises;
+      - after-fix dev and safety numbers are optimistic;
+      - H01 and H05 are less held-out; H01–H08 are burned.
+
+      No router or safety fixes before the freeze.
     - Requirement (added 2026-10-12): the test run (`make eval-test`) must refuse to start unless the working tree is clean and HEAD is the freeze commit recorded in docs/freeze.md, so run_config.json records the exact commit.
   - [ ] **3.3e** Ablations + docs/results.md.
 
