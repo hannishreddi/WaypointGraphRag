@@ -77,6 +77,12 @@ def authorised(route: Route, evidence: Evidence) -> bool:
     return asker is not None and asker.department_code == HR_DEPARTMENT_CODE
 
 
+def config_id(model_answer: str, model_fast: str) -> str:
+    """S5's config id: answer, router, pack and verifier versions, then both models
+    (part of every checkpoint key; docs/freeze.md records it)."""
+    return f"{ANSWER_PROMPT}:{ROUTER_PROMPT}:{PACK_VERSION}:{VERIFIER_VERSION}:{model_answer}:{model_fast}"
+
+
 class S5Waypoint:
     name = "s5"
 
@@ -84,8 +90,7 @@ class S5Waypoint:
                  embedder: QueryEmbedder | None = None, router: Router | None = None) -> None:
         self.client, self.model, self.driver, self.embedder = client, model_answer, driver, embedder
         self.router = router or Router(client, model=model_fast)
-        self.config_id = (f"{ANSWER_PROMPT}:{ROUTER_PROMPT}:{PACK_VERSION}:{VERIFIER_VERSION}:"
-                          f"{model_answer}:{model_fast}")
+        self.config_id = config_id(model_answer, model_fast)
 
     @classmethod
     def from_settings(cls) -> S5Waypoint:

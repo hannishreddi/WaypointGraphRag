@@ -70,3 +70,20 @@ def test_by_stratum() -> None:
 def test_empty_is_an_error() -> None:
     with pytest.raises(ValueError):
         mean_ci([])
+
+
+def test_report(tmp_path) -> None:  # noqa: ANN001
+    from waypoint.eval.bootstrap import report
+
+    def run(name: str, scores: list[str]) -> object:
+        d = tmp_path / name
+        d.mkdir()
+        rows = ["id,status,hops,category,score"]
+        rows += [f"Q{i},ok,{1 + i % 2},c,{s}" for i, s in enumerate(scores)]
+        (d / "results.csv").write_text("\n".join(rows) + "\n", encoding="utf-8")
+        return d
+
+    text = report(run("a", ["1", "1", "1", "1"]), run("b", ["0", "0", "0", ""]))
+    assert "paired difference a - b (3 questions scored by both)" in text
+    assert "- all: 1.000 [1.000, 1.000] (n=3); difference claimed: yes" in text
+    assert "hops 1" in text and "category c" in text
