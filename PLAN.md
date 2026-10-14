@@ -92,6 +92,7 @@ Gate: demo runs end to end; final test-split numbers and ablations are in the RE
   d. Statistics: report 95% bootstrap confidence intervals (pure Python, fixed seed) and n per stratum; do not claim a difference inside the interval. After the test run the author hand-checks the judge_review.csv sample; the agreement rate goes in docs/results.md.
   e. Before any run, state the expected LLM calls and days of free-tier quota. Runs resume from checkpoints and never mix config ids.
 - [ ] **3.4 README.** Problem, design, architecture diagram, scoreboard by hop count, ablation table, limitations (small synthetic corpus, full-context baseline), how to run.
+    - Started 2026-10-14: `README.md` has the how-to-run part (setup on a fresh machine, `cache_seed/` + `make seed-cache`, troubleshooting). Scoreboard, ablations and limitations come after the test runs. `README.md` is not in the freeze allowlist (docs/*.md, PLAN.md, CLAUDE.md): edit it before tagging freeze-1 or after the test runs.
 - [ ] **3.5 Stretch if time remains (pick one):** (a) extraction slice: LLM extracts REFERENCES edges and rule predicates from the policy Markdown, scored against `policy_references.csv` and `policy_rules.csv`; (b) who-should-I-ask finder; (c) onboarding checklist from `onboarding_tasks.csv`.
 
 ## Later (do not touch before the gate)
