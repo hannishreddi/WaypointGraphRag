@@ -1,0 +1,118 @@
+{
+ "meta": {
+  "question": "Do I need to come to the office every day?",
+  "asker_id": "ZV-1042",
+  "as_of": "2026-10-19",
+  "system": "s5",
+  "config_id": "answer-v2:router-v2:pack-v3:verify-v2:gemini-3.1-flash-lite:gemini-3.5-flash-lite",
+  "schema": "response-v2"
+ },
+ "response": {
+  "answer": "No. You are required to work in a hybrid mode with at least 3 days in the office per week, with Tuesday to Thursday designated as anchor days.",
+  "route": "personal_rule",
+  "as_of": "2026-10-19",
+  "confidence": 0.95,
+  "citations": [
+   {
+    "type": "policy",
+    "id": "ZEN-POL-002",
+    "section": 3
+   },
+   {
+    "type": "graph",
+    "path": "ZV-1042 -IN_BAND-> Z2"
+   },
+   {
+    "type": "graph",
+    "path": "ZV-1042 -WORKS_IN-> D03"
+   },
+   {
+    "type": "graph",
+    "path": "ZV-1042 -BASED_AT-> L01"
+   }
+  ],
+  "subgraph": {
+   "nodes": [
+    {
+     "id": "ZV-1042",
+     "label": "Employee",
+     "name": "Arjun Menon",
+     "detail": "Rule WORK_MODE, case STANDARD. Decisive: no earlier case applies. Also checked: band = Z2; days_since_join = 91; department_code = BKE; base_city = Hyderabad; join_date = 2026-07-20."
+    },
+    {
+     "id": "Z2",
+     "label": "Band",
+     "name": "Z2",
+     "detail": ""
+    },
+    {
+     "id": "D03",
+     "label": "Department",
+     "name": "BKE",
+     "detail": ""
+    },
+    {
+     "id": "L01",
+     "label": "Location",
+     "name": "Hyderabad",
+     "detail": ""
+    },
+    {
+     "id": "ZEN-POL-002",
+     "label": "Policy",
+     "name": "ZEN-POL-002",
+     "detail": ""
+    },
+    {
+     "id": "ZEN-POL-002#3",
+     "label": "PolicySection",
+     "name": "ZEN-POL-002 §3",
+     "detail": "Rule WORK_MODE, case STANDARD: Standard rule: at least 3 days a week in office as set in the team roster; Tuesday to Thursday are anchor days"
+    }
+   ],
+   "edges": [
+    {
+     "source": "ZV-1042",
+     "target": "Z2",
+     "type": "IN_BAND",
+     "role": "checked",
+     "derived": false
+    },
+    {
+     "source": "ZV-1042",
+     "target": "D03",
+     "type": "WORKS_IN",
+     "role": "checked",
+     "derived": false
+    },
+    {
+     "source": "ZV-1042",
+     "target": "L01",
+     "type": "BASED_AT",
+     "role": "checked",
+     "derived": false
+    },
+    {
+     "source": "ZEN-POL-002",
+     "target": "ZEN-POL-002#3",
+     "type": "HAS_SECTION",
+     "role": "",
+     "derived": false
+    },
+    {
+     "source": "ZV-1042",
+     "target": "ZEN-POL-002#3",
+     "type": "RULE_CASE",
+     "role": "decisive",
+     "derived": true
+    }
+   ]
+  },
+  "usage": {
+   "input_tokens": 5874,
+   "output_tokens": 113,
+   "cached_input_tokens": 0
+  },
+  "latency_ms": 11931.294299996807
+ }
+}

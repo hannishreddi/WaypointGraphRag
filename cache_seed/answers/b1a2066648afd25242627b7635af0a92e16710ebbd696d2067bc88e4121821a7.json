@@ -1,0 +1,50 @@
+{
+ "meta": {
+  "question": "Backend Engineering Standards and Code Review Policy",
+  "asker_id": "ZV-1040",
+  "as_of": "2026-10-13",
+  "system": "s5",
+  "config_id": "answer-v2:router-v4:pack-v5:verify-v2:gemini-3.1-flash-lite:gemini-3.5-flash-lite",
+  "schema": "response-v2"
+ },
+ "response": {
+  "answer": "ZEN-DPL-BKE-01 Backend Engineering Standards and Code Review Policy (version 2, effective 2025-01-06) is a departmental policy owned by Backend Engineering. It aims to keep backend services reliable, secure, and easy to change through consistent engineering practice. It applies to all engineers who change backend code or services.",
+  "route": "policy_text",
+  "as_of": "2026-10-13",
+  "confidence": 0.95,
+  "citations": [
+   {
+    "type": "chunk",
+    "id": "ZEN-DPL-BKE-01::header::0"
+   },
+   {
+    "type": "chunk",
+    "id": "ZEN-DPL-BKE-01::s2::0"
+   },
+   {
+    "type": "policy",
+    "id": "ZEN-DPL-BKE-01",
+    "section": 2
+   },
+   {
+    "type": "chunk",
+    "id": "ZEN-DPL-BKE-01::s1::0"
+   },
+   {
+    "type": "policy",
+    "id": "ZEN-DPL-BKE-01",
+    "section": 1
+   }
+  ],
+  "subgraph": {
+   "nodes": [],
+   "edges": []
+  },
+  "usage": {
+   "input_tokens": 7938,
+   "output_tokens": 216,
+   "cached_input_tokens": 4030
+  },
+  "latency_ms": 2977.2298999887425
+ }
+}

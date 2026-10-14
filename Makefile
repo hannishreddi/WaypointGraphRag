@@ -5,7 +5,7 @@ else
 PY ?= .venv/bin/python
 endif
 
-.PHONY: install up down load index test test-graph eval-dev eval-test serve
+.PHONY: install up down load seed-cache index test test-graph eval-dev eval-test serve
 
 install:  ## install deps into .venv (create it first: py -3.14 -m venv .venv)
 	$(PY) -m pip install -e .[dev]
@@ -18,6 +18,9 @@ down:
 
 load:  ## build the graph from CSVs
 	$(PY) -m waypoint.graph.load
+
+seed-cache:  ## copy the committed cache_seed/ (embeddings, router, judge, answers) into .cache/
+	$(PY) -c "import shutil; shutil.copytree('cache_seed', '.cache', dirs_exist_ok=True)"
 
 index:  ## chunk, embed, create vector + full-text indexes
 	$(PY) -m waypoint.retrieval.index

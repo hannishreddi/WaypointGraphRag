@@ -1,0 +1,30 @@
+{
+ "question": "Who is the Presiding Officer of the POSH Internal Committee and who does she report to?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [],
+  "needs_identity": false,
+  "confidence": 0.85,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "Presiding Officer of the POSH Internal Committee",
+     "doc_type": "policy"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6418,
+  "output_tokens": 79,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

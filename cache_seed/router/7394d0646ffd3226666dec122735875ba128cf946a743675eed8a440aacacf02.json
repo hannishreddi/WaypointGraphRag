@@ -1,0 +1,43 @@
+{
+ "question": "Can I book a meeting with Pooja Agarwal for the second week of November?",
+ "asker_id": "ZV-1042",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "policy_text",
+  "entities": [
+   "ZV-1031"
+  ],
+  "needs_identity": true,
+  "confidence": 0.85,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "Pooja Agarwal schedule availability leave",
+     "doc_type": "profile",
+     "entity_id": "ZV-1031"
+    }
+   }
+  ],
+  "alternative": {
+   "intent": "personal_rule",
+   "plan": [
+    {
+     "op": "EMPLOYMENT_STATUS",
+     "args": {
+      "subject": "ZV-1031"
+     }
+    }
+   ]
+  },
+  "restricted_fact": true
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6441,
+  "output_tokens": 128,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

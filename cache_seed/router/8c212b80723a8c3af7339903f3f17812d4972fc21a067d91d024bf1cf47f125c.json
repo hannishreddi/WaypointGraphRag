@@ -1,0 +1,29 @@
+{
+ "question": "Which offences skip the warnings?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v1",
+ "output": {
+  "intent": "policy_text",
+  "entities": [],
+  "needs_identity": false,
+  "confidence": 0.9,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "offences that skip warnings gross misconduct immediate disciplinary action",
+     "doc_type": "policy"
+    }
+   }
+  ],
+  "alternative": null
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 4966,
+  "output_tokens": 70,
+  "cached_input_tokens": 2005
+ },
+ "date": "2026-10-11"
+}

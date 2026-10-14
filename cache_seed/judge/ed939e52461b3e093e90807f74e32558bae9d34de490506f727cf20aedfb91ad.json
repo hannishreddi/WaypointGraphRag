@@ -1,0 +1,7 @@
+{
+ "question_id": "Q232",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "partial",
+ "reason": "Includes severities and definitions, but completely omits the required response/acknowledgement times."
+}

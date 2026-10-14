@@ -1,0 +1,7 @@
+{
+ "question_id": "Q220",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "The candidate answer accurately reflects the gold answer's rule about not pasting confidential or restricted customer data into unapproved AI tools."
+}

@@ -1,0 +1,29 @@
+{
+ "question": "How many casual and sick leave days do I get?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v3",
+ "output": {
+  "intent": "personal_rule",
+  "entities": [],
+  "needs_identity": true,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "LEAVE_ENTITLEMENTS",
+    "args": {
+     "subject": "asker"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6386,
+  "output_tokens": 66,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

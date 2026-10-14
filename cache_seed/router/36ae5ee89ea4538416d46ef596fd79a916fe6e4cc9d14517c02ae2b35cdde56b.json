@@ -1,0 +1,31 @@
+{
+ "question": "Which department does Tarun Mehta work in?",
+ "asker_id": "ZV-1020",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [
+   "ZV-1033"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "employee_card",
+    "args": {
+     "employee_id": "ZV-1033"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6434,
+  "output_tokens": 77,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

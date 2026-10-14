@@ -1,0 +1,59 @@
+{
+  "system": "s5",
+  "system_config": "answer-v1:router-v2:pack-v1:verify-v2:gemini-3.1-flash-lite:gemini-3.5-flash-lite",
+  "split": "dev",
+  "as_of": "2026-10-10",
+  "limit": null,
+  "ids": [
+    "Q003",
+    "Q052",
+    "Q058",
+    "Q062",
+    "Q064",
+    "Q068",
+    "Q087",
+    "Q091",
+    "Q096",
+    "Q102",
+    "Q104",
+    "Q110",
+    "Q113",
+    "Q119",
+    "Q122",
+    "Q127",
+    "Q129",
+    "Q136",
+    "Q137",
+    "Q144",
+    "Q150",
+    "Q153",
+    "Q155",
+    "Q193",
+    "Q195",
+    "Q196",
+    "Q218",
+    "Q239"
+  ],
+  "n_questions": 28,
+  "models": {
+    "llm_provider": "gemini",
+    "model_fast": "gemini-3.5-flash-lite",
+    "model_answer": "gemini-3.1-flash-lite",
+    "embed_model": "embed-v5.0-fast"
+  },
+  "judge": {
+    "model": "gemini-3.5-flash-lite",
+    "prompt_version": "judge-v1"
+  },
+  "default_asker": "ZV-1006",
+  "asker_overrides": {
+    "Q209": "ZV-1042",
+    "Q210": "ZV-1033"
+  },
+  "git_commit": "417d6757963e393f79ddd3ead48f3b4bad74814d",
+  "git_dirty": true,
+  "started_at": "2026-10-11T20:03:07",
+  "checkpoint": "C:\\MINI_PROJECT_GRAPH_RAG\\eval_runs\\.checkpoints\\s5_dev_85ba03c04272.jsonl",
+  "resumed_rows": 0,
+  "finished_at": "2026-10-11T20:08:33"
+}

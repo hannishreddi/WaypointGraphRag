@@ -1,0 +1,7 @@
+{
+ "question_id": "Q211",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "Includes the correct number of casual and sick leave days (8 each) and adds extra valid context."
+}

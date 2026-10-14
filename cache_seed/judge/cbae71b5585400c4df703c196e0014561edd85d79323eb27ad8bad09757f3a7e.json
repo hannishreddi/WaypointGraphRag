@@ -1,0 +1,7 @@
+{
+ "question_id": "Q119",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "incorrect",
+ "reason": "The candidate answer refuses to answer the question, whereas the gold answer provides the sponsor and lead."
+}

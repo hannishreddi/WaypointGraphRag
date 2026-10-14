@@ -1,0 +1,28 @@
+{
+ "question": "I resigned. Do I still get remote days?",
+ "asker_id": "ZV-1033",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v1",
+ "output": {
+  "intent": "personal_rule",
+  "entities": [],
+  "needs_identity": true,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "WORK_MODE",
+    "args": {
+     "subject": "asker"
+    }
+   }
+  ],
+  "alternative": null
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 4970,
+  "output_tokens": 55,
+  "cached_input_tokens": 2006
+ },
+ "date": "2026-10-11"
+}

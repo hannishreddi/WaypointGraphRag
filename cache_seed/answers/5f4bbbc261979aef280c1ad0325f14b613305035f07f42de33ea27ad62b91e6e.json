@@ -1,0 +1,36 @@
+{
+ "meta": {
+  "question": "what was arvind doing before founding zenvora",
+  "asker_id": "ZV-1040",
+  "as_of": "2026-10-13",
+  "system": "s5",
+  "config_id": "answer-v2:router-v4:pack-v5:verify-v2:gemini-3.1-flash-lite:gemini-3.5-flash-lite",
+  "schema": "response-v2"
+ },
+ "response": {
+  "answer": "Arvind Kulkarni was a senior engineer at Kestrel Networks, a telecom software company in Hyderabad, where he served as Vice President of Engineering and spent a decade building billing and messaging systems for telecom operators.",
+  "route": "policy_text",
+  "as_of": "2026-10-13",
+  "confidence": 0.85,
+  "citations": [
+   {
+    "type": "chunk",
+    "id": "company:02_zenvora_story::how-it-started-2014-to-2016::0"
+   },
+   {
+    "type": "chunk",
+    "id": "profile:ZV-1001::about::0"
+   }
+  ],
+  "subgraph": {
+   "nodes": [],
+   "edges": []
+  },
+  "usage": {
+   "input_tokens": 9719,
+   "output_tokens": 137,
+   "cached_input_tokens": 4030
+  },
+  "latency_ms": 3641.44700000179
+ }
+}

@@ -1,0 +1,7 @@
+{
+ "question_id": "Q178",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "Accurately states the required 3 days a week and references the standard policy."
+}

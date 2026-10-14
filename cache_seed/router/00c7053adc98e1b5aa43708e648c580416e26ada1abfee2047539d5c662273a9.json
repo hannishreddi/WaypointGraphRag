@@ -1,0 +1,47 @@
+{
+ "question": "Has anyone from Isha's team handed in their notice?",
+ "asker_id": "ZV-1024",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "personal_rule",
+  "entities": [
+   "ZV-1029"
+  ],
+  "needs_identity": false,
+  "confidence": 0.85,
+  "plan": [
+   {
+    "op": "direct_reports",
+    "args": {
+     "employee_id": "ZV-1029"
+    }
+   },
+   {
+    "op": "EMPLOYMENT_STATUS",
+    "args": {
+     "subject": "$1.employee_id"
+    }
+   }
+  ],
+  "alternative": {
+   "intent": "fact_list_count",
+   "plan": [
+    {
+     "op": "direct_reports",
+     "args": {
+      "employee_id": "ZV-1029"
+     }
+    }
+   ]
+  },
+  "restricted_fact": true
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6436,
+  "output_tokens": 134,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

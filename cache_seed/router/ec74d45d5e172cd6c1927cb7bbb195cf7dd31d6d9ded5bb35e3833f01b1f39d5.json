@@ -1,0 +1,30 @@
+{
+ "question": "Is Pooja Agarwal on leave?",
+ "asker_id": "ZV-1020",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v2",
+ "output": {
+  "intent": "personal_rule",
+  "entities": [
+   "ZV-1031"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "WORK_MODE",
+    "args": {
+     "subject": "ZV-1031"
+    }
+   }
+  ],
+  "alternative": null
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 5031,
+  "output_tokens": 66,
+  "cached_input_tokens": 2006
+ },
+ "date": "2026-10-11"
+}

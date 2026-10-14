@@ -1,0 +1,29 @@
+{
+ "question": "What are the dates for H1 FY2026-27 self-reviews and manager reviews?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v2",
+ "output": {
+  "intent": "policy_text",
+  "entities": [],
+  "needs_identity": false,
+  "confidence": 0.9,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "H1 FY2026-27 self-reviews manager reviews dates schedule",
+     "doc_type": "policy"
+    }
+   }
+  ],
+  "alternative": null
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 5020,
+  "output_tokens": 77,
+  "cached_input_tokens": 2006
+ },
+ "date": "2026-10-11"
+}

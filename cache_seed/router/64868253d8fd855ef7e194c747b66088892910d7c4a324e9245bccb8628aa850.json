@@ -1,0 +1,32 @@
+{
+ "question": "Who is on leave next week?",
+ "asker_id": "ZV-1042",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v2",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [],
+  "needs_identity": false,
+  "confidence": 0.4,
+  "plan": [],
+  "alternative": {
+   "intent": "policy_text",
+   "plan": [
+    {
+     "op": "text_search",
+     "args": {
+      "query": "leave schedule and calendar",
+      "doc_type": "policy"
+     }
+    }
+   ]
+  }
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 5005,
+  "output_tokens": 77,
+  "cached_input_tokens": 2006
+ },
+ "date": "2026-10-12"
+}

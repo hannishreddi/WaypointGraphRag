@@ -1,0 +1,40 @@
+{
+ "meta": {
+  "question": "tell me the story of this company and who founded this company",
+  "asker_id": "ZV-1040",
+  "as_of": "2026-10-13",
+  "system": "s5",
+  "config_id": "answer-v2:router-v4:pack-v5:verify-v2:gemini-3.1-flash-lite:gemini-3.5-flash-lite",
+  "schema": "response-v2"
+ },
+ "response": {
+  "answer": "Zenvora was founded on 1 March 2014 by Arvind Kulkarni and Meera Subramanian, who left Kestrel Networks to start the company from a rented room in Madhapur. They identified that small businesses faced the same communication challenges as telecom operators, leading to the launch of Pulse 1.0 in October 2015 and subsequent expansion into managed customer care, data services, and financial tools.",
+  "route": "policy_text",
+  "as_of": "2026-10-13",
+  "confidence": 0.95,
+  "citations": [
+   {
+    "type": "chunk",
+    "id": "company:03_company_timeline::intro::0"
+   },
+   {
+    "type": "chunk",
+    "id": "company:02_zenvora_story::how-it-started-2014-to-2016::0"
+   },
+   {
+    "type": "chunk",
+    "id": "company:01_company_overview::at-a-glance::0"
+   }
+  ],
+  "subgraph": {
+   "nodes": [],
+   "edges": []
+  },
+  "usage": {
+   "input_tokens": 9135,
+   "output_tokens": 199,
+   "cached_input_tokens": 4030
+  },
+  "latency_ms": 13514.756199991098
+ }
+}

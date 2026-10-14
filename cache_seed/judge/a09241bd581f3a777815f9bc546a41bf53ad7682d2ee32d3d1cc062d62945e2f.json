@@ -1,0 +1,7 @@
+{
+ "question_id": "Q178",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "States 3 days a week and that it is the standard rule for her team."
+}

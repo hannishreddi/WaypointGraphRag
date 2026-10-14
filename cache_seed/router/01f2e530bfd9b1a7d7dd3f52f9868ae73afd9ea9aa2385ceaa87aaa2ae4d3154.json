@@ -1,0 +1,44 @@
+{
+ "question": "What does the Maternity Leave Policy say, and which employee is using it right now?",
+ "asker_id": "ZV-1042",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "policy_text",
+  "entities": [
+   "ZEN-POL-003"
+  ],
+  "needs_identity": false,
+  "confidence": 0.85,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "Maternity Leave Policy",
+     "doc_type": "policy",
+     "entity_id": "ZEN-POL-003"
+    }
+   }
+  ],
+  "alternative": {
+   "intent": "fact_list_count",
+   "plan": [
+    {
+     "op": "text_search",
+     "args": {
+      "query": "employees on maternity leave",
+      "doc_type": "profile"
+     }
+    }
+   ]
+  },
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6442,
+  "output_tokens": 134,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

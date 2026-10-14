@@ -1,0 +1,22 @@
+{
+ "question": "which person is reported to divya",
+ "asker_id": "ZV-1040",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [],
+  "needs_identity": false,
+  "confidence": 0.85,
+  "plan": [],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 2,
+ "usage": {
+  "input_tokens": 13016,
+  "output_tokens": 116,
+  "cached_input_tokens": 8062
+ },
+ "date": "2026-10-13"
+}

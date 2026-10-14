@@ -1,0 +1,33 @@
+{
+ "question": "Who will cover Pooja Agarwal's work while she's away?",
+ "asker_id": "ZV-1041",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "policy_text",
+  "entities": [
+   "ZV-1031"
+  ],
+  "needs_identity": false,
+  "confidence": 0.9,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "who covers for Pooja Agarwal while she is away",
+     "doc_type": "profile",
+     "entity_id": "ZV-1031"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": true
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6440,
+  "output_tokens": 96,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

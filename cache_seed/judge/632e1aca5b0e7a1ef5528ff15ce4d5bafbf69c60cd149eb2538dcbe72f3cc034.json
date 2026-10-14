@@ -1,0 +1,7 @@
+{
+ "question_id": "Q178",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "Accurately states the 3-day requirement and explains it is the standard rule for her roster."
+}

@@ -1,0 +1,33 @@
+{
+ "question": "resume of mohan krishna",
+ "asker_id": "ZV-1040",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "policy_text",
+  "entities": [
+   "ZV-1018"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "mohan krishna resume work history experience",
+     "doc_type": "resume",
+     "entity_id": "ZV-1018"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6429,
+  "output_tokens": 94,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-13"
+}

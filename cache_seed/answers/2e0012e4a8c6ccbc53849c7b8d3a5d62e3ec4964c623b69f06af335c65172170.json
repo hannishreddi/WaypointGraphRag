@@ -1,0 +1,178 @@
+{
+ "meta": {
+  "question": "Who approves terminating Divya?",
+  "asker_id": "ZV-1006",
+  "as_of": "2026-10-10",
+  "system": "s5",
+  "config_id": "answer-v2:router-v2:pack-v4:verify-v2:gemini-3.1-flash-lite:gemini-3.5-flash-lite",
+  "schema": "response-v2"
+ },
+ "response": {
+  "answer": "Lakshmi Prasanna Varma (ZV-1006) approves, and Arvind Kulkarni (ZV-1001) gives the final approval. According to ZEN-POL-004 section 7, because the band is Z5 or above, the CEO provides the final approval.",
+  "route": "personal_rule",
+  "as_of": "2026-10-10",
+  "confidence": 0.95,
+  "citations": [
+   {
+    "type": "policy",
+    "id": "ZEN-POL-004",
+    "section": 7
+   },
+   {
+    "type": "graph",
+    "path": "ZV-1004 -IN_BAND-> Z5"
+   },
+   {
+    "type": "graph",
+    "path": "ZV-1004 -REPORTS_TO-> ZV-1003 -REPORTS_TO-> ZV-1002 -REPORTS_TO-> ZV-1001"
+   },
+   {
+    "type": "graph",
+    "path": "ZV-1004 -WORKS_IN-> D03"
+   },
+   {
+    "type": "graph",
+    "path": "ZV-1003 -HEADS-> D03"
+   },
+   {
+    "type": "graph",
+    "path": "ZV-1006 -HEADS-> D01"
+   }
+  ],
+  "subgraph": {
+   "nodes": [
+    {
+     "id": "ZV-1004",
+     "label": "Employee",
+     "name": "Divya Krishnamurthy",
+     "detail": "Rule TERMINATION_APPROVAL, case Z5_AND_ABOVE. Decisive: band = Z5 (case needs in ['Z5', 'Z6', 'Z7', 'Z8'])."
+    },
+    {
+     "id": "Z5",
+     "label": "Band",
+     "name": "Z5",
+     "detail": ""
+    },
+    {
+     "id": "ZEN-POL-004",
+     "label": "Policy",
+     "name": "ZEN-POL-004",
+     "detail": ""
+    },
+    {
+     "id": "ZEN-POL-004#7",
+     "label": "PolicySection",
+     "name": "ZEN-POL-004 §7",
+     "detail": "Rule TERMINATION_APPROVAL, case Z5_AND_ABOVE: Band Z5 is Z5 or above: CEO gives the final approval"
+    },
+    {
+     "id": "ZV-1003",
+     "label": "Employee",
+     "name": "Karthik Naidu",
+     "detail": ""
+    },
+    {
+     "id": "ZV-1002",
+     "label": "Employee",
+     "name": "Meera Subramanian",
+     "detail": ""
+    },
+    {
+     "id": "ZV-1001",
+     "label": "Employee",
+     "name": "Arvind Kulkarni",
+     "detail": ""
+    },
+    {
+     "id": "D03",
+     "label": "Department",
+     "name": "Backend Engineering",
+     "detail": ""
+    },
+    {
+     "id": "D01",
+     "label": "Department",
+     "name": "Human Resources (People & Culture)",
+     "detail": ""
+    },
+    {
+     "id": "ZV-1006",
+     "label": "Employee",
+     "name": "Lakshmi Prasanna Varma",
+     "detail": ""
+    }
+   ],
+   "edges": [
+    {
+     "source": "ZV-1004",
+     "target": "Z5",
+     "type": "IN_BAND",
+     "role": "decisive",
+     "derived": false
+    },
+    {
+     "source": "ZEN-POL-004",
+     "target": "ZEN-POL-004#7",
+     "type": "HAS_SECTION",
+     "role": "",
+     "derived": false
+    },
+    {
+     "source": "ZV-1004",
+     "target": "ZEN-POL-004#7",
+     "type": "RULE_CASE",
+     "role": "decisive",
+     "derived": true
+    },
+    {
+     "source": "ZV-1004",
+     "target": "ZV-1003",
+     "type": "REPORTS_TO",
+     "role": "",
+     "derived": false
+    },
+    {
+     "source": "ZV-1003",
+     "target": "ZV-1002",
+     "type": "REPORTS_TO",
+     "role": "",
+     "derived": false
+    },
+    {
+     "source": "ZV-1002",
+     "target": "ZV-1001",
+     "type": "REPORTS_TO",
+     "role": "",
+     "derived": false
+    },
+    {
+     "source": "ZV-1004",
+     "target": "D03",
+     "type": "WORKS_IN",
+     "role": "",
+     "derived": false
+    },
+    {
+     "source": "ZV-1003",
+     "target": "D03",
+     "type": "HEADS",
+     "role": "",
+     "derived": false
+    },
+    {
+     "source": "ZV-1006",
+     "target": "D01",
+     "type": "HEADS",
+     "role": "",
+     "derived": false
+    }
+   ]
+  },
+  "usage": {
+   "input_tokens": 5905,
+   "output_tokens": 156,
+   "cached_input_tokens": 2006
+  },
+  "latency_ms": 12717.256999996607
+ }
+}

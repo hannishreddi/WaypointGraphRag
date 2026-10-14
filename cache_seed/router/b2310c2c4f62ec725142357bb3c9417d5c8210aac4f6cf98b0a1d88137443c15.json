@@ -1,0 +1,33 @@
+{
+ "question": "Which policies apply to Tarun Mehta's role?",
+ "asker_id": "ZV-1042",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "policy_text",
+  "entities": [
+   "ZV-1033"
+  ],
+  "needs_identity": false,
+  "confidence": 0.85,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "policies that apply to Tarun Mehta",
+     "doc_type": "policy",
+     "entity_id": "ZV-1033"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6436,
+  "output_tokens": 95,
+  "cached_input_tokens": 0
+ },
+ "date": "2026-10-12"
+}

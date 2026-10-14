@@ -1,0 +1,7 @@
+{
+ "question_id": "Q232",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "Candidate correctly states all four incident severities and their corresponding impact levels and acknowledgement times."
+}

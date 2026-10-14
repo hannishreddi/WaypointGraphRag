@@ -1,0 +1,7 @@
+{
+ "question_id": "Q119",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "Accurately identifies Sunita Banerjee as the sponsor and Rahul Khanna as the lead."
+}

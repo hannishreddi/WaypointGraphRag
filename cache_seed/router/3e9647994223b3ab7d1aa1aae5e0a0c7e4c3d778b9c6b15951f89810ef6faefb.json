@@ -1,0 +1,43 @@
+{
+ "question": "How many days a week does Sneha Hegde need to be in the office right now, and why?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v3",
+ "output": {
+  "intent": "personal_rule",
+  "entities": [
+   "ZV-1028"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "WORK_MODE",
+    "args": {
+     "subject": "ZV-1028"
+    }
+   }
+  ],
+  "alternative": {
+   "intent": "policy_text",
+   "plan": [
+    {
+     "op": "text_search",
+     "args": {
+      "query": "Sneha Hegde office days work mode reason",
+      "doc_type": "profile",
+      "entity_id": "ZV-1028"
+     }
+    }
+   ]
+  },
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6424,
+  "output_tokens": 129,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

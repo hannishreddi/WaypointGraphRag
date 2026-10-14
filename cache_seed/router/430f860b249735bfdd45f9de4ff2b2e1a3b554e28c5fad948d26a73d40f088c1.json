@@ -1,0 +1,45 @@
+{
+ "question": "state the policies of finance department",
+ "asker_id": "ZV-1040",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "policy_text",
+  "entities": [
+   "D02"
+  ],
+  "needs_identity": false,
+  "confidence": 0.9,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "finance department policies",
+     "doc_type": "policy",
+     "entity_id": "D02"
+    }
+   }
+  ],
+  "alternative": {
+   "intent": "policy_text",
+   "plan": [
+    {
+     "op": "text_search",
+     "args": {
+      "query": "finance department",
+      "doc_type": "department",
+      "entity_id": "D02"
+     }
+    }
+   ]
+  },
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6432,
+  "output_tokens": 130,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-13"
+}

@@ -1,0 +1,7 @@
+{
+ "question_id": "Q220",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "Accurately states that customer data cannot be pasted unless approved, matching the gold answer."
+}

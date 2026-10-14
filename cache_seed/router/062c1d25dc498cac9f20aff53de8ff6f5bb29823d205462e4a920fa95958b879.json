@@ -1,0 +1,30 @@
+{
+ "question": "I'm working on the maternity coverage plan, so which of my colleagues is on maternity leave right now?",
+ "asker_id": "ZV-1042",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [],
+  "needs_identity": true,
+  "confidence": 0.85,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "colleagues on maternity leave right now",
+     "doc_type": "profile"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": true
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6421,
+  "output_tokens": 78,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

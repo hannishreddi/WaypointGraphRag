@@ -1,0 +1,31 @@
+{
+ "question": "How many employees are in Data & AI?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v3",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [
+   "D05"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "headcount",
+    "args": {
+     "department_id": "D05"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6414,
+  "output_tokens": 70,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

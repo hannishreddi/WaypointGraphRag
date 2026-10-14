@@ -1,0 +1,29 @@
+{
+ "question": "When does my employment with Zenvora end?",
+ "asker_id": "ZV-1033",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "personal_rule",
+  "entities": [],
+  "needs_identity": true,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "EMPLOYMENT_STATUS",
+    "args": {
+     "subject": "asker"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": true
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6409,
+  "output_tokens": 63,
+  "cached_input_tokens": 0
+ },
+ "date": "2026-10-12"
+}

@@ -1,0 +1,7 @@
+{
+ "question_id": "Q211",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "partial",
+ "reason": "The candidate answer misses the detail regarding the medical certificate for sick leave of more than 2 consecutive days."
+}

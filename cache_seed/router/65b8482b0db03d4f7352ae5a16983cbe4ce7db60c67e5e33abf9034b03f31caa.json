@@ -1,0 +1,33 @@
+{
+ "question": "What skills does Pooja Agarwal have?",
+ "asker_id": "ZV-1024",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [
+   "ZV-1031"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "skills",
+     "doc_type": "resume",
+     "entity_id": "ZV-1031"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6433,
+  "output_tokens": 91,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

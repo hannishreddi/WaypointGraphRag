@@ -1,0 +1,7 @@
+{
+ "question_id": "Q247",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "The candidate answer accurately states that Customer Support staff must work on site and can only work from home during a declared contingency."
+}

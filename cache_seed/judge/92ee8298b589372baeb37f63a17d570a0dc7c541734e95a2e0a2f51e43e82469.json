@@ -1,0 +1,7 @@
+{
+ "question_id": "Q243",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "partial",
+ "reason": "The candidate correctly names the Presiding Officer but fails to mention who she reports to."
+}

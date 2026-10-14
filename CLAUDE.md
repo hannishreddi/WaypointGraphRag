@@ -31,6 +31,7 @@ Read `docs/DESIGN.md` for the design and `PLAN.md` for the build order. Work thr
 ## Commands (keep this section current)
 Windows: run every target with `mingw32-make`.
 - `make install` deps into .venv · `make up` start Neo4j and wait until healthy (http://localhost:7474) · `make down` stop it
+- `make seed-cache` copies the committed `cache_seed/` (embeddings, router, judge, answers; snapshot of `.cache/` on 2026-10-14) into `.cache/` for a fresh clone. `cache_seed/` is never written by the code, so runs keep the tree clean; refresh it by hand only. Setup steps for a new machine: `README.md`
 - `make load` build the graph from CSVs (1.2) · `make index` chunk, embed, create indexes (1.3); needs the graph loaded; embeddings cached in `.cache/embeddings/`, so a re-run makes 0 API calls
 - `.venv\Scripts\python.exe -m waypoint.retrieval.index --dry-run` chunk counts and planned API calls, no calls or writes · `.venv\Scripts\python.exe -m waypoint.retrieval.search "query" -k 3 [--fulltext]` public chunk search
 - `.venv\Scripts\python.exe -m waypoint.retrieval.aliases` alias table report (excluded first names/titles, collisions, skill groups, restricted aliases) · `.venv\Scripts\python.exe -m waypoint.eval.linking_report` entity linking on the 60 dev questions (offline)

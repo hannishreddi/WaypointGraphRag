@@ -1,0 +1,7 @@
+{
+ "question_id": "Q113",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "partial",
+ "reason": "Mentioned Suresh Babu Kothapalli, but missed that he is both the sponsor and the lead of Project Horizon."
+}

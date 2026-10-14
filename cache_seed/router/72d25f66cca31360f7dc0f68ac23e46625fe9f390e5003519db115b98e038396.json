@@ -1,0 +1,23 @@
+{
+ "question": "How much does Karthik Naidu earn per year?",
+ "asker_id": "ZV-1013",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v2",
+ "output": {
+  "intent": "refuse",
+  "entities": [
+   "ZV-1003"
+  ],
+  "needs_identity": false,
+  "confidence": 1.0,
+  "plan": [],
+  "alternative": null
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 5037,
+  "output_tokens": 42,
+  "cached_input_tokens": 2006
+ },
+ "date": "2026-10-12"
+}

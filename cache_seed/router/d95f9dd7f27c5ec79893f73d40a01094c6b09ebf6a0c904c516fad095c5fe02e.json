@@ -1,0 +1,43 @@
+{
+ "question": "A Customer Support specialist wants to work from home on Fridays. Is that allowed?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "personal_rule",
+  "entities": [
+   "D10"
+  ],
+  "needs_identity": false,
+  "confidence": 0.8,
+  "plan": [
+   {
+    "op": "WORK_MODE",
+    "args": {
+     "subject": null,
+     "department_code": "CSC"
+    }
+   }
+  ],
+  "alternative": {
+   "intent": "policy_text",
+   "plan": [
+    {
+     "op": "text_search",
+     "args": {
+      "query": "customer support work from home",
+      "doc_type": "policy"
+     }
+    }
+   ]
+  },
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6443,
+  "output_tokens": 110,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

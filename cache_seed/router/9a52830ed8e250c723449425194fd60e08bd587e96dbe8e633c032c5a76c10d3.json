@@ -1,0 +1,30 @@
+{
+ "question": "Which projects has Prakash Raman worked on?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v2",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [
+   "ZV-1005"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "projects_of",
+    "args": {
+     "employee_id": "ZV-1005"
+    }
+   }
+  ],
+  "alternative": null
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 5032,
+  "output_tokens": 70,
+  "cached_input_tokens": 2006
+ },
+ "date": "2026-10-11"
+}

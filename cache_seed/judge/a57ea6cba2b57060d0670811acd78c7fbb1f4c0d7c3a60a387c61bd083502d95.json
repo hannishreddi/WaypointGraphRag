@@ -1,0 +1,7 @@
+{
+ "question_id": "Q243",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "partial",
+ "reason": "The candidate names the Presiding Officer correctly, but refuses to provide her reporting line and includes off-topic policy text."
+}

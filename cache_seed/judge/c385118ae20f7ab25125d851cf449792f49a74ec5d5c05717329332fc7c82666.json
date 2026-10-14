@@ -1,0 +1,7 @@
+{
+ "question_id": "Q186",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "incorrect",
+ "reason": "The candidate answer failed to provide the required information and stated it could not find the answer."
+}

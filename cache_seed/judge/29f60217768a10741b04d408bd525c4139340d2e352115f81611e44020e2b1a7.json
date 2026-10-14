@@ -1,0 +1,7 @@
+{
+ "question_id": "Q186",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "incorrect",
+ "reason": "The candidate answer states she has 4.3 years of service and is ineligible, which contradicts the gold answer."
+}

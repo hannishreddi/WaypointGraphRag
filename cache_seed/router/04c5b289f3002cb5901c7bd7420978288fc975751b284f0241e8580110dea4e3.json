@@ -1,0 +1,31 @@
+{
+ "question": "give me my resume details",
+ "asker_id": "ZV-1040",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "policy_text",
+  "entities": [],
+  "needs_identity": true,
+  "confidence": 0.85,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "resume details",
+     "doc_type": "resume",
+     "entity_id": "asker"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6404,
+  "output_tokens": 79,
+  "cached_input_tokens": 0
+ },
+ "date": "2026-10-13"
+}

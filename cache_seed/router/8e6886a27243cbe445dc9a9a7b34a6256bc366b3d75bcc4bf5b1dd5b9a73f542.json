@@ -1,0 +1,43 @@
+{
+ "question": "Is Tarun Mehta serving his notice period, and who is replacing him?",
+ "asker_id": "ZV-1011",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "personal_rule",
+  "entities": [
+   "ZV-1033"
+  ],
+  "needs_identity": false,
+  "confidence": 0.9,
+  "plan": [
+   {
+    "op": "EMPLOYMENT_STATUS",
+    "args": {
+     "subject": "ZV-1033"
+    }
+   }
+  ],
+  "alternative": {
+   "intent": "fact_list_count",
+   "plan": [
+    {
+     "op": "text_search",
+     "args": {
+      "query": "who is replacing Tarun Mehta",
+      "doc_type": "profile",
+      "entity_id": "ZV-1033"
+     }
+    }
+   ]
+  },
+  "restricted_fact": true
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6440,
+  "output_tokens": 128,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

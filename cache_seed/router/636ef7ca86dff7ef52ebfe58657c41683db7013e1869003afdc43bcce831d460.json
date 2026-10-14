@@ -1,0 +1,30 @@
+{
+ "question": "How many people are serving notice right now?",
+ "asker_id": "ZV-1028",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [],
+  "needs_identity": false,
+  "confidence": 0.85,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "people currently serving notice",
+     "doc_type": "profile"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": true
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6408,
+  "output_tokens": 74,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

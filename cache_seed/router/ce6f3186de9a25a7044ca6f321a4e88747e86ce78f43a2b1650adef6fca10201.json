@@ -1,0 +1,31 @@
+{
+ "question": "how many employees and there in this company, how many employees are present in the backend department",
+ "asker_id": "ZV-1017",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [
+   "D03"
+  ],
+  "needs_identity": false,
+  "confidence": 0.9,
+  "plan": [
+   {
+    "op": "headcount",
+    "args": {
+     "department_id": "D03"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6445,
+  "output_tokens": 69,
+  "cached_input_tokens": 0
+ },
+ "date": "2026-10-12"
+}

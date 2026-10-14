@@ -1,0 +1,30 @@
+{
+ "question": "What is Farhan Siddiqui's job title and band?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v2",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [
+   "ZV-1010"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "employee_card",
+    "args": {
+     "employee_id": "ZV-1010"
+    }
+   }
+  ],
+  "alternative": null
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 5038,
+  "output_tokens": 70,
+  "cached_input_tokens": 2006
+ },
+ "date": "2026-10-11"
+}

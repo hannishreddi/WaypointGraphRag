@@ -1,0 +1,31 @@
+{
+ "question": "Which policies refer to the Progressive Discipline Policy (ZEN-POL-004)?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v1",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [
+   "ZEN-POL-004"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "policy_references",
+    "args": {
+     "policy_id": "ZEN-POL-004",
+     "direction": "in"
+    }
+   }
+  ],
+  "alternative": null
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 5006,
+  "output_tokens": 78,
+  "cached_input_tokens": 2006
+ },
+ "date": "2026-10-11"
+}

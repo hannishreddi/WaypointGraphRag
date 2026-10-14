@@ -1,0 +1,44 @@
+{
+ "question": "state the policies of backend engineering department",
+ "asker_id": "ZV-1040",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "policy_text",
+  "entities": [
+   "D03"
+  ],
+  "needs_identity": false,
+  "confidence": 0.9,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "backend engineering department policies and rules",
+     "doc_type": "department",
+     "entity_id": "D03"
+    }
+   }
+  ],
+  "alternative": {
+   "intent": "policy_text",
+   "plan": [
+    {
+     "op": "text_search",
+     "args": {
+      "query": "backend engineering department policies",
+      "doc_type": "policy"
+     }
+    }
+   ]
+  },
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6435,
+  "output_tokens": 125,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-13"
+}

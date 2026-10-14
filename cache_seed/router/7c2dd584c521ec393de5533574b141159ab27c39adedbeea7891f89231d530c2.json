@@ -1,0 +1,42 @@
+{
+ "question": "How many days a week does Arjun Menon need to be in the office right now, and why?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v3",
+ "output": {
+  "intent": "personal_rule",
+  "entities": [
+   "ZV-1042"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "WORK_MODE",
+    "args": {
+     "subject": "ZV-1042"
+    }
+   }
+  ],
+  "alternative": {
+   "intent": "policy_text",
+   "plan": [
+    {
+     "op": "text_search",
+     "args": {
+      "query": "office attendance requirements and induction",
+      "doc_type": "policy"
+     }
+    }
+   ]
+  },
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6421,
+  "output_tokens": 112,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

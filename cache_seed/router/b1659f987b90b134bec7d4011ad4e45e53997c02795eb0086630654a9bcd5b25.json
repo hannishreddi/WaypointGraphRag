@@ -1,0 +1,32 @@
+{
+ "question": "Which employees studied at JNTU Hyderabad?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v2",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [],
+  "needs_identity": false,
+  "confidence": 0.85,
+  "plan": [],
+  "alternative": {
+   "intent": "policy_text",
+   "plan": [
+    {
+     "op": "text_search",
+     "args": {
+      "query": "JNTU Hyderabad",
+      "doc_type": "resume"
+     }
+    }
+   ]
+  }
+ },
+ "llm_calls": 2,
+ "usage": {
+  "input_tokens": 10249,
+  "output_tokens": 178,
+  "cached_input_tokens": 4014
+ },
+ "date": "2026-10-11"
+}

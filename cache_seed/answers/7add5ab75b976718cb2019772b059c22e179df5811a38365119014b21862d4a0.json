@@ -1,0 +1,121 @@
+{
+ "meta": {
+  "question": "how many employees and there in this company, how many employees are present in the backend department",
+  "asker_id": "ZV-1017",
+  "as_of": "2026-10-10",
+  "system": "s5",
+  "config_id": "answer-v2:router-v4:pack-v5:verify-v2:gemini-3.1-flash-lite:gemini-3.5-flash-lite",
+  "schema": "response-v2"
+ },
+ "response": {
+  "answer": "5 employees are present in the Backend Engineering department.",
+  "route": "fact_list_count",
+  "as_of": "2026-10-10",
+  "confidence": 0.9,
+  "citations": [
+   {
+    "type": "graph",
+    "path": "ZV-1042 -WORKS_IN-> D03"
+   },
+   {
+    "type": "graph",
+    "path": "ZV-1004 -WORKS_IN-> D03"
+   },
+   {
+    "type": "graph",
+    "path": "ZV-1003 -WORKS_IN-> D03"
+   },
+   {
+    "type": "graph",
+    "path": "ZV-1013 -WORKS_IN-> D03"
+   },
+   {
+    "type": "graph",
+    "path": "ZV-1028 -WORKS_IN-> D03"
+   }
+  ],
+  "subgraph": {
+   "nodes": [
+    {
+     "id": "D03",
+     "label": "Department",
+     "name": "Backend Engineering",
+     "detail": ""
+    },
+    {
+     "id": "ZV-1042",
+     "label": "Employee",
+     "name": "Arjun Menon",
+     "detail": ""
+    },
+    {
+     "id": "ZV-1004",
+     "label": "Employee",
+     "name": "Divya Krishnamurthy",
+     "detail": ""
+    },
+    {
+     "id": "ZV-1003",
+     "label": "Employee",
+     "name": "Karthik Naidu",
+     "detail": ""
+    },
+    {
+     "id": "ZV-1013",
+     "label": "Employee",
+     "name": "Naveen Reddy",
+     "detail": ""
+    },
+    {
+     "id": "ZV-1028",
+     "label": "Employee",
+     "name": "Sneha Hegde",
+     "detail": ""
+    }
+   ],
+   "edges": [
+    {
+     "source": "ZV-1042",
+     "target": "D03",
+     "type": "WORKS_IN",
+     "role": "",
+     "derived": false
+    },
+    {
+     "source": "ZV-1004",
+     "target": "D03",
+     "type": "WORKS_IN",
+     "role": "",
+     "derived": false
+    },
+    {
+     "source": "ZV-1003",
+     "target": "D03",
+     "type": "WORKS_IN",
+     "role": "",
+     "derived": false
+    },
+    {
+     "source": "ZV-1013",
+     "target": "D03",
+     "type": "WORKS_IN",
+     "role": "",
+     "derived": false
+    },
+    {
+     "source": "ZV-1028",
+     "target": "D03",
+     "type": "WORKS_IN",
+     "role": "",
+     "derived": false
+    }
+   ]
+  },
+  "usage": {
+   "input_tokens": 7235,
+   "output_tokens": 105,
+   "cached_input_tokens": 0
+  },
+  "latency_ms": 23419.694099982735
+ }
+}

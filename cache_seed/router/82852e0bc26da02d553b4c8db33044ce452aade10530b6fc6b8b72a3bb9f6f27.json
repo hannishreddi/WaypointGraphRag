@@ -1,0 +1,31 @@
+{
+ "question": "Which employees list Employee relations as a skill?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [
+   "SK043"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "skill_holders",
+    "args": {
+     "skill_id": "SK043"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6431,
+  "output_tokens": 73,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

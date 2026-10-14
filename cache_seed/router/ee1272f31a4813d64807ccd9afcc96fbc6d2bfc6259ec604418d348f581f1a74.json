@@ -1,0 +1,30 @@
+{
+ "question": "Which employees are currently on leave or serving notice?",
+ "asker_id": "ZV-1019",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [],
+  "needs_identity": false,
+  "confidence": 0.85,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "employees currently on leave or serving notice",
+     "doc_type": "profile"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": true
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6409,
+  "output_tokens": 77,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

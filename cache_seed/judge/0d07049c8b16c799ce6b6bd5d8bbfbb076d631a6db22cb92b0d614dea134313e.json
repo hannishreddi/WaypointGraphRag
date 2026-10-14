@@ -1,0 +1,7 @@
+{
+ "question_id": "Q173",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "States he must be in the office every working day due to his 90-day induction period, matching the gold answer."
+}

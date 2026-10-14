@@ -1,0 +1,31 @@
+{
+ "question": "Which Zenvora employees previously worked at Maple Logic?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v3",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [
+   "ORG007"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "previous_employer",
+    "args": {
+     "org_id": "ORG007"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6409,
+  "output_tokens": 73,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

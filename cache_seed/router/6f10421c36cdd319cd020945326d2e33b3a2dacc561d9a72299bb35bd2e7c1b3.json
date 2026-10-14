@@ -1,0 +1,30 @@
+{
+ "question": "What is Sneha Hegde's current employment status?",
+ "asker_id": "ZV-1020",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v2",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [
+   "ZV-1028"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "employee_card",
+    "args": {
+     "employee_id": "ZV-1028"
+    }
+   }
+  ],
+  "alternative": null
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 5037,
+  "output_tokens": 70,
+  "cached_input_tokens": 2006
+ },
+ "date": "2026-10-12"
+}

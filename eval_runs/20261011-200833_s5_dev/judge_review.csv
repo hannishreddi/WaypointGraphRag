@@ -1,0 +1,2 @@
+id,question,expected_answer,answer,verdict,reason,human_verdict
+Q091,Who heads the department that Pavan Kumar Goud's manager belongs to?,Ramesh Iyengar (Finance & Accounts),"Ramesh Iyengar. He is the head of the Finance & Accounts department, which is where Shalini Rao, the manager of Pavan Kumar Goud, works.",correct,Accurately identifies Ramesh Iyengar and the Finance & Accounts department.,

@@ -1,0 +1,7 @@
+{
+ "question_id": "Q218",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "The candidate lists all key offences that skip warnings as stated in the gold answer, along with additional correct details."
+}

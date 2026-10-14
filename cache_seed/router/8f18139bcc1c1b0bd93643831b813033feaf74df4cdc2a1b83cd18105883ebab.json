@@ -1,0 +1,30 @@
+{
+ "question": "Which Zenvora employees previously worked at Helix BPO Services?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v2",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [
+   "ORG004"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "previous_employer",
+    "args": {
+     "org_id": "ORG004"
+    }
+   }
+  ],
+  "alternative": null
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 5036,
+  "output_tokens": 66,
+  "cached_input_tokens": 2006
+ },
+ "date": "2026-10-11"
+}

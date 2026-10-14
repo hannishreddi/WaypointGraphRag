@@ -1,0 +1,29 @@
+{
+ "question": "who am i?",
+ "asker_id": "ZV-1017",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [],
+  "needs_identity": true,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "employee_card",
+    "args": {
+     "employee_id": "asker"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6403,
+  "output_tokens": 66,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

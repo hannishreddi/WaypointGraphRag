@@ -1,0 +1,7 @@
+{
+ "question_id": "Q232",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "Includes all key facts from the gold answer regarding SEV1 through SEV4, along with extra details."
+}

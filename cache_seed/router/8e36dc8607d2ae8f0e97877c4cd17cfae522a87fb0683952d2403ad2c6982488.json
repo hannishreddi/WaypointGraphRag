@@ -1,0 +1,42 @@
+{
+ "question": "Will Tarun Mehta still be at the company in January?",
+ "asker_id": "ZV-1024",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v2",
+ "output": {
+  "intent": "personal_rule",
+  "entities": [
+   "ZV-1033"
+  ],
+  "needs_identity": false,
+  "confidence": 0.85,
+  "plan": [
+   {
+    "op": "NOTICE_PERIOD",
+    "args": {
+     "subject": "ZV-1033"
+    }
+   }
+  ],
+  "alternative": {
+   "intent": "policy_text",
+   "plan": [
+    {
+     "op": "text_search",
+     "args": {
+      "query": "Tarun Mehta employment status and notice period",
+      "doc_type": "profile",
+      "entity_id": "ZV-1033"
+     }
+    }
+   ]
+  }
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 5036,
+  "output_tokens": 122,
+  "cached_input_tokens": 2006
+ },
+ "date": "2026-10-12"
+}

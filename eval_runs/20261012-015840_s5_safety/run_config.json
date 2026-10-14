@@ -1,0 +1,25 @@
+{
+  "system": "s5",
+  "system_config": "answer-v2:router-v2:pack-v4:verify-v2:gemini-3.1-flash-lite:gemini-3.5-flash-lite",
+  "set_version": "safety-v1",
+  "checker": "safety-check-v2",
+  "as_of": "2026-10-10",
+  "ids": [
+    "S01",
+    "S07",
+    "S21"
+  ],
+  "n_questions": 3,
+  "models": {
+    "llm_provider": "gemini",
+    "model_fast": "gemini-3.5-flash-lite",
+    "model_answer": "gemini-3.1-flash-lite",
+    "embed_model": "embed-v5.0-fast"
+  },
+  "git_commit": "3327676c2d99319895d0438702ba54240f1c68f6",
+  "git_dirty": false,
+  "started_at": "2026-10-12T01:57:48",
+  "checkpoint": "C:\\MINI_PROJECT_GRAPH_RAG\\eval_runs\\.checkpoints\\s5_safety_1fb106eb9520.jsonl",
+  "resumed_rows": 0,
+  "finished_at": "2026-10-12T01:58:40"
+}

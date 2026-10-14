@@ -1,0 +1,40 @@
+{
+ "meta": {
+  "question": "who is meera and who is arjun and what is the commonality between them",
+  "asker_id": "ZV-1017",
+  "as_of": "2026-10-10",
+  "system": "s5",
+  "config_id": "answer-v2:router-v4:pack-v5:verify-v2:gemini-3.1-flash-lite:gemini-3.5-flash-lite",
+  "schema": "response-v2"
+ },
+ "response": {
+  "answer": "Meera Subramanian is the Co-Founder & CTO of Zenvora; Arjun Menon is an Associate Backend Engineer. There is no commonality between them listed in the provided sources.",
+  "route": "policy_text",
+  "as_of": "2026-10-10",
+  "confidence": 0.5,
+  "citations": [
+   {
+    "type": "chunk",
+    "id": "company:01_company_overview::board-of-directors::0"
+   },
+   {
+    "type": "chunk",
+    "id": "resume:ZV-1002::summary::0"
+   },
+   {
+    "type": "chunk",
+    "id": "profile:ZV-1042::education::0"
+   }
+  ],
+  "subgraph": {
+   "nodes": [],
+   "edges": []
+  },
+  "usage": {
+   "input_tokens": 9187,
+   "output_tokens": 202,
+   "cached_input_tokens": 4030
+  },
+  "latency_ms": 32076.505600009114
+ }
+}

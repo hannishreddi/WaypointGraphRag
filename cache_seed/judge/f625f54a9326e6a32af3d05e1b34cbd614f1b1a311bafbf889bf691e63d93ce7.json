@@ -1,0 +1,7 @@
+{
+ "question_id": "Q091",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "Accurately identifies Ramesh Iyengar and the Finance & Accounts department."
+}

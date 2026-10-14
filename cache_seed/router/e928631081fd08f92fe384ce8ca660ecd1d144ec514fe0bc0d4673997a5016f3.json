@@ -1,0 +1,43 @@
+{
+ "question": "Who heads the department that Pavan Kumar Goud's manager belongs to?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [
+   "ZV-1030"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "manager",
+    "args": {
+     "employee_id": "ZV-1030"
+    }
+   },
+   {
+    "op": "employee_card",
+    "args": {
+     "employee_id": "$1.employee_id"
+    }
+   },
+   {
+    "op": "department_head",
+    "args": {
+     "department_id": "$2.department_id"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6443,
+  "output_tokens": 123,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

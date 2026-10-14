@@ -1,0 +1,33 @@
+{
+ "question": "please give me information present in Backend Engineering Standards and Code Review Policy",
+ "asker_id": "ZV-1040",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "policy_text",
+  "entities": [
+   "ZEN-DPL-BKE-01"
+  ],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "Backend Engineering Standards and Code Review Policy information",
+     "doc_type": "policy",
+     "entity_id": "ZEN-DPL-BKE-01"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6446,
+  "output_tokens": 104,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-13"
+}

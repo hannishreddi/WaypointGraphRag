@@ -1,0 +1,36 @@
+{
+ "question": "Is anyone on my team on leave right now?",
+ "asker_id": "ZV-1041",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [],
+  "needs_identity": true,
+  "confidence": 0.85,
+  "plan": [
+   {
+    "op": "direct_reports",
+    "args": {
+     "employee_id": "asker"
+    }
+   },
+   {
+    "op": "text_search",
+    "args": {
+     "query": "team members currently on leave",
+     "doc_type": "profile"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": true
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6409,
+  "output_tokens": 96,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

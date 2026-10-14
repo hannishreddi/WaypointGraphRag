@@ -1,0 +1,7 @@
+{
+ "question_id": "Q235",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "The candidate answer accurately states all P1-P4 support SLA targets for first response and resolution."
+}

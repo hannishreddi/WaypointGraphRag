@@ -1,0 +1,29 @@
+{
+ "question": "Who joined Zenvora before 2016?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v2",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [],
+  "needs_identity": false,
+  "confidence": 0.8,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "joined before 2016",
+     "doc_type": "profile"
+    }
+   }
+  ],
+  "alternative": null
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 5010,
+  "output_tokens": 69,
+  "cached_input_tokens": 2006
+ },
+ "date": "2026-10-11"
+}

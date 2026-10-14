@@ -1,0 +1,7 @@
+{
+ "question_id": "Q178",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "correct",
+ "reason": "Candidate correctly states 3 days per week and the standard hybrid work rule ZEN-POL-002."
+}

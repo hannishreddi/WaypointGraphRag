@@ -1,0 +1,68 @@
+{
+ "meta": {
+  "question": "please give me information present in Backend Engineering Standards and Code Review Policy",
+  "asker_id": "ZV-1040",
+  "as_of": "2026-10-13",
+  "system": "s5",
+  "config_id": "answer-v2:router-v4:pack-v5:verify-v2:gemini-3.1-flash-lite:gemini-3.5-flash-lite",
+  "schema": "response-v2"
+ },
+ "response": {
+  "answer": "The Backend Engineering Standards and Code Review Policy (ZEN-DPL-BKE-01) aims to keep backend services reliable, secure, and easy to change. It applies to all engineers who change backend code or services and mandates trunk-based development with branches lasting no longer than 2 days, pull requests under 400 lines, and CI passing for all changes. Review requirements include 1 approval for most services, while billing, payments, and authentication paths require 2 approvals including a Principal Engineer or Director; additionally, new code must have 80% unit test coverage, public APIs require 6 months' notice for deprecation, database migrations must be backward compatible, and secrets must be stored in AWS Secrets Manager.",
+  "route": "policy_text",
+  "as_of": "2026-10-13",
+  "confidence": 0.95,
+  "citations": [
+   {
+    "type": "chunk",
+    "id": "ZEN-DPL-BKE-01::header::0"
+   },
+   {
+    "type": "chunk",
+    "id": "ZEN-DPL-BKE-01::s2::0"
+   },
+   {
+    "type": "policy",
+    "id": "ZEN-DPL-BKE-01",
+    "section": 2
+   },
+   {
+    "type": "chunk",
+    "id": "ZEN-DPL-BKE-01::s4::0"
+   },
+   {
+    "type": "policy",
+    "id": "ZEN-DPL-BKE-01",
+    "section": 4
+   },
+   {
+    "type": "chunk",
+    "id": "ZEN-DPL-BKE-01::s1::0"
+   },
+   {
+    "type": "policy",
+    "id": "ZEN-DPL-BKE-01",
+    "section": 1
+   },
+   {
+    "type": "chunk",
+    "id": "ZEN-DPL-BKE-01::s5::0"
+   },
+   {
+    "type": "policy",
+    "id": "ZEN-DPL-BKE-01",
+    "section": 5
+   }
+  ],
+  "subgraph": {
+   "nodes": [],
+   "edges": []
+  },
+  "usage": {
+   "input_tokens": 7950,
+   "output_tokens": 303,
+   "cached_input_tokens": 4030
+  },
+  "latency_ms": 3210.7996999984607
+ }
+}

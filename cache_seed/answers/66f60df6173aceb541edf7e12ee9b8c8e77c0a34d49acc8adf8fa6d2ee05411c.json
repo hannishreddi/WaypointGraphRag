@@ -1,0 +1,27 @@
+{
+ "meta": {
+  "question": "state the policies of finance department",
+  "asker_id": "ZV-1040",
+  "as_of": "2026-10-13",
+  "system": "s5",
+  "config_id": "answer-v2:router-v4:pack-v5:verify-v2:gemini-3.1-flash-lite:gemini-3.5-flash-lite",
+  "schema": "response-v2"
+ },
+ "response": {
+  "answer": "I can't find that in Waypoint's sources.",
+  "route": "policy_text",
+  "as_of": "2026-10-13",
+  "confidence": 0.9,
+  "citations": [],
+  "subgraph": {
+   "nodes": [],
+   "edges": []
+  },
+  "usage": {
+   "input_tokens": 7172,
+   "output_tokens": 169,
+   "cached_input_tokens": 4030
+  },
+  "latency_ms": 2708.8807999971323
+ }
+}

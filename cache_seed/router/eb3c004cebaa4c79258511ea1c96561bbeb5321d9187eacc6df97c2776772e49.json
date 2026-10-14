@@ -1,0 +1,30 @@
+{
+ "question": "Which employees have resigned this quarter?",
+ "asker_id": "ZV-1016",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "fact_list_count",
+  "entities": [],
+  "needs_identity": false,
+  "confidence": 0.85,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "employees who have resigned this quarter",
+     "doc_type": "profile"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": true
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6406,
+  "output_tokens": 76,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

@@ -1,0 +1,30 @@
+{
+ "question": "tell me the story of this company and who founded this company",
+ "asker_id": "ZV-1040",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "policy_text",
+  "entities": [],
+  "needs_identity": false,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "company history and founders",
+     "doc_type": "company"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6411,
+  "output_tokens": 72,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-13"
+}

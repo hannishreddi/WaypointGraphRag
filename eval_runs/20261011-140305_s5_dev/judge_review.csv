@@ -1,0 +1,3 @@
+id,question,expected_answer,answer,verdict,reason,human_verdict
+Q119,Who sponsored Project Nova and who led it?,Sponsor: Sunita Banerjee. Lead: Rahul Khanna.,I can't confirm that.,incorrect,"The candidate answer refuses to answer the question, whereas the gold answer provides the sponsor and lead.",
+Q220,Can I paste customer data into an AI chatbot?,"No, unless the tool is on the approved list for that data class. Never paste Confidential or Restricted data into unapproved tools.","No. You must never paste Confidential or Restricted data, such as customer conversations or personal data, into any AI tool that is not approved for that data class.",correct,Accurately conveys that customer data cannot be pasted into unapproved AI tools and mentions confidentiality.,

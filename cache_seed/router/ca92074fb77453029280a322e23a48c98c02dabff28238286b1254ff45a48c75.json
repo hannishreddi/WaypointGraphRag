@@ -1,0 +1,30 @@
+{
+ "question": "What are the support SLA targets?",
+ "asker_id": "ZV-1006",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v4",
+ "output": {
+  "intent": "policy_text",
+  "entities": [],
+  "needs_identity": false,
+  "confidence": 0.9,
+  "plan": [
+   {
+    "op": "text_search",
+    "args": {
+     "query": "customer support SLA targets",
+     "doc_type": "policy"
+    }
+   }
+  ],
+  "alternative": null,
+  "restricted_fact": false
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 6406,
+  "output_tokens": 71,
+  "cached_input_tokens": 4030
+ },
+ "date": "2026-10-12"
+}

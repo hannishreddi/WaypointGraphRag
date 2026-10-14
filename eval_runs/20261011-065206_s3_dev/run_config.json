@@ -1,0 +1,29 @@
+{
+  "system": "s3",
+  "system_config": "baseline-v1:gemini-3.1-flash-lite",
+  "split": "dev",
+  "as_of": "2026-10-10",
+  "limit": null,
+  "n_questions": 60,
+  "models": {
+    "llm_provider": "gemini",
+    "model_fast": "gemini-3.5-flash-lite",
+    "model_answer": "gemini-3.1-flash-lite",
+    "embed_model": "embed-v5.0-fast"
+  },
+  "judge": {
+    "model": "gemini-3.5-flash-lite",
+    "prompt_version": "judge-v1"
+  },
+  "default_asker": "ZV-1006",
+  "asker_overrides": {
+    "Q209": "ZV-1042",
+    "Q210": "ZV-1033"
+  },
+  "git_commit": "0822a32ab39f300872795e3cb6ddc35fb0bd3030",
+  "git_dirty": true,
+  "started_at": "2026-10-11T06:22:33",
+  "checkpoint": "C:\\MINI_PROJECT_GRAPH_RAG\\eval_runs\\.checkpoints\\s3_dev_b13a0211fc12.jsonl",
+  "resumed_rows": 0,
+  "finished_at": "2026-10-11T06:52:06"
+}

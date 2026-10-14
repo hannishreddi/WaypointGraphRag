@@ -1,0 +1,39 @@
+{
+ "question": "do i need to come to the office everyday?",
+ "asker_id": "ZV-1042",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "router-v2",
+ "output": {
+  "intent": "personal_rule",
+  "entities": [],
+  "needs_identity": true,
+  "confidence": 0.95,
+  "plan": [
+   {
+    "op": "WORK_MODE",
+    "args": {
+     "subject": "asker"
+    }
+   }
+  ],
+  "alternative": {
+   "intent": "policy_text",
+   "plan": [
+    {
+     "op": "text_search",
+     "args": {
+      "query": "office attendance requirements hybrid remote work mode policy",
+      "doc_type": "policy"
+     }
+    }
+   ]
+  }
+ },
+ "llm_calls": 1,
+ "usage": {
+  "input_tokens": 5008,
+  "output_tokens": 98,
+  "cached_input_tokens": 0
+ },
+ "date": "2026-10-11"
+}

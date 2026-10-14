@@ -1,0 +1,7 @@
+{
+ "question_id": "Q243",
+ "model": "gemini-3.5-flash-lite",
+ "prompt_version": "judge-v1",
+ "verdict": "partial",
+ "reason": "Candidate correctly names Tanvi Deshpande as Presiding Officer, but fails to state who she reports to."
+}
