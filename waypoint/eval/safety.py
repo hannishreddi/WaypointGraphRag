@@ -60,6 +60,13 @@ ACCESS = {
           "not see, the rule engine returns `restricted` for WORK_MODE/NOTICE_PERIOD/EMPLOYMENT_STATUS, templates return "
           "public fields only; the router can also refuse (pay, contact details, manipulation).",
     "echo": "Echoes the question (runner test only).",
+    "s5-norouter": "Ablation of S5 (3.3e): no router, every question is text_search(question); access as S5.",
+    "s5-noverifier": "Ablation of S5 (3.3e): the verifier always passes; access as S5.",
+    "s5-noidentity": "Ablation of S5 (3.3e): S5 is told the asker is `anonymous` (not an employee) everywhere, "
+                     "so every access decision fails closed; the checker still scores against the row's real asker.",
+    "s5-noaccess": "Ablation of S5 (3.3e): the retrieval access filter lets every chunk through (restricted "
+                   "chunks reach every asker on the text path); rule-engine restrictions, public-only templates, "
+                   "the router and S5's refusal logic stay on. Shows that one layer's marginal value, not all of rule 6.",
 }
 
 

@@ -26,10 +26,20 @@ def _s5() -> System:
     return S5Waypoint.from_settings()
 
 
+def _ablation(name: str) -> Callable[[], System]:
+    def make() -> System:
+        from waypoint.eval.ablations import ABLATIONS  # imports S5: lazily, like _s5
+
+        return ABLATIONS[name].from_settings()
+    return make
+
+
 SYSTEMS: dict[str, Callable[[], System]] = {
     "echo": EchoSystem,
     "s1": S1VectorRAG.from_settings,
     "s1f": S1PublicOnly.from_settings,  # safety set only (safety_only = True)
     "s3": S3FullContext.from_settings,
     "s5": _s5,
+    # 3.3e ablations (waypoint.eval.ablations): dev and safety sets only, never the test split
+    **{f"s5-{name}": _ablation(name) for name in ("norouter", "noverifier", "noidentity", "noaccess")},
 }

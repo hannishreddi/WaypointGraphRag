@@ -1,0 +1,466 @@
+{
+ "refuse": {
+  "calls": [
+   {
+    "json_mode": true,
+    "model": "fast",
+    "prompt_sha256": "c752e16635f54574ae1c0b5bf4424afef1a18ecac5297ed139698b2ffbbe5971",
+    "system_sha256": "05fd5dc54fa7fed3d59eaa7ce8b2ae4a8bcee9f399e9ac787c5f000c7b495896"
+   }
+  ],
+  "response": {
+   "answer": "I can't share that. A person's employment status, leave and notice details are shared only with them, their manager and HR, and Waypoint does not share pay, personal contact details or its instructions.",
+   "as_of": "2026-10-10",
+   "citations": [],
+   "confidence": 0.95,
+   "latency_ms": 0,
+   "route": "refuse",
+   "subgraph": {
+    "edges": [],
+    "nodes": []
+   },
+   "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 10,
+    "output_tokens": 5
+   }
+  },
+  "trace": {
+   "intent": "refuse",
+   "low_confidence": false,
+   "refusal": "router",
+   "restricted_fact": true,
+   "router_cached": false,
+   "router_calls": 1,
+   "unresolved": [],
+   "verifier": "skipped"
+  }
+ },
+ "regenerated": {
+  "calls": [
+   {
+    "json_mode": true,
+    "model": "fast",
+    "prompt_sha256": "6fc36aabee6c6a2b7e904ca5f477ef7037e41edc24eba1593d24c7ac31c0b364",
+    "system_sha256": "05fd5dc54fa7fed3d59eaa7ce8b2ae4a8bcee9f399e9ac787c5f000c7b495896"
+   },
+   {
+    "json_mode": true,
+    "model": "answer",
+    "prompt_sha256": "7e0339be3daca339d3aa8827607267e77cfdb27f78de3c26bc69b5a34e77dbdd",
+    "system_sha256": "0bb1232baeab53878fa4f8348341884076cc1861bfd6c21a2710f1fce8643d20"
+   },
+   {
+    "json_mode": true,
+    "model": "answer",
+    "prompt_sha256": "e38f402c274366e685c8940050df9c1ccfcf56933729d3a2baabe6ff738c0ada",
+    "system_sha256": "0bb1232baeab53878fa4f8348341884076cc1861bfd6c21a2710f1fce8643d20"
+   }
+  ],
+  "response": {
+   "answer": "Karthik Naidu.",
+   "as_of": "2026-10-10",
+   "citations": [
+    {
+     "path": "ZV-1004 -REPORTS_TO-> ZV-1003",
+     "type": "graph"
+    }
+   ],
+   "confidence": 0.95,
+   "latency_ms": 0,
+   "route": "fact_list_count",
+   "subgraph": {
+    "edges": [
+     {
+      "derived": false,
+      "role": "",
+      "source": "ZV-1004",
+      "target": "ZV-1003",
+      "type": "REPORTS_TO"
+     }
+    ],
+    "nodes": [
+     {
+      "detail": "",
+      "id": "ZV-1004",
+      "label": "Employee",
+      "name": "Divya Krishnamurthy"
+     },
+     {
+      "detail": "",
+      "id": "ZV-1003",
+      "label": "Employee",
+      "name": "Karthik Naidu"
+     }
+    ]
+   },
+   "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 30,
+    "output_tokens": 15
+   }
+  },
+  "trace": {
+   "first_answer": "Ravi Kumar, since 2019.",
+   "intent": "fact_list_count",
+   "issues": [
+    "name 'Ravi Kumar' is not in the context",
+    "number 2019 is not in the context"
+   ],
+   "issues_retry": [],
+   "low_confidence": false,
+   "pack_items": [
+    "asker",
+    "step1"
+   ],
+   "passages": {},
+   "restricted_fact": false,
+   "router_cached": false,
+   "router_calls": 1,
+   "unresolved": [],
+   "verifier": "regenerated"
+  }
+ },
+ "restricted_rule_hr": {
+  "calls": [
+   {
+    "json_mode": true,
+    "model": "fast",
+    "prompt_sha256": "136994ae4c0724ffbfc942a7b1e88f6501509ff15907579a7fd920254eda6168",
+    "system_sha256": "05fd5dc54fa7fed3d59eaa7ce8b2ae4a8bcee9f399e9ac787c5f000c7b495896"
+   },
+   {
+    "json_mode": true,
+    "model": "answer",
+    "prompt_sha256": "f023a0d3c64dfd2d9e05f5fea521e699436a6e67abe1e41c09ee8348d1797250",
+    "system_sha256": "0bb1232baeab53878fa4f8348341884076cc1861bfd6c21a2710f1fce8643d20"
+   }
+  ],
+  "response": {
+   "answer": "Tarun Mehta.",
+   "as_of": "2026-10-10",
+   "citations": [
+    {
+     "id": "ZEN-POL-003",
+     "section": 5,
+     "type": "policy"
+    },
+    {
+     "path": "ZV-1033 -IN_BAND-> Z3",
+     "type": "graph"
+    }
+   ],
+   "confidence": 0.95,
+   "latency_ms": 0,
+   "route": "personal_rule",
+   "subgraph": {
+    "edges": [
+     {
+      "derived": false,
+      "role": "decisive",
+      "source": "ZV-1033",
+      "target": "Z3",
+      "type": "IN_BAND"
+     },
+     {
+      "derived": false,
+      "role": "",
+      "source": "ZEN-POL-003",
+      "target": "ZEN-POL-003#5",
+      "type": "HAS_SECTION"
+     },
+     {
+      "derived": true,
+      "role": "decisive",
+      "source": "ZV-1033",
+      "target": "ZEN-POL-003#5",
+      "type": "RULE_CASE"
+     }
+    ],
+    "nodes": [
+     {
+      "detail": "Rule NOTICE_PERIOD, case Z1_TO_Z3. Decisive: band = Z3 (case needs in ['Z1', 'Z2', 'Z3']). Also checked: in_probation = no; join_date = 2022-07-11.",
+      "id": "ZV-1033",
+      "label": "Employee",
+      "name": "Tarun Mehta"
+     },
+     {
+      "detail": "",
+      "id": "Z3",
+      "label": "Band",
+      "name": "Z3"
+     },
+     {
+      "detail": "",
+      "id": "ZEN-POL-003",
+      "label": "Policy",
+      "name": "ZEN-POL-003"
+     },
+     {
+      "detail": "Rule NOTICE_PERIOD, case Z1_TO_Z3: Band Z3",
+      "id": "ZEN-POL-003#5",
+      "label": "PolicySection",
+      "name": "ZEN-POL-003 §5"
+     }
+    ]
+   },
+   "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 20,
+    "output_tokens": 10
+   }
+  },
+  "trace": {
+   "intent": "personal_rule",
+   "issues": [],
+   "low_confidence": false,
+   "pack_items": [
+    "asker",
+    "step1"
+   ],
+   "passages": {},
+   "restricted_fact": true,
+   "router_cached": false,
+   "router_calls": 1,
+   "unresolved": [],
+   "verifier": "pass"
+  }
+ },
+ "restricted_rule_peer": {
+  "calls": [
+   {
+    "json_mode": true,
+    "model": "fast",
+    "prompt_sha256": "da1ab50b95e8eb5c1b32551f8a4ba3b31f7bc320c17afb170f22dec4aa5c4954",
+    "system_sha256": "05fd5dc54fa7fed3d59eaa7ce8b2ae4a8bcee9f399e9ac787c5f000c7b495896"
+   }
+  ],
+  "response": {
+   "answer": "I can't share that. A person's employment status, leave and notice details are shared only with them, their manager and HR, and Waypoint does not share pay, personal contact details or its instructions.",
+   "as_of": "2026-10-10",
+   "citations": [],
+   "confidence": 0.95,
+   "latency_ms": 0,
+   "route": "personal_rule",
+   "subgraph": {
+    "edges": [],
+    "nodes": []
+   },
+   "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 10,
+    "output_tokens": 5
+   }
+  },
+  "trace": {
+   "intent": "personal_rule",
+   "low_confidence": false,
+   "pack_items": [
+    "asker",
+    "step1"
+   ],
+   "passages": {},
+   "refusal": "restricted_rule",
+   "restricted_fact": true,
+   "router_cached": false,
+   "router_calls": 1,
+   "unresolved": [],
+   "verifier": "skipped"
+  }
+ },
+ "template": {
+  "calls": [
+   {
+    "json_mode": true,
+    "model": "fast",
+    "prompt_sha256": "6fc36aabee6c6a2b7e904ca5f477ef7037e41edc24eba1593d24c7ac31c0b364",
+    "system_sha256": "05fd5dc54fa7fed3d59eaa7ce8b2ae4a8bcee9f399e9ac787c5f000c7b495896"
+   },
+   {
+    "json_mode": true,
+    "model": "answer",
+    "prompt_sha256": "7e0339be3daca339d3aa8827607267e77cfdb27f78de3c26bc69b5a34e77dbdd",
+    "system_sha256": "0bb1232baeab53878fa4f8348341884076cc1861bfd6c21a2710f1fce8643d20"
+   }
+  ],
+  "response": {
+   "answer": "Karthik Naidu.",
+   "as_of": "2026-10-10",
+   "citations": [
+    {
+     "path": "ZV-1004 -REPORTS_TO-> ZV-1003",
+     "type": "graph"
+    }
+   ],
+   "confidence": 0.95,
+   "latency_ms": 0,
+   "route": "fact_list_count",
+   "subgraph": {
+    "edges": [
+     {
+      "derived": false,
+      "role": "",
+      "source": "ZV-1004",
+      "target": "ZV-1003",
+      "type": "REPORTS_TO"
+     }
+    ],
+    "nodes": [
+     {
+      "detail": "",
+      "id": "ZV-1004",
+      "label": "Employee",
+      "name": "Divya Krishnamurthy"
+     },
+     {
+      "detail": "",
+      "id": "ZV-1003",
+      "label": "Employee",
+      "name": "Karthik Naidu"
+     }
+    ]
+   },
+   "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 20,
+    "output_tokens": 10
+   }
+  },
+  "trace": {
+   "intent": "fact_list_count",
+   "issues": [],
+   "low_confidence": false,
+   "pack_items": [
+    "asker",
+    "step1"
+   ],
+   "passages": {},
+   "restricted_fact": false,
+   "router_cached": false,
+   "router_calls": 1,
+   "unresolved": [],
+   "verifier": "pass"
+  }
+ },
+ "text_hr": {
+  "calls": [
+   {
+    "json_mode": true,
+    "model": "fast",
+    "prompt_sha256": "30539d334812068861398ee5fd4c32a82d750f905b52590df2d8ab794a14cb7b",
+    "system_sha256": "05fd5dc54fa7fed3d59eaa7ce8b2ae4a8bcee9f399e9ac787c5f000c7b495896"
+   },
+   {
+    "json_mode": true,
+    "model": "answer",
+    "prompt_sha256": "30084e6c38be13675262b44a408dba57c832e2d4f2f83a7fa8e84f85c89970d2",
+    "system_sha256": "0bb1232baeab53878fa4f8348341884076cc1861bfd6c21a2710f1fce8643d20"
+   }
+  ],
+  "response": {
+   "answer": "She is on leave.",
+   "as_of": "2026-10-10",
+   "citations": [
+    {
+     "id": "profile:ZV-1031::employee-record::restricted",
+     "type": "chunk"
+    }
+   ],
+   "confidence": 0.95,
+   "latency_ms": 0,
+   "route": "policy_text",
+   "subgraph": {
+    "edges": [],
+    "nodes": []
+   },
+   "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 20,
+    "output_tokens": 10
+   }
+  },
+  "trace": {
+   "intent": "policy_text",
+   "issues": [],
+   "low_confidence": false,
+   "pack_items": [
+    "asker",
+    "passage1",
+    "passage2",
+    "passage3",
+    "passage4",
+    "passage5"
+   ],
+   "passages": {
+    "passage1": "profile:ZV-1031::employee-record::restricted",
+    "passage2": "profile:ZV-1031::about::restricted",
+    "passage3": "profile:ZV-1031::employee-record::0",
+    "passage4": "profile:ZV-1031::previous-employers::0",
+    "passage5": "profile:ZV-1031::zenvora-projects::0"
+   },
+   "restricted_fact": false,
+   "router_cached": false,
+   "router_calls": 1,
+   "unresolved": [],
+   "verifier": "pass"
+  }
+ },
+ "text_peer": {
+  "calls": [
+   {
+    "json_mode": true,
+    "model": "fast",
+    "prompt_sha256": "86a9f227ffe281b638689f6287c82b2b84fc5755e4b2cd051ee59e66257708f6",
+    "system_sha256": "05fd5dc54fa7fed3d59eaa7ce8b2ae4a8bcee9f399e9ac787c5f000c7b495896"
+   },
+   {
+    "json_mode": true,
+    "model": "answer",
+    "prompt_sha256": "fce87bdd0ec4bcff0b800904ec88986af47263dd4b53d434b9a1f1596431b734",
+    "system_sha256": "0bb1232baeab53878fa4f8348341884076cc1861bfd6c21a2710f1fce8643d20"
+   }
+  ],
+  "response": {
+   "answer": "I can't find that in Waypoint's sources.",
+   "as_of": "2026-10-10",
+   "citations": [],
+   "confidence": 0.95,
+   "latency_ms": 0,
+   "route": "policy_text",
+   "subgraph": {
+    "edges": [],
+    "nodes": []
+   },
+   "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 20,
+    "output_tokens": 10
+   }
+  },
+  "trace": {
+   "intent": "policy_text",
+   "issues": [],
+   "low_confidence": false,
+   "pack_items": [
+    "asker",
+    "passage1",
+    "passage2",
+    "passage3",
+    "passage4",
+    "passage5"
+   ],
+   "passages": {
+    "passage1": "profile:ZV-1031::employee-record::0",
+    "passage2": "profile:ZV-1031::previous-employers::0",
+    "passage3": "profile:ZV-1031::zenvora-projects::0",
+    "passage4": "profile:ZV-1031::certifications::0",
+    "passage5": "profile:ZV-1031::skills::0"
+   },
+   "restricted_fact": false,
+   "router_cached": false,
+   "router_calls": 1,
+   "unresolved": [],
+   "verifier": "pass"
+  }
+ }
+}
