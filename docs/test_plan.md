@@ -88,3 +88,7 @@ Time, from the dev pace at 5 requests/min:
    - For each system, the author fills `human_verdict` in `judge_review.csv` for a 10% sample of its judge-scored rows: ceil(0.1 × 59) = 6 rows.
    - The rows are chosen by `random.Random(42).sample(sorted(judge-scored ids), 6)`.
    - The agreement rate goes into docs/results.md (3.3e).
+
+## Note after day 1 (2026-10-16): judge count
+
+S5 test (`eval_runs/20261016-032128_s5_test`): **60 judge-scored rows**, not 59. `callstats` shows **60 judge calls** (60 HTTP requests, 0 retries). The `detail` column in results.csv explains the gap. 59 rows went to the judge because of their gold shape (`sentence answer`), which matches the plan. One more row has an exact-shaped gold, but the scorer passed it to the judge because S5's answer named another employee besides the gold one (`exact key plus extra employees`). CLAUDE.md 1.4 states this rule: an exact entity key also requires no other same-type entity in the answer. So the judge count depends on the answer, not only on the gold. 59 is the minimum, and S1's count can differ for the same reason. The judge hand check (step 7) uses each system's actual judge-scored rows.
