@@ -87,3 +87,48 @@ def test_report(tmp_path) -> None:  # noqa: ANN001
     assert "paired difference a - b (3 questions scored by both)" in text
     assert "- all: 1.000 [1.000, 1.000] (n=3); difference claimed: yes" in text
     assert "hops 1" in text and "category c" in text
+
+
+# Added 2026-10-16, after the test results were seen: per-category paired difference and the
+# --exclude-category sensitivity report (analysis only).
+
+def _runs(tmp_path) -> tuple[object, object]:  # noqa: ANN001
+    """c1 (hops 1): a 1, 1 and b 0, 0, so differences 1, 1; c2 (hops 2): a 1, 0 and b 0, 1, so
+    differences 1, -1. For n=2 the resample means of {1, -1} are -1, 0, 1 with p 1/4, 1/2, 1/4:
+    the interval is [-1, 1]."""
+    def run(name: str, scores: list[str]) -> object:
+        d = tmp_path / name
+        d.mkdir()
+        cats = [("c1", 1), ("c1", 1), ("c2", 2), ("c2", 2)]
+        rows = ["id,status,hops,category,score"]
+        rows += [f"Q{i},scored,{h},{c},{s}" for i, ((c, h), s) in enumerate(zip(cats, scores))]
+        (d / "results.csv").write_text("\n".join(rows) + "\n", encoding="utf-8")
+        return d
+    return run("a", ["1", "1", "1", "0"]), run("b", ["0", "0", "0", "1"])
+
+
+def test_report_paired_difference_per_category(tmp_path) -> None:  # noqa: ANN001
+    from waypoint.eval.bootstrap import report
+
+    text = report(*_runs(tmp_path))
+    assert "- category c1: 1.000 [1.000, 1.000] (n=2); excludes zero: yes" in text
+    assert "- category c2: 0.000 [-1.000, 1.000] (n=2); excludes zero: no" in text
+    assert "- hops 1: 1.000 [1.000, 1.000] (n=2); difference claimed: yes" in text  # unchanged format
+    assert "- hops 2: 0.000 [-1.000, 1.000] (n=2); difference claimed: no" in text
+    assert "sensitivity" not in text
+
+
+def test_report_exclude_category(tmp_path) -> None:  # noqa: ANN001
+    from waypoint.eval.bootstrap import main, report
+
+    a, b = _runs(tmp_path)
+    text = report(a, b, exclude_categories=["c2"])
+    assert "- sensitivity: excluded categories c2 (rows removed: a 2, b 2); overall and by hops only" in text
+    assert "## a: overall 1.000 [1.000, 1.000] (n=2)" in text and "## b: overall 0.000 [0.000, 0.000] (n=2)" in text
+    assert "paired difference a - b (2 questions scored by both)" in text
+    assert "- all: 1.000 [1.000, 1.000] (n=2); difference claimed: yes" in text
+    assert "category" not in text.replace("excluded categories", "") and "hops 2" not in text
+    with pytest.raises(ValueError, match="unknown category: nope"):
+        report(a, b, exclude_categories=["nope"])
+    with pytest.raises(SystemExit, match="unknown category"):
+        main(["--a", str(a), "--b", str(b), "--exclude-category", "nope"])

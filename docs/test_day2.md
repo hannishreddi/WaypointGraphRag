@@ -59,7 +59,7 @@ Run after the 12:30 pm IST quota reset (started 12:35 IST). Expected before the 
 
 - Requests (`waypoint.eval.callstats`, final folder): `20261016-134333_s1_test: 191 questions, 312 HTTP requests (1.63/question); logical: router 0, generator 191, judge 2; retries 119; judge-scored rows 59`.
 - callstats on session 1 (`20261016-134237_s1_test`): `189 questions, 308 HTTP requests (1.63/question); logical: router 0, generator 189, judge 57; retries 62; judge-scored rows 57`.
-- callstats computes retries as requests − logical calls. It takes the judge count from the summary's judge line, which covers the last session only (2), while requests sum over all sessions. So "retries 119" also counts session 1's 57 judge calls: retries are 62 (session 1) + 0 (session 2) = **62**.
+- callstats computes retries as requests − logical calls. It takes the judge count from the summary's judge line, which covers the last session only (2), while requests sum over all sessions. So "retries 119" also counts session 1's 57 judge calls: retries are 62 (session 1) + 0 (session 2) = **62**. (callstats fixed afterwards, see the addendum.)
 - Errors: 0 in the final run (2 in session 1, retried, see above).
 - Verifier: n/a for all 191 rows (S1 has no verifier; the `verifier` column is empty).
 - Judge-scored rows: 59, all `sentence answer` (none fell back from exact). S5 had 60 (docs/test_plan.md, note after day 1).
@@ -107,7 +107,7 @@ Run after the 12:30 pm IST quota reset (started 12:35 IST). Expected before the 
 
 ```
 
-The tool prints the paired difference overall and by hops only, **not by category**. Per-category values above are per-system means with their own intervals; no paired per-category difference was computed (no code change, no ad-hoc analysis).
+The tool prints the paired difference overall and by hops only, **not by category**. Per-category values above are per-system means with their own intervals; no paired per-category difference was computed (no code change, no ad-hoc analysis). Added afterwards: see "Addendum: analysis tooling added after the test results were seen" below.
 
 ### Does each paired difference's interval exclude zero
 
@@ -133,3 +133,101 @@ The tool prints the paired difference overall and by hops only, **not by categor
 | resumed_rows | `0` | `189` |
 
 S1's HEAD `4553c4c` is the docs-only commit "3.3d day 2: judge count note after day 1"; `git diff --name-only freeze-1..4553c4c` = docs/test_day1.md, docs/test_plan.md.
+
+## Addendum: analysis tooling added after the test results were seen
+
+Added on 2026-10-16, **after** the S5 and S1 test numbers above had been seen. Analysis tooling only (`waypoint/eval/bootstrap.py`, `waypoint/eval/callstats.py`, their tests). No LLM calls. Scoring, the frozen system and the test numbers are unchanged; they stay tied to 975e58c (freeze-1, S5) and 4553c4c (S1).
+
+What was added and why:
+- **Paired S5 − S1 difference per category.** The original tool printed it only overall and by hops (gap noted above). It is reported for **all 7 categories**, none selected. Category lines say "excludes zero", not "difference claimed": the pre-registered claim rule uses overall and hops (docs/test_plan.md), and several categories are small (n = 10 to 60).
+- **Sensitivity option `--exclude-category personalised`.** It reports overall and by hops for both runs and the paired difference, with that category removed from both. The reason: S1 has no asker identity, so personalised questions measure a capability difference, not retrieval quality. It is reported next to the full result, not instead of it.
+- **callstats fix for resumed runs.** Retries are now requests minus logical calls summed over **all** sessions of a run. The judge calls come from every session's summary, found through the shared checkpoint and checked against each session's `resumed_rows`. When an earlier session folder is missing, it prints an upper bound and says so. Before the fix, the final S1 folder printed retries 119; the true figure is 62.
+
+Every line of the earlier bootstrap output above appears unchanged in the new output; the new lines are additions.
+
+### callstats after the fix
+
+```
+20261016-134333_s1_test: 191 questions, 312 HTTP requests (1.63/question); logical: router 0, generator 191, judge 59; retries 62; judge-scored rows 59; sessions 2 (+10 requests on error rows, not checkpointed)
+20261016-032128_s5_test: 191 questions, 446 HTTP requests (2.34/question); logical: router 193, generator 193, judge 60; retries 0; judge-scored rows 60; sessions 1
+```
+
+The "+10 requests on error rows" are session 1's two 503 rows (see "S1 sessions"). Session 1's folder (`eval_runs/20261016-134237_s1_test`) is local, not archived. In a clone without it, callstats on the final S1 folder prints "INCOMPLETE" and an upper bound instead of 62.
+
+### Bootstrap with per-category paired differences, verbatim
+
+`python -m waypoint.eval.bootstrap --a eval_runs/20261016-032128_s5_test --b eval_runs/20261016-134333_s1_test`:
+
+```
+# Bootstrap 95% CIs (seed 42, 10,000 resamples, percentile)
+
+- a: 20261016-032128_s5_test
+- b: 20261016-134333_s1_test
+
+## a: overall 0.950 [0.921, 0.976] (n=191)
+- hops 1: 0.931 [0.879, 0.977] (n=87)
+- hops 2: 0.971 [0.927, 1.000] (n=71)
+- hops 3: 0.955 [0.879, 1.000] (n=33)
+- category cross_document: 0.950 [0.850, 1.000] (n=10)
+- category employee_lookup: 1.000 [1.000, 1.000] (n=14)
+- category org_structure: 0.983 [0.950, 1.000] (n=60)
+- category personalised: 1.000 [1.000, 1.000] (n=27)
+- category policy: 0.750 [0.583, 0.896] (n=24)
+- category project: 0.964 [0.893, 1.000] (n=28)
+- category skills_experience: 0.962 [0.887, 1.000] (n=28)
+
+## b: overall 0.701 [0.640, 0.761] (n=191)
+- hops 1: 0.914 [0.856, 0.960] (n=87)
+- hops 2: 0.605 [0.497, 0.709] (n=71)
+- hops 3: 0.347 [0.197, 0.503] (n=33)
+- category cross_document: 0.550 [0.250, 0.850] (n=10)
+- category employee_lookup: 0.952 [0.878, 1.000] (n=14)
+- category org_structure: 0.733 [0.617, 0.833] (n=60)
+- category personalised: 0.278 [0.111, 0.444] (n=27)
+- category policy: 0.812 [0.667, 0.938] (n=24)
+- category project: 0.781 [0.631, 0.914] (n=28)
+- category skills_experience: 0.793 [0.657, 0.910] (n=28)
+
+## paired difference a - b (191 questions scored by both)
+- all: 0.249 [0.182, 0.317] (n=191); difference claimed: yes
+- hops 1: 0.017 [-0.034, 0.075] (n=87); difference claimed: no
+- hops 2: 0.366 [0.250, 0.484] (n=71); difference claimed: yes
+- hops 3: 0.607 [0.420, 0.783] (n=33); difference claimed: yes
+- category cross_document: 0.400 [0.100, 0.700] (n=10); excludes zero: yes
+- category employee_lookup: 0.048 [0.000, 0.122] (n=14); excludes zero: no
+- category org_structure: 0.250 [0.133, 0.367] (n=60); excludes zero: yes
+- category personalised: 0.722 [0.556, 0.889] (n=27); excludes zero: yes
+- category policy: -0.062 [-0.208, 0.083] (n=24); excludes zero: no
+- category project: 0.183 [0.019, 0.352] (n=28); excludes zero: yes
+- category skills_experience: 0.169 [0.018, 0.318] (n=28); excludes zero: yes
+
+```
+
+### Sensitivity without personalised, verbatim
+
+`python -m waypoint.eval.bootstrap --a eval_runs/20261016-032128_s5_test --b eval_runs/20261016-134333_s1_test --exclude-category personalised`:
+
+```
+# Bootstrap 95% CIs (seed 42, 10,000 resamples, percentile)
+
+- a: 20261016-032128_s5_test
+- b: 20261016-134333_s1_test
+- sensitivity: excluded categories personalised (rows removed: a 27, b 27); overall and by hops only
+
+## a: overall 0.942 [0.905, 0.973] (n=164)
+- hops 1: 0.929 [0.876, 0.976] (n=85)
+- hops 2: 0.963 [0.909, 1.000] (n=56)
+- hops 3: 0.935 [0.826, 1.000] (n=23)
+
+## b: overall 0.771 [0.710, 0.829] (n=164)
+- hops 1: 0.924 [0.871, 0.971] (n=85)
+- hops 2: 0.659 [0.543, 0.769] (n=56)
+- hops 3: 0.477 [0.287, 0.670] (n=23)
+
+## paired difference a - b (164 questions scored by both)
+- all: 0.171 [0.104, 0.240] (n=164); difference claimed: yes
+- hops 1: 0.006 [-0.047, 0.059] (n=85); difference claimed: no
+- hops 2: 0.304 [0.172, 0.434] (n=56); difference claimed: yes
+- hops 3: 0.458 [0.223, 0.681] (n=23); difference claimed: yes
+
+```
