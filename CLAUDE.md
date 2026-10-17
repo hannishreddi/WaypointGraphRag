@@ -117,4 +117,4 @@ Windows: run every target with `mingw32-make`.
 ## When unsure
 Ask me one short question with a recommended default. Do not expand scope beyond PLAN.md; list ideas under "Ideas, not planned" in PLAN.md instead.
 
-Status: 3.3 done and scope cut (2026-10-17): S5 0.95 vs S1 0.70 on the test split (`docs/results.md`), 10-row safety check (`docs/safety.md`); freeze, twins, bootstrap, held-out set and ablations removed. Left: README write-up (problem, design, architecture diagram) and demo polish (PLAN.md "What's actually left").
+Status: all slices done (2026-10-17). S5 0.95 vs S1 0.70 on the test split (`docs/results.md`), 10-row safety check (`docs/safety.md`), demo 22/22 live (`docs/demo.md`), README written. Nothing open in PLAN.md; new work goes under "Ideas, not planned" first.

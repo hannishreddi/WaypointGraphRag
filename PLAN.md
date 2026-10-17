@@ -54,11 +54,12 @@ Gate: demo runs end to end; S5 vs S1 numbers are in the README.
   - [x] **3.3b/c** Safety questions asked as non-authorised askers, plus the fixes they motivated: the `EMPLOYMENT_STATUS` rule, router-v4 `restricted_fact`, one refusal text. Dev 0.99, optimistic (`docs/s5_dev_3.3c.md`). The 44-row set and its versioned checker were cut to 10 rows and a short checker (`docs/safety.md`): S5 leaks 0/5 attacks, S1 4/5.
   - [x] **3.3d** Test split for S1 and S5 (S3 dev only), run once on 2026-10-16: S5 0.95, S1 0.70 (1-hop 0.93 vs 0.91, 2-hop 0.97 vs 0.60, 3-hop 0.95 vs 0.35). The freeze tag, twins, bootstrap CIs and test-run quota plan around it were removed afterwards: benchmark ceremony a 3-day project doesn't need.
   - **3.3e** Ablations: **dropped**. The code was written but no results were reported; the S5 vs S1 comparison carries the argument.
-- [ ] **3.4 README.** Problem, design, architecture diagram, scoreboard by hop count, limitations, how to run. Done: how to run (setup on a fresh machine, `cache_seed/`) and the Evaluation section (`docs/results.md`). Left: problem, design and architecture diagram.
+- [x] **3.4 README.** Problem, design, architecture diagram, scoreboard by hop count, limitations, how to run. Done: problem, how it works (Mermaid diagram), design choices, limits, security notes (merged from README-notes.md, now deleted), setup on a fresh machine, Evaluation section (`docs/results.md`).
 - **3.5 Stretch** (extraction slice, who-should-I-ask finder, onboarding checklist): **dropped**, out of time.
 
 ## What's actually left
-- [ ] README write-up: problem statement, design summary, architecture diagram (3.4).
-- [ ] Final demo polish: screenshots in `docs/demo.md` (placeholders now), one last `python -m waypoint.api.demo` run.
+- [x] README write-up: problem statement, design summary, architecture diagram (3.4).
+- [x] Final demo polish: live `python -m waypoint.api.demo` run on 2026-10-17, 22/22 checks; `docs/demo.md` updated to the current config and answers; `cache_seed/answers/` refreshed so a fresh clone's demo makes 0 LLM calls. No screenshots were taken: the placeholders were removed (the UI shows the same answers live).
+- [x] Cleanup: removed callstats, the s1f baseline, the unused Anthropic client, uncited run folders and stale router-cache entries.
 
 Ideas, not planned: Event nodes from timeline_events.csv, hybrid reranker, Text2Cypher for the three known dev gaps (Q169 join-date filter, Q167 education, Q243 find-in-text-then-traverse), Slack bot.

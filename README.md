@@ -2,18 +2,67 @@
 
 Waypoint is a chat assistant for new joiners at **Zenvora**, a fictional company. It answers questions about people, departments, projects and policies **as the person asking**. For example, "Do I need to come to the office every day?" gets a different answer for a new joiner than for a senior engineer. Every answer comes with citations and a small evidence graph.
 
-Under the hood:
+On 191 held-out test questions Waypoint scores 0.95, against 0.70 for plain vector RAG. The gap is largest on multi-hop questions (details in [Evaluation](#evaluation)). Everything in the dataset is fictional. The system answers "as of" **2026-10-10** by default.
 
-- a **Neo4j** graph of the company (employees, reporting lines, departments, projects, policies);
-- a **vector and full-text index** over the documents (Cohere embeddings, stored in Neo4j);
-- a **router** (one LLM call) that picks Cypher templates, policy rules or a text search;
-- a **rule engine** for "about me" questions (office days, notice period, expense approver, …);
-- an **access filter**: leave, notice and employment status are shown only to the person, their manager or HR;
-- a **generator plus verifier**: answers must cite their sources, and every name, number and date is checked.
+## The problem
 
-Everything in the dataset is fictional. The system answers "as of" **2026-10-10** by default.
+A new joiner's questions rarely sit in one paragraph of one document:
 
-More detail: [docs/DESIGN.md](docs/DESIGN.md) (design), [PLAN.md](PLAN.md) (build log), [README-notes.md](README-notes.md) (security notes for the demo).
+- **Multi-hop:** "Who approves terminating Divya?" needs Divya's band, the termination policy's band rule, her reporting chain and two department heads.
+- **About the asker:** "Do I need to come to the office every day?" depends on who asks and on the date. The answer is yes during the 90-day induction and no from day 91.
+- **Complete lists:** "Who reports to Meera?" needs all six names, not the three whose profiles happen to rank highest.
+- **Private facts:** a colleague's leave or notice period may be shown only to that person, their manager or HR.
+
+Plain vector RAG retrieves the top few passages and hopes the answer is in them. It can't compute a date-dependent rule, it misses list items outside the top k, and it has no notion of who may see what. Waypoint puts the company in a graph, turns policy rules into code, and filters restricted facts before the model sees them.
+
+## How it works
+
+```mermaid
+flowchart LR
+  Q["Question<br/>+ asker + as-of date"] --> L["Entity linking<br/>(alias table)"]
+  L --> R["Router<br/>1 LLM call, JSON plan"]
+  R -->|graph facts| T["17 Cypher templates<br/>read-only, guarded"]
+  R -->|personal rules| E["Rule engine<br/>JSON predicates at as-of"]
+  R -->|policy text| S["Vector + full-text search"]
+  R -->|pay, contact, manipulation| X["Fixed refusal"]
+  S --> A["Access filter<br/>(subject, manager, HR)"]
+  T --> P["Context pack<br/>every item has an id"]
+  E --> P
+  A --> P
+  P --> G["Generator<br/>1 LLM call, cites ids"]
+  G --> V["Verifier<br/>ids, names, numbers, dates"]
+  V --> O["Answer + citations<br/>+ evidence subgraph"]
+  N[("Neo4j<br/>graph, chunks, indexes")] -.-> T
+  N -.-> S
+  N -.-> E
+```
+
+1. **Linking.** Names, first names, titles ("the CFO"), ids and policy codes in the question are matched to graph entities from an alias table built from the CSVs. No LLM is involved.
+2. **Routing.** One call to a small model returns a validated JSON plan of at most four steps. Each step is a Cypher template, a rule or a text search, and a step can pass a result to the next ("the head of *her manager's* department"). Questions about pay, contact details or the system's instructions are refused here.
+3. **Evidence.**
+   - Templates are parameterised, read-only Cypher queries. Every query passes a guard that rejects write keywords, and runs in a read-only session.
+   - Rules (office days, notice period, expense approver, termination approval, leave, sabbatical, …) are JSON predicates evaluated against the asker's facts at the as-of date. Each case cites the policy section it comes from.
+   - Text search runs over 815 chunks. Restricted chunks (someone's leave, notice or status) are dropped unless the asker is that person, their direct manager or HR.
+4. **Answering.** The generator sees a context pack in which every item has an id, and must cite those ids. A code verifier then checks that every cited id is in the pack and that every name, number and date in the answer appears in the pack or the question. On a failure the answer is regenerated once, then replaced by "I can't confirm that."
+5. **Evidence graph.** The response carries the subgraph behind the answer. The UI draws it with the cited paths in red, and dashed edges show which rule case decided the answer.
+
+### Design choices
+
+- **Access control lives in retrieval, not the prompt.** A non-authorised asker's prompt never contains the restricted fact, so no instruction in the question can make the model reveal it.
+- **Rules are data.** Policy logic is JSON predicates (`waypoint/rules/predicates.json`). A test checks that every number in a rule appears in the policy section it cites.
+- **One database.** Neo4j holds the graph, the text chunks, the vector index and the full-text index.
+- **No frameworks.** Plain Python, httpx and Pydantic: no LangChain, no SDKs, no numpy.
+- **Two cheap model calls per question** (router and generator) on the Gemini free tier. A different model is used as the judge in the evaluation.
+
+### Limits
+
+- The corpus is small and synthetic: 42 employees, 391 graph nodes, 134 documents.
+- Router prompts and fixes were tuned on the 60 dev questions. The test numbers come from a single run after that.
+- Only two people have a restricted status, so the safety check is a sanity check, not a measured leak rate.
+- The identity dropdown is not authentication: see [Security notes](#security-notes).
+- Known gaps: there is no template for join-date filters, education is not in the graph, and a plan cannot take an entity found in a passage and traverse from it.
+
+More detail: [docs/DESIGN.md](docs/DESIGN.md) (design), [PLAN.md](PLAN.md) (build log), [docs/demo.md](docs/demo.md) (demo walk-through).
 
 ---
 
@@ -138,7 +187,7 @@ Copy them into `.cache/`, where the code looks for them:
 PY -c "import shutil; shutil.copytree('cache_seed', '.cache', dirs_exist_ok=True)"     # or: make seed-cache
 ```
 
-With the caches, building the index makes **0 Cohere calls**, and the demo in step 10 makes **0 Gemini calls**. Without them, everything still works, but the first runs use API quota.
+With the caches, building the index makes **0 Cohere calls**, and the scripted demo in step 10 makes **0 Gemini calls**, as do the same questions asked in the UI as the same people. Without them, everything still works, but the first runs use API quota.
 
 ---
 
@@ -194,9 +243,14 @@ PY -m waypoint.api.demo
 ```
 It runs the four demo moments and prints PASS/FAIL checks. With the seeded answer cache it makes no LLM calls. See [docs/demo.md](docs/demo.md).
 
-> The identity dropdown is **not authentication**: anyone who can reach the server can claim to be anyone. That is why the server listens on 127.0.0.1 only. Don't expose it on a network.
-
 Stop the server with `Ctrl+C`. Stop Neo4j with `docker compose down` (or `make down`). Your graph is kept in a Docker volume. To delete it as well: `docker compose down -v`.
+
+### Security notes
+
+- **No authentication.** The identity dropdown sets `asker_id`, and the server believes it, so anyone who can reach the server can claim to be anyone, including HR. The access rules are only as good as that claim. This is a local demo, which is why `make serve` binds 127.0.0.1 only. Don't expose it on a network.
+- **No HTML from the server.** Answers and citations are rendered with `textContent`, never as HTML (tested). Every response carries a strict Content-Security-Policy, and Cytoscape.js is pinned to an exact version with an SRI hash.
+- **Short error messages.** Errors return a short message: 502 for an LLM error, 503 for a quota stop or Neo4j being down, 500 otherwise. Stack traces go to the server log only.
+- **Answer cache keyed by asker.** The cache (`.cache/answers/`) is keyed by question, asker, as-of date and system version. An answer that reveals a restricted fact is stored under the asker who was allowed to see it, so the cache never serves it to anyone else.
 
 ---
 
@@ -280,7 +334,7 @@ waypoint/            the application
   retrieval/         chunking, embeddings, index, search, entity linking, router, access filter
   rules/             policy rules as JSON predicates and the rule engine
   answer/            context pack, generator, verifier, the S5 system
-  llm/               Gemini (default) and Anthropic clients over plain HTTP
+  llm/               Gemini client over plain HTTP, rate limiter, JSON validation
   eval/              eval runner, scorers, judge, baselines, safety check
   api/               FastAPI app and the static UI (index.html, app.js, Cytoscape.js)
 tests/               pytest suite
