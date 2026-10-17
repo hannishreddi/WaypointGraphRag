@@ -18,7 +18,6 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
-anthropic = ["anthropic>=0.40"]  # only for LLM_PROVIDER=anthropic
 
 [tool.setuptools.packages.find]
 include = ["waypoint*"]

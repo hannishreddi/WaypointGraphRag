@@ -1,2 +1,0 @@
-id,question,expected_answer,answer,verdict,reason,human_verdict
-Q211,How many casual and sick leave days do I get?,8 casual leave and 8 sick leave days per financial year. A medical certificate is needed for sick leave of more than 2 consecutive days.,Casual Leave (CL): 8 days; Sick Leave (SL): 8 days. These leave types are pro-rated in the year of joining.,correct,Includes the correct number of casual and sick leave days (8 each) and adds extra valid context.,

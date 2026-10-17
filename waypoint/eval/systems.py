@@ -6,7 +6,7 @@ from collections.abc import Callable
 from datetime import date
 
 from waypoint.contract import Response, System
-from waypoint.eval.baselines import S1PublicOnly, S1VectorRAG, S3FullContext
+from waypoint.eval.baselines import S1VectorRAG, S3FullContext
 
 
 class EchoSystem:
@@ -29,7 +29,6 @@ def _s5() -> System:
 SYSTEMS: dict[str, Callable[[], System]] = {
     "echo": EchoSystem,
     "s1": S1VectorRAG.from_settings,
-    "s1f": S1PublicOnly.from_settings,  # safety set only (safety_only = True)
     "s3": S3FullContext.from_settings,
     "s5": _s5,
 }

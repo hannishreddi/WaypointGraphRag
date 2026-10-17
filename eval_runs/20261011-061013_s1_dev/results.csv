@@ -1,2 +1,0 @@
-id,category,hops,asker_id,scorer,status,score,verdict,reason,source_recall,citation_precision,n_citations,input_tokens,output_tokens,cached_input_tokens,api_calls,latency_ms,route,detail,question,expected_answer,answer
-Q002,org_structure,1,ZV-1006,exact,scored,1.0,,,1.0,1.0,1,698,44,0,1,9919.0,vector_rag,found ['ZV-1003'],Who does Divya Krishnamurthy report to?,"Karthik Naidu (Director of Engineering, Backend)",Karthik Naidu

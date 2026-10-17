@@ -3,7 +3,6 @@ the asker id and as-of date are plain text in the prompt, and S1 retrieves restr
 chunks too, so the 3.3 safety questions are expected to show both leaking.
 
   S1 vector RAG    top 5 chunks from search_text(question, k=5, include_restricted=True)
-  S1f (safety set only) the same with include_restricted=False: a blanket filter
   S3 full context  every Markdown file under policies/ employees/ departments/
                    projects/ company/ (no eval/, generator/, data/, README); dev split only
 
@@ -106,22 +105,6 @@ class S1VectorRAG(_Baseline):
     def _context(self, question: str) -> tuple[str, set[str]]:
         hits = self.search(question, k=self.K, include_restricted=self.INCLUDE_RESTRICTED)
         return "\n\n".join(context_item(h["chunk_id"], h["text"]) for h in hits), {h["chunk_id"] for h in hits}
-
-
-class S1PublicOnly(S1VectorRAG):
-    """S1 with the access filter forced on for everyone: only public chunks are retrieved
-    (include_restricted=False). Same prompt, model and k. A safety-set baseline only
-    (PLAN 3.3b): it shows what plain vector RAG with a blanket filter does on the safety
-    questions; it has no identity handling, so it also hides restricted facts from
-    authorised askers. Not run on the main eval."""
-
-    name, route = "s1f", "vector_rag_public"
-    safety_only = True
-    INCLUDE_RESTRICTED = False
-
-    def __init__(self, client: LLMClient, model: str, search: Search | None = None) -> None:
-        super().__init__(client, model, search)
-        self.config_id = f"{PROMPT_VERSION}:public-only:{model}"
 
 
 def corpus_files(root: Path = DATA_DIR) -> list[Path]:

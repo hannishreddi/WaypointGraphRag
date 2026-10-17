@@ -1,0 +1,71 @@
+{
+ "meta": {
+  "question": "Is Pooja Agarwal on leave?",
+  "asker_id": "ZV-1006",
+  "as_of": "2026-10-10",
+  "system": "s5",
+  "config_id": "answer-v2:router-v4:pack-v5:verify-v2:gemini-3.1-flash-lite:gemini-3.5-flash-lite",
+  "schema": "response-v2"
+ },
+ "response": {
+  "answer": "Yes. Pooja Agarwal is on maternity leave from 1 Sep 2026 to 28 Feb 2027.",
+  "route": "personal_rule",
+  "as_of": "2026-10-10",
+  "confidence": 0.95,
+  "citations": [
+   {
+    "type": "policy",
+    "id": "ZEN-POL-003",
+    "section": 3
+   },
+   {
+    "type": "chunk",
+    "id": "profile:ZV-1031::employee-record::restricted"
+   }
+  ],
+  "subgraph": {
+   "nodes": [
+    {
+     "id": "ZV-1031",
+     "label": "Employee",
+     "name": "Pooja Agarwal",
+     "detail": "Rule EMPLOYMENT_STATUS. Decisive: a restricted fact (shown only in the answer, to an authorised asker)."
+    },
+    {
+     "id": "ZEN-POL-003",
+     "label": "Policy",
+     "name": "ZEN-POL-003",
+     "detail": ""
+    },
+    {
+     "id": "ZEN-POL-003#3",
+     "label": "PolicySection",
+     "name": "ZEN-POL-003 §3",
+     "detail": "Rule EMPLOYMENT_STATUS: the applicable case depends on a restricted fact."
+    }
+   ],
+   "edges": [
+    {
+     "source": "ZEN-POL-003",
+     "target": "ZEN-POL-003#3",
+     "type": "HAS_SECTION",
+     "role": "",
+     "derived": false
+    },
+    {
+     "source": "ZV-1031",
+     "target": "ZEN-POL-003#3",
+     "type": "RULE_CASE",
+     "role": "decisive",
+     "derived": true
+    }
+   ]
+  },
+  "usage": {
+   "input_tokens": 7323,
+   "output_tokens": 128,
+   "cached_input_tokens": 4030
+  },
+  "latency_ms": 13764.111099997535
+ }
+}

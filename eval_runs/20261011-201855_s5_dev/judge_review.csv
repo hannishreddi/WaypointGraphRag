@@ -1,2 +1,0 @@
-id,question,expected_answer,answer,verdict,reason,human_verdict
-Q178,"How many days a week does Sneha Hegde need to be in the office right now, and why?",Hybrid (3 days WFO). Standard rule (ZEN-POL-002),"Sneha Hegde needs to be in the office 3 days a week because it is the standard rule for her team roster, with Tuesday to Thursday as anchor days.",correct,States 3 days a week and that it is the standard rule for her team.,

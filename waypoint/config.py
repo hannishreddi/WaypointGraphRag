@@ -20,9 +20,8 @@ class Settings(BaseSettings):
     neo4j_uri: str = "bolt://localhost:7687"
     neo4j_username: str = "neo4j"
     neo4j_password: SecretStr
-    llm_provider: Literal["gemini", "anthropic"] = "gemini"
+    llm_provider: Literal["gemini"] = "gemini"  # the only provider
     gemini_api_key: SecretStr | None = None
-    anthropic_api_key: SecretStr | None = None
     model_fast: str  # router and judge
     model_answer: str  # answers (S1, S3, S5)
     llm_rpm: float = 5.0  # client-side requests/min per model; halved on each per-minute 429

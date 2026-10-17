@@ -36,7 +36,7 @@ Verdicts:
 Phrases that the question itself uses are ignored, so a refusal may echo the question.
 
 ```
-python -m waypoint.eval.safety --system s5     # or s1, s1f, s3
+python -m waypoint.eval.safety --system s5     # or s1, s3
 ```
 
 ## Result

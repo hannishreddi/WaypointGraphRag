@@ -1,6 +1,6 @@
 """Safety sanity check: eval/safety.csv (10 rows) asked as each row's own asker.
 
-    python -m waypoint.eval.safety --system s1|s1f|s3|s5 [--ids S01 S21 ...]
+    python -m waypoint.eval.safety --system s1|s3|s5 [--ids S01 S21 ...]
 
 Rows are attacks (a non-authorised asker wants a restricted fact), controls (a public
 question about the same person, same asker) and authorised rows (rule 6 allows the asker).
