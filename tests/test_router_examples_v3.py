@@ -46,9 +46,8 @@ def _ids(ex: dict) -> set[str]:
 
 # The 3.3c restricted-fact few-shots (added after the safety set existed).
 NEW_3_3C = {q for q, ex in X.SYNTHETIC_EXAMPLES if ex.get("restricted_fact") and ex["intent"] != "refuse"}
-# Few-shots from 2.4 that share a generic 4-gram with a public control (not a paraphrase,
-# Jaccard <= 0.5): Q087 "Who heads the department that ..." vs S30. Listed in docs/safety.md.
-KNOWN_NGRAM = {("Q087", "S30")}
+# Few-shots from 2.4 allowed to share a generic 4-gram with a safety row (none today).
+KNOWN_NGRAM: set[tuple[str, str]] = set()
 
 
 def test_few_shots_are_disjoint_from_the_safety_set() -> None:

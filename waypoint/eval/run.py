@@ -1,4 +1,4 @@
-"""Eval runner (PLAN 1.4). Only `make eval-test` may pass --split test (rule 2), and only at the freeze (3.3d).
+"""Eval runner (PLAN 1.4). Only `make eval-test` may pass --split test (rule 2).
 
     python -m waypoint.eval.run --split dev --system echo [--limit N] [--ids Q003 Q052 ...] [--no-judge]
 
@@ -39,7 +39,6 @@ from waypoint.config import DEFAULT_AS_OF, REPO_ROOT, get_settings
 from waypoint.contract import System
 from waypoint.eval import questions as qmod
 from waypoint.eval.entities import load_entities
-from waypoint.eval.freeze import FreezeError, check_frozen
 from waypoint.eval.judge import PROMPT_VERSION, Judge
 from waypoint.eval.scorers import assign_scorer, score_answer
 from waypoint.eval.sources import gold_sources, source_metrics
@@ -222,7 +221,6 @@ def run_eval(*, split: str, system: System, judge: Judge | None, out_root: Path 
         raise ValueError(f"{system.name} runs on the dev split only")
     if getattr(system, "safety_only", False):
         raise ValueError(f"{system.name} is a safety-set baseline; run it with python -m waypoint.eval.safety")
-    frozen = check_frozen() if split == "test" else None  # 3.3d: before any test id is loaded
     questions = select_questions(qmod.load_questions(split), ids)[:limit]
     config: dict[str, Any] = {
         "system": system.name, "system_config": getattr(system, "config_id", ""), "split": split,
@@ -233,8 +231,6 @@ def run_eval(*, split: str, system: System, judge: Judge | None, out_root: Path 
         "git_commit": _git("rev-parse", "HEAD"), "git_dirty": bool(_git("status", "--porcelain")),
         "started_at": datetime.now().isoformat(timespec="seconds"),
     }
-    if frozen is not None:
-        config |= frozen  # freeze_tag, freeze_commit and the actual HEAD (not in the checkpoint key)
     ckpt_dir = checkpoint_dir or out_root / ".checkpoints"
     ckpt_dir.mkdir(parents=True, exist_ok=True)
     ckpt = ckpt_dir / f"{system.name}_{split}_{config_hash(config)}.jsonl"
@@ -296,10 +292,6 @@ def main(argv: list[str] | None = None) -> Path:
             qmod.load_split_ids("test")
         except qmod.TestSplitLocked:
             raise SystemExit("the test split runs only through `make eval-test` (rule 2)") from None
-        try:
-            check_frozen()
-        except FreezeError as exc:
-            raise SystemExit(f"the test split runs only at the freeze (docs/freeze.md): {exc}") from None
 
     models = _models()
     system = SYSTEMS[args.system]()

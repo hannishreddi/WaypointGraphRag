@@ -79,7 +79,7 @@ def authorised(route: Route, evidence: Evidence) -> bool:
 
 def config_id(model_answer: str, model_fast: str) -> str:
     """S5's config id: answer, router, pack and verifier versions, then both models
-    (part of every checkpoint key; docs/freeze.md records it)."""
+    (part of every checkpoint key)."""
     return f"{ANSWER_PROMPT}:{ROUTER_PROMPT}:{PACK_VERSION}:{VERIFIER_VERSION}:{model_answer}:{model_fast}"
 
 

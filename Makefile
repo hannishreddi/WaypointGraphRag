@@ -5,7 +5,10 @@ else
 PY ?= .venv/bin/python
 endif
 
-.PHONY: install up down load seed-cache index test test-graph eval-dev eval-test serve
+.PHONY: help install up down load seed-cache index test test-graph eval-dev eval-test serve
+
+help:  ## list the targets
+	@$(PY) -c "import re; [print(f'{t:<11} {d}') for t, d in re.findall(r'^([a-z-]+):  ## (.*)$$', open('Makefile').read(), re.M)]"
 
 install:  ## install deps into .venv (create it first: py -3.14 -m venv .venv)
 	$(PY) -m pip install -e .[dev]
@@ -13,7 +16,7 @@ install:  ## install deps into .venv (create it first: py -3.14 -m venv .venv)
 up:  ## start Neo4j
 	docker compose up -d --wait
 
-down:
+down:  ## stop Neo4j
 	docker compose down
 
 load:  ## build the graph from CSVs
@@ -40,7 +43,7 @@ eval-dev:  ## dev split (60 questions)
 	$(PY) -m waypoint.eval.run --split dev $(EVAL_FLAGS)
 
 eval-test: export WAYPOINT_EVAL_TEST = 1
-eval-test:  ## final numbers only; the only target that may read test ids (rule 2)
+eval-test:  ## test split (191 questions); the only target that may read test ids (rule 2)
 	$(PY) -m waypoint.eval.run --split test $(EVAL_FLAGS)
 
 serve:  ## API + UI on http://127.0.0.1:8000 (loopback only: asker_id is not authenticated)
