@@ -1,6 +1,6 @@
 # S5 on dev after 3.3c F2–F4 (router v4, pack v5)
 
-Fixes F2–F4 from `docs/safety_results_v1.md`, measured on dev with the 3.3a keep rule:
+Fixes F2–F4 from the 3.3c safety runs (that write-up was removed in the scope cut; see git history), measured on dev with the 3.3a keep rule:
 - keep if dev overall is no more than one question below 0.96;
 - and there is no real regression;
 - and every changed row has been inspected against 3.3a.
